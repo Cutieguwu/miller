@@ -1,0 +1,30 @@
+= miller
+:toc:
+
+// Hello people reading the README source :)
+
+== Prelude
+
+VERY EARLY ALPHA -- NOT YET FUNCTIONAL
+
+For my stats course (4U Data Management) I have to interpret a bunch of data generated in class.
+In an effort to not spend ages mindlessly using a calculator every summative check-in, I have started this project.
+
+I figured, that since I already had to digitize every note, that I was required to make by hand, from during the game, that I might as well employ a format of my own. This format, would allow me to use code to interpret the monotonous mathematics for me. Even if I don't fully complete the code, it would ease the burden by completing some of the math for me.
+
+== Goals
+
+* [ ] Data Format
+* [ ] Mathematics
+** [ ] Avg. Terrain Gain
+** [ ] Avg. Terrain Loss
+** [ ] Avg. Terrain Delta
+** [ ] Avg. Offence Plays per quarter
+** [ ] Avg. Offence Plays per game
+** [ ] Avg. Penalties per game
+* [ ] Play Trend Analysis
+** [ ] Most Frequent Play
+** [ ] Least Frequent Play
+** [ ] Most Effective Play (Greatest Terrain Gain given sufficient data)
+
+== License
