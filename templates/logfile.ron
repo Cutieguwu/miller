@@ -1,0 +1,18 @@
+[
+    GameRecord ([
+        Some(Period(
+            start: First,
+            end: Some(Fourth),
+            plays: [
+                Play(
+                    action: None,
+                    down: Kickoff,
+                    terrain: 0
+                ),
+            ]
+        )),
+        None,
+        None,
+        None,
+    ])
+]

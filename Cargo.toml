@@ -4,3 +4,24 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+ron = "~0.9"
+
+[dependencies.clap]
+version = "4.5"
+default-features = false
+features = [
+    # From default features collection
+    "error-context",
+    "help",
+    "std",
+    "suggestions",
+    "usage",
+
+    # Optional features
+    "derive",
+    "string",
+]
+
+[dependencies.serde]
+version = "1.0"
+features = ["derive"]
