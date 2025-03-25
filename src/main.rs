@@ -3,7 +3,7 @@ mod gamelog;
 
 use clap::Parser;
 use gamelog::LogFile;
-use std::{fs::OpenOptions, path::PathBuf};
+use std::path::PathBuf;
 
 #[derive(Debug, Parser)]
 struct Args {
@@ -23,8 +23,8 @@ fn main() {
     let config = Args::parse();
 
     let log: LogFile = LogFile::try_from(
-        match OpenOptions::new() // Defaults to setting all options false.
-            .read(true)
+        match std::fs::OpenOptions::new() // Defaults to setting all options false.
+            .read(true) // Only need ensure that reading is possible.
             .open(&config.logfile_path.as_path())
         {
             Ok(f) => f,
