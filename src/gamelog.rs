@@ -1,5 +1,8 @@
+use semver;
 use serde::Deserialize;
-use std::{fmt, fs::File};
+use std::{fmt, fs::File, u64};
+
+pub const GAMELOG_MIN_VER: semver::Version = semver::Version::new(0, 2, 0);
 
 #[derive(Debug, Deserialize)]
 pub struct LogFile(Vec<GameRecord>);
@@ -9,6 +12,20 @@ impl TryFrom<File> for LogFile {
 
     fn try_from(file: File) -> Result<Self, Self::Error> {
         ron::de::from_reader(file)
+    }
+}
+
+impl LogFile {
+    pub fn get_min_ver(&mut self) -> semver::Version {
+        let mut lowest = semver::Version::new(u64::MAX, u64::MAX, u64::MAX);
+
+        self.0.iter().for_each(|x| {
+            if x.version.cmp_precedence(&lowest).is_lt() {
+                lowest = x.version.clone()
+            }
+        });
+
+        lowest
     }
 }
 
@@ -35,16 +52,16 @@ enum Quarter {
 
 #[derive(Debug, Deserialize)]
 enum TerrainState {
-    Distance(u8),
+    Yards(u8),
     GoalLine,
-    In,
+    Inches,
 }
 
 #[derive(Debug, Deserialize)]
 struct Play {
     action: Option<Action>,
     down: Down,
-    terrain: u8,
+    terrain: TerrainState,
 }
 
 enum DownError {

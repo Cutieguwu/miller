@@ -15,7 +15,7 @@
                         down: Kickoff(
                             offence: Nebraska
                         ),
-                        terrain: Distance(10)
+                        terrain: Yards(10)
                     ),
                 ]
             )
