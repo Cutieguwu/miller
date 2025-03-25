@@ -26,5 +26,3 @@ I figured, that since I already had to digitize every note, that I was required 
 ** [ ] Most Frequent Play
 ** [ ] Least Frequent Play
 ** [ ] Most Effective Play (Greatest Terrain Gain given sufficient data)
-
-== License
