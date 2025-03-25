@@ -35,6 +35,13 @@ enum Quarter {
 }
 
 #[derive(Debug, Deserialize)]
+enum TerrainState {
+    Distance(u8),
+    GoalLine,
+    In,
+}
+
+#[derive(Debug, Deserialize)]
 struct Play {
     action: Option<Action>,
     down: Down,
