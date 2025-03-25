@@ -15,7 +15,7 @@ I figured, that since I already had to digitize every note, that I was required 
 == Goals
 
 * [ ] Data Format
-* [ ] Mathematics
+* [*] Mathematics
 ** [ ] Avg. Terrain Gain
 ** [ ] Avg. Terrain Loss
 ** [ ] Avg. Terrain Delta
