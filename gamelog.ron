@@ -1,0 +1,24 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+
+[
+    GameRecord(
+        version: "0.1.0",
+        periods: [
+            Period(
+                start: First,
+                end: Fourth,
+                plays: [
+                    Play(
+                        action: None,
+                        down: Kickoff(
+                            offence: Nebraska
+                        ),
+                        terrain: Distance(10)
+                    ),
+                ]
+            )
+        ]
+    )
+]
