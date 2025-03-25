@@ -14,7 +14,10 @@ impl TryFrom<File> for LogFile {
 }
 
 #[derive(Debug, Deserialize)]
-struct GameRecord([Option<Period>; 4]);
+struct GameRecord {
+    version: semver::Version,
+    periods: Vec<Option<Period>>,
+}
 
 #[derive(Debug, Deserialize)]
 struct Period {
@@ -57,7 +60,7 @@ enum Down {
     Second,
     Third,
     Fourth,
-    Pat,
+    PointAfterTouchdown,
 }
 
 impl Down {

@@ -1,18 +1,24 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+
 [
-    GameRecord ([
-        Some(Period(
-            start: First,
-            end: Some(Fourth),
-            plays: [
-                Play(
-                    action: None,
-                    down: Kickoff,
-                    terrain: 0
-                ),
-            ]
-        )),
-        None,
-        None,
-        None,
-    ])
+    GameRecord(
+        version: "0.0.1",
+        periods: [
+            Period(
+                start: First,
+                end: Fourth,
+                plays: [
+                    Play(
+                        action: None,
+                        down: Kickoff(
+                            offence: Nebraska
+                        ),
+                        terrain: 0
+                    ),
+                ]
+            )
+        ]
+    )
 ]

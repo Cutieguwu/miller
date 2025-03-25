@@ -4,7 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-ron = "~0.9"
+ron = "0.9"
+
+[dependencies.semver]
+version = "1.0"
+features = ["serde"]
 
 [dependencies.clap]
 version = "4.5"

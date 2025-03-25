@@ -12,7 +12,9 @@ struct Args {
         short,
         long,
         value_hint = clap::ValueHint::DirPath,
-        default_value = std::env::current_dir().expect("Failed to get current working dir.").into_os_string()
+        default_value = std::env::current_dir()
+            .expect("Failed to get current working dir.")
+            .into_os_string()
     )]
     logfile_path: PathBuf,
 }
