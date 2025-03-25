@@ -1,4 +1,3 @@
-use ron::de::{SpannedError, from_reader};
 use serde::Deserialize;
 use std::{fmt, fs::File};
 
@@ -6,10 +5,10 @@ use std::{fmt, fs::File};
 pub struct LogFile(Vec<GameRecord>);
 
 impl TryFrom<File> for LogFile {
-    type Error = SpannedError;
+    type Error = ron::de::SpannedError;
 
     fn try_from(file: File) -> Result<Self, Self::Error> {
-        from_reader(file)
+        ron::de::from_reader(file)
     }
 }
 
