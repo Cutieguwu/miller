@@ -23,8 +23,15 @@ struct Args {
 fn main() {
     let config = Args::parse();
 
-    let mut log: LogFile = match LogFile::try_from(config.logfile_path) {
-        Ok(f) => f,
-        Err(err) => panic!("Error: Failed to open logfile: {:?}", err),
+    let mut log: LogFile = {
+        let file = match LogFile::try_from(config.logfile_path) {
+            Ok(f) => f,
+            Err(err) => panic!("Error: Failed to open logfile: {:?}", err),
+        };
+
+        match file.ensure_compatible() {
+            Ok(f) => f.try_into().expect(msg),
+            Err(err) => panic!("Error: Failed to ensure logfile compatibility: {:?}", err),
+        }
     };
 }

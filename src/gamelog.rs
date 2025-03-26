@@ -1,4 +1,3 @@
-use semver;
 use serde::Deserialize;
 use std::{fmt, fs::File, io, path::PathBuf, u64};
 
@@ -8,14 +7,19 @@ pub const GAMELOG_MIN_VER: semver::Version = semver::Version::new(0, 2, 0);
 pub enum LogFileError {
     FailedToOpen(io::Error),
     RonSpannedError(ron::error::SpannedError),
-    CompatibilityCheck,
+    CompatibilityCheck(semver::Version),
 }
 
 impl fmt::Display for LogFileError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::FailedToOpen(err) => write!(f, "{}", err),
-            Self::CompatibilityCheck => write!(f, "Variant was not Down::Kickoff."),
+            Self::CompatibilityCheck(ver) => write!(
+                f,
+                "GameLogs cannot be older than {}, but {} was found in logfile.",
+                GAMELOG_MIN_VER.to_string(),
+                ver.to_string()
+            ),
             Self::RonSpannedError(err) => write!(f, "{}", err),
         }
     }
@@ -69,17 +73,12 @@ impl LogFile {
         self.get_min_ver().cmp_precedence(&GAMELOG_MIN_VER).is_lt()
     }
 
-    /// Attempts to make a gamefile compatible.
-    pub fn make_compatible(&mut self) -> Result<&mut Self, LogFileError> {
-        todo!()
-    }
-
     /// Ensures that the returned gamefile is compatible, else returns Error.
     pub fn ensure_compatible(&mut self) -> Result<&mut Self, LogFileError> {
         if self.is_compatible() {
             Ok(self)
         } else {
-            Err(LogFileError::CompatibilityCheck)
+            Err(LogFileError::CompatibilityCheck(self.get_min_ver()))
         }
     }
 }
