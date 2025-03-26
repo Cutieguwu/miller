@@ -1,17 +1,53 @@
 use semver;
 use serde::Deserialize;
-use std::{fmt, fs::File, u64};
+use std::{fmt, fs::File, io, path::PathBuf, u64};
 
 pub const GAMELOG_MIN_VER: semver::Version = semver::Version::new(0, 2, 0);
+
+#[derive(Debug)]
+pub enum LogFileError {
+    FailedToOpen(io::Error),
+    RonSpannedError(ron::error::SpannedError),
+    CompatibilityCheck,
+}
+
+impl fmt::Display for LogFileError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::FailedToOpen(err) => write!(f, "{}", err),
+            Self::CompatibilityCheck => write!(f, "Variant was not Down::Kickoff."),
+            Self::RonSpannedError(err) => write!(f, "{}", err),
+        }
+    }
+}
 
 #[derive(Debug, Deserialize)]
 pub struct LogFile(Vec<GameRecord>);
 
 impl TryFrom<File> for LogFile {
-    type Error = ron::de::SpannedError;
+    type Error = ron::error::SpannedError;
 
     fn try_from(file: File) -> Result<Self, Self::Error> {
         ron::de::from_reader(file)
+    }
+}
+
+impl TryFrom<PathBuf> for LogFile {
+    type Error = LogFileError;
+
+    fn try_from(path: PathBuf) -> Result<Self, Self::Error> {
+        match Self::try_from(
+            match std::fs::OpenOptions::new() // Defaults to setting all options false.
+                .read(true) // Only need ensure that reading is possible.
+                .open(path.as_path())
+            {
+                Ok(f) => f,
+                Err(err) => return Err(LogFileError::FailedToOpen(err)),
+            },
+        ) {
+            Ok(f) => Ok(f),
+            Err(err) => Err(LogFileError::RonSpannedError(err)),
+        }
     }
 }
 
@@ -26,6 +62,25 @@ impl LogFile {
         });
 
         lowest
+    }
+
+    /// Returns if the LogFile min version is compatible.
+    fn is_compatible(&mut self) -> bool {
+        self.get_min_ver().cmp_precedence(&GAMELOG_MIN_VER).is_lt()
+    }
+
+    /// Attempts to make a gamefile compatible.
+    pub fn make_compatible(&mut self) -> Result<&mut Self, LogFileError> {
+        todo!()
+    }
+
+    /// Ensures that the returned gamefile is compatible, else returns Error.
+    pub fn ensure_compatible(&mut self) -> Result<&mut Self, LogFileError> {
+        if self.is_compatible() {
+            Ok(self)
+        } else {
+            Err(LogFileError::CompatibilityCheck)
+        }
     }
 }
 

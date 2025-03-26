@@ -2,6 +2,7 @@ mod calculator;
 mod gamelog;
 
 use clap::Parser;
+use core::panic;
 use gamelog::{GAMELOG_MIN_VER, LogFile};
 use std::path::PathBuf;
 
@@ -22,24 +23,8 @@ struct Args {
 fn main() {
     let config = Args::parse();
 
-    let mut log: LogFile = LogFile::try_from(
-        match std::fs::OpenOptions::new() // Defaults to setting all options false.
-            .read(true) // Only need ensure that reading is possible.
-            .open(&config.logfile_path.as_path())
-        {
-            Ok(f) => f,
-            Err(err) => panic!("Failed to open log file: {:?}", err),
-        },
-    )
-    .expect("Failed to open game log file");
-
-    let log_ver = dbg!(log.get_min_ver());
-
-    if log_ver.cmp_precedence(&GAMELOG_MIN_VER).is_lt() {
-        panic!(
-            "Error: Log file GameRecord version deviates as low as {:?}, while minimum {:?} is required",
-            log_ver.to_string(),
-            GAMELOG_MIN_VER.to_string()
-        )
-    }
+    let mut log: LogFile = match LogFile::try_from(config.logfile_path) {
+        Ok(f) => f,
+        Err(err) => panic!("Error: Failed to open logfile: {:?}", err),
+    };
 }
