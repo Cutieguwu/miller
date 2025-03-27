@@ -4,19 +4,358 @@
 
 [
     GameRecord(
-        version: "0.1.0",
+        version: "0.2.0",
         periods: [
             Period(
                 start: First,
-                end: Fourth,
+                end: Third,
                 plays: [
                     Play(
                         action: None,
                         down: Kickoff(
-                            offence: Nebraska
+                            offence: ArizonaState
                         ),
                         terrain: Distance(10)
                     ),
+                    Play(
+                        action: None,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: None,
+                        down: Second,
+                        terrain: 2
+                    ),
+                    Play(
+                        action: ThrowLeft,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: ThrowRight,
+                        down: Second,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: None,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: PlayAction ThrowRight,
+                        down: Second,
+                        terrain: 2
+                    ),
+                    Play(
+                        action: PlayAction RunRight,
+                        down: Third,
+                        terrain: 7
+                    ),
+                    Play(
+                        action: HandoffRushLeft,
+                        down: Fourth,
+                        terrain: 11
+                    ),
+                    Play(
+                        action: None,
+                        down: First,
+                        terrain: 10
+                    ),
+                    TURNOVER,
+                    Play(
+                        action: PlayAction ThrowRight,
+                        down: Second,
+                        terrain: 11
+                    ),
+                    Play(
+                        action: None,
+                        down: Third,
+                        terrain: 9
+                    ),
+                    Play(
+                        action: PassCentre,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: TossRunRight,
+                        down: Second,
+                        terrain: 3
+                    ),
+                    Play(
+                        action: FailedThrow,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: Kickoff( offence: TexasAnM ),
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: SpikeCentre,
+                        down: Second,
+                        terrain: 6
+                    ),
+                    Play(
+                        action: None,
+                        down: Third,
+                        terrain: 13
+                    ),
+                    Play(
+                        action: ThrowRight,
+                        down: Fourth,
+                        terrain: 13
+                    ),
+                    TURNOVER
+                    Play(
+                        action: ShotgunDoubleFlex Throw,
+                        down: Second,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: SpikeCentre,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: Dupe SpikeCentre,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: FailedThrow,
+                        down: Second,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: TransferRushRight,
+                        down: Third,
+                        terrain: 15
+                    ),
+                ]
+            ),
+            //Texas offence
+            Period(
+                start: Fourth,
+                end: None,
+                plays: [
+                    Play(
+                        action: None,
+                        down: Fourth,
+                        terrain 17
+                    ),
+                    Play(
+                        action: Punt,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: ThrowLeft,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: None,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: ThrowCentre,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: Transfer RunLeft,
+                        down: Second,
+                        terrain: 12
+                    ),
+                    Play(
+                        action: ThrowCentre,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: TransferRushRight,
+                        down: Second,
+                        terrain: 8
+                    ),
+                    Play(
+                        action: ,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: Kickoff(offence: ArizonaState),
+                        down: First,
+                        terrain: 10
+                    ),
+                ]
+            )
+        ]
+    ),
+    GameRecord(
+        version: "0.2.0",
+        periods: [
+            Period(
+                start: First,
+                end: None,
+                plays: [
+                    Play(
+                        action: None
+                        down: Kickoff(offence: Syracuse),
+                        terrain: Distance(10)
+
+                    ),
+                    Play(
+                        action: None,
+                        down: Second,
+                        terrain: 3
+                    ),
+                    Play(
+                        action: SpikeCentre,
+                        down: Third,
+                        terrain: 3,
+                    ),
+                    Play(
+                        action: Curls,
+                        down: Fourth,
+                        terrain: 3
+                    ),
+                    Play(
+                        action: Mesh  || PassCentre,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: None,
+                        down: Second,
+                        terrain: 15
+                    ),
+                    Play(
+                        action: PlayAction ThrowLeft,
+                        down: First,
+                        terrain: 10
+                    )
+                ]
+            ),
+            Period(
+                start: Second,
+                end: None,
+                plays: [
+                    Play(
+                        action: PA ThrowCentre,
+                        down: Second,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: Transfer Rush Centre/Left,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: Shotgun ThrowRight,
+                        down: Second,
+                        terrain: 8
+                    ),
+                    Play(
+                        action: PlayAction RushRight,
+                        down: Third,
+                        terrain: 1
+                    ),
+                    Play(
+                        action: HB? Rush Centre/Right,
+                        down: Fourth,
+                        terrain: 6
+                    ),
+                    Play(
+                        action: PlayAction RushCentre,
+                    ),
+                    //Turnover, Colorado Offence
+                    Play(
+                        action: ShotgunDoubleFlex PlayActionComebacks, //Big Throw Right
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: Transfer HB? RushCentre,
+                        down: Second,
+                        terrain: 9
+                    ),
+                    Play(
+                        action: FailedThrow,
+                        down: Third,
+                        terrain: 17
+                    ),
+                    Play(
+                        action: Same FailedThrow,
+                    )
+                ]
+            ),
+            Period(
+                start: Third,
+                end: None,
+                plays: [
+                    Play(
+                        action: Kickoff(offence:Colorado),
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: ThrowRight,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: ShotgunDoubleFlex ThrowRight,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: Pass RushCentre,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: PowerZero,
+                        down: Second,
+                        terrain: 6
+                    )
+                ]
+            ),
+            Period(
+                start: Fourth,
+                end: None,
+                plays: [
+                    Play(
+                        action: CrackStudentBodyRightTackle,
+                        down: Third,
+                        terrain: 11
+                    ),
+                    Play(
+                        action: SpikeCentre,
+                        down: Fourth,
+                        terrain: 3
+                    ),
+                    Play(
+                        action: SpecialTeams... PuntIntoNet,
+                    ),
+                    Play(
+                        action: Kickoff(offence: Syracuse),
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: PlayAction ThrowCentre,
+                        down: First,
+                        terrain: 10
+                    ),
+                    Play(
+                        action: SpeedOption,
+                        down: Second,
+                        terrain: 3
+                    )
                 ]
             )
         ]

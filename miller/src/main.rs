@@ -1,6 +1,4 @@
 mod calculator;
-mod error;
-mod gamelog;
 
 use clap::Parser;
 use core::panic;
