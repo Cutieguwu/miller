@@ -49,7 +49,7 @@ impl LogFile {
     fn is_compatible(&self) -> bool {
         self.clone()
             .get_min_ver()
-            .cmp_precedence(&super::GAMELOG_MIN_VER)
+            .cmp_precedence(&super::MIN_VER)
             .is_lt()
     }
 

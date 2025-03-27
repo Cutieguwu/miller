@@ -1,5 +1,8 @@
 use serde::Deserialize;
 
+#[deprecated(since = "0.2.0", note = "Migrated to Game")]
+type GameRecord = Game;
+
 #[derive(Debug, Deserialize, Clone)]
 pub struct Game {
     pub version: semver::Version,
@@ -19,4 +22,5 @@ pub enum Quarter {
     Second,
     Third,
     Fourth,
+    Overtime(u8),
 }

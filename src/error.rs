@@ -14,7 +14,7 @@ impl fmt::Display for LogFileError {
             Self::CompatibilityCheck(ver) => write!(
                 f,
                 "GameLogs cannot be older than {}, but {} was found in logfile.",
-                crate::gamelog::GAMELOG_MIN_VER.to_string(),
+                crate::gamelog::MIN_VER.to_string(),
                 ver.to_string()
             ),
             Self::RonSpannedError(err) => write!(f, "{}", err),
