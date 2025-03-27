@@ -1,5 +1,4 @@
 mod calculator;
-mod error;
 
 use clap::Parser;
 use core::panic;

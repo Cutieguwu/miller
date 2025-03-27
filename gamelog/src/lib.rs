@@ -1,3 +1,4 @@
+mod error;
 mod file;
 mod period;
 mod play;
