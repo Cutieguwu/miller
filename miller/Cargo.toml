@@ -22,4 +22,4 @@ features = [
 ]
 
 [dependencies.gamelog]
-path = "./gamelog"
+path = "../gamelog"
