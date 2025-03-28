@@ -6,6 +6,6 @@
 version: 2
 updates:
   - package-ecosystem: "cargo" # See documentation for possible values
-    directories: ["/*"] # Location of package manifests
+    directories: ["/gamelog/", "/miller/"] # Location of package manifests
     schedule:
       interval: "daily"
