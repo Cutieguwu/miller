@@ -1,35 +1,40 @@
-use crate::error;
+use crate::{TerrainState, error};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Play {
-    action: Option<Action>,
     down: Down,
-    terrain: super::TerrainState,
+    terrain: TerrainState,
 }
 
+type Offence = Team;
+impl Offence {}
+
 #[derive(Debug, Deserialize, Clone)]
-pub enum Action {
-    CrackStudentBodyRightTackle,
-    Curls,
-    FleaFlicker,
-    HalfbackSlam,
-    HalfbackSlipScreen,
-    HalfbackSweep,
-    Mesh,
-    PlayActionBoot,
-    PlayActionComebacks,
-    PlayActionPowerZero,
-    PowerZero,
-    SlantBubble,
-    SlotOut,
-    SpeedOption,
-    StrongFlood,
+pub enum Event {
+    CrackStudentBodyRightTackle(Play),
+    Curls(Play),
+    FleaFlicker(Play),
+    HalfbackSlam(Play),
+    HalfbackSlipScreen(Play),
+    HalfbackSweep(Play),
+    Mesh(Play),
+    PlayActionBoot(Play),
+    PlayActionComebacks(Play),
+    PlayActionPowerZero(Play),
+    PowerZero(Play),
+    SlantBubble(Play),
+    SlotOut(Play),
+    SpeedOption(Play),
+    StrongFlood(Play),
+    Unknown(Play),
+    Kickoff { offence: Team },
+    Turnover { offence: Team },
+    Penalty { terrain: TerrainState },
 }
 
 #[derive(Debug, Deserialize, Clone)]
 pub enum Down {
-    Kickoff { offence: Team },
     First,
     Second,
     Third,
@@ -49,6 +54,8 @@ impl Down {
 #[derive(Debug, Deserialize, Clone)]
 pub enum Team {
     ArizonaState,
+    #[deprecated(since = "0.2.0", note = "Team left the project.")]
+    BoiseState,
     Colorado,
     Iowa,
     Nebraska,
