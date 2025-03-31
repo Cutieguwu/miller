@@ -1,243 +1,224 @@
-#![enable(implicit_some)]
-#![enable(unwrap_newtypes)]
-#![enable(unwrap_variant_newtypes)]
+#![enable(implicit_some),]
+#![enable(unwrap_newtypes),]
+#![enable(unwrap_variant_newtypes),]
 
 [
-    GameRecord(
-        version: "0.2.0",
+    Game(
+        version: "0.3.0",
         periods: [
             Period(
                 start: First,
                 end: Third,
                 plays: [
+                    Kickoff(ArizonaState),
                     Play(
-                        action: None,
-                        down: Kickoff(
-                            offence: ArizonaState
-                        ),
-                        terrain: Distance(10)
-                    ),
-                    Play(
-                        action: None,
+                        action: Unknown,
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: None,
+                        action: Unknown,
                         down: Second,
-                        terrain: 2
+                        terrain: Yards(2),
                     ),
                     Play(
-                        action: ThrowLeft,
+                        action: Unknown, // Throw Left
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: ThrowRight,
+                        action: Unknown, // Throw Right
                         down: Second,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: None,
+                        action: Unknown,
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: PlayAction ThrowRight,
+                        action: Unknown, // PA Throw Right
                         down: Second,
-                        terrain: 2
+                        terrain: Yards(2),
                     ),
                     Play(
-                        action: PlayAction RunRight,
+                        action: Unknown, // PA Run Right
                         down: Third,
-                        terrain: 7
+                        terrain: Yards(7),
                     ),
                     Play(
-                        action: HandoffRushLeft,
+                        action: HalfbackSweep
                         down: Fourth,
-                        terrain: 11
+                        terrain: Yards(11),
                     ),
                     Play(
-                        action: None,
+                        action: Unknown,
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
-                    TURNOVER,
+                    Turnover(TexasAnM),
                     Play(
-                        action: PlayAction ThrowRight,
+                        action: Unknown, // PA Throw Right
                         down: Second,
-                        terrain: 11
+                        terrain: Yards(11),
                     ),
                     Play(
-                        action: None,
+                        action: Unknown,
                         down: Third,
-                        terrain: 9
+                        terrain: Yards(9),
                     ),
                     Play(
-                        action: PassCentre,
+                        action: Unknown, // Throw Centre
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: TossRunRight,
+                        action: Unknown, // Throw Run Right
                         down: Second,
-                        terrain: 3
+                        terrain: Yards(3),
                     ),
                     Play(
-                        action: FailedThrow,
+                        action: Unknown, // Throw that failed miserably.
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
+                    Kickoff(TexasAnM),
                     Play(
-                        action: Kickoff( offence: TexasAnM ),
-                        down: First,
-                        terrain: 10
-                    ),
-                    Play(
-                        action: SpikeCentre,
+                        action: Unknown, // PA Comebacks or Curls? Original note: Spike Centre
                         down: Second,
-                        terrain: 6
+                        terrain: Yards(6),
                     ),
                     Play(
-                        action: None,
+                        action: Unknown, // Halfback? Original note: None
                         down: Third,
-                        terrain: 13
+                        terrain: Yards(13),
                     ),
                     Play(
-                        action: ThrowRight,
-                        down: Fourth,
-                        terrain: 13
-                    ),
-                    TURNOVER
-                    Play(
-                        action: ShotgunDoubleFlex Throw,
-                        down: Second,
-                        terrain: 10
-                    ),
-                    Play(
-                        action: SpikeCentre,
+                        action: Unknown, // HB Slip Screen? Original note: Throw Right
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
+                    Turnover(ArizonaState),
                     Play(
-                        action: Dupe SpikeCentre,
-                        down: First,
-                        terrain: 10
-                    ),
-                    Play(
-                        action: FailedThrow,
+                        action: SlotOut, // Slot Out or PA Comebacks. Original note: ShotgunDoubleFlex Throw
                         down: Second,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: TransferRushRight,
+                        action: PlayActionComebacks, // Curls or PA Comebacks. Original note: Spike Centre
+                        down: First,
+                        terrain: Yards(10),
+                    ),
+                    Turnover(TexasAnM),
+                    Play(
+                        action: PlayActionComebacks, // Original note: Dupe Spike Centre
+                        down: First,
+                        terrain: Yards(10),
+                    ),
+                    Play(
+                        action: Unknown, // Original note: Failed Throw
+                        down: Second,
+                        terrain: Yards(10),
+                    ),
+                    Play(
+                        action: PowerZero, // Power 0 or Crack Student Body RT. Original note: Transfer Rush Right
                         down: Third,
-                        terrain: 15
+                        terrain: Yards(15),
                     ),
                 ]
             ),
-            //Texas offence
             Period(
                 start: Fourth,
                 end: None,
                 plays: [
                     Play(
-                        action: None,
+                        action: PlayActionComebacks, // Original note: Dupe Spike Centre
                         down: Fourth,
-                        terrain 17
+                        terrain: Yards(17),
                     ),
                     Play(
-                        action: Punt,
+                        action: Unknown, // Punt
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: ThrowLeft,
+                        action: Unknown, // Original note: Throw Left
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: None,
+                        action: Unknown,
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: ThrowCentre,
+                        action: Unknown, // Original note: Throw Centre
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: Transfer RunLeft,
+                        action: HalfbackSweep, // Original note: Transfer Run Left
                         down: Second,
-                        terrain: 12
+                        terrain: Yards(12),
                     ),
                     Play(
-                        action: ThrowCentre,
+                        action: Unknown, // Original note: Throw Centre
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: TransferRushRight,
+                        action: PowerZero, // Original note: Transfer Run Right
                         down: Second,
-                        terrain: 8
+                        terrain: Yards(8),
                     ),
                     Play(
-                        action: ,
+                        action: Unknown,
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
-                    Play(
-                        action: Kickoff(offence: ArizonaState),
-                        down: First,
-                        terrain: 10
-                    ),
+                    Kickoff(ArizonaState),
                 ]
-            )
+            ),
         ]
     ),
-    GameRecord(
-        version: "0.2.0",
+    Game(
+        version: "0.3.1",
         periods: [
             Period(
                 start: First,
                 end: None,
                 plays: [
+                    Kickoff(Syracuse),
                     Play(
-                        action: None
-                        down: Kickoff(offence: Syracuse),
-                        terrain: Distance(10)
-
-                    ),
-                    Play(
-                        action: None,
+                        action: Unknown,
                         down: Second,
-                        terrain: 3
+                        terrain: Yards(3),
                     ),
                     Play(
-                        action: SpikeCentre,
+                        action: Unknown, // Original note: Spike Centre
                         down: Third,
-                        terrain: 3,
+                        terrain: Yards(3),
                     ),
                     Play(
                         action: Curls,
                         down: Fourth,
-                        terrain: 3
+                        terrain: Yards(3),
                     ),
                     Play(
-                        action: Mesh  || PassCentre,
+                        action: Mesh,
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: None,
+                        action: Unknown,
                         down: Second,
-                        terrain: 15
+                        terrain: Yards(15),
                     ),
                     Play(
-                        action: PlayAction ThrowLeft,
+                        action: Unknown, // Original note: PA Throw Left
                         down: First,
-                        terrain: 10
-                    )
+                        terrain: Yards(10),
+                    ),
                 ]
             ),
             Period(
@@ -245,83 +226,83 @@
                 end: None,
                 plays: [
                     Play(
-                        action: PA ThrowCentre,
+                        action: Unknown, // Original note: PA Throw Centre
                         down: Second,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: Transfer Rush Centre/Left,
+                        action: HalfbackSlam, // Original note: Transfer Rush Centre/Left
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: Shotgun ThrowRight,
+                        action: Unknown, // Original note: Shotgun Throw Right
                         down: Second,
-                        terrain: 8
+                        terrain: Yards(8),
                     ),
                     Play(
-                        action: PlayAction RushRight,
+                        action: PlayActionPowerZero, // Original note: PA Rush Right
                         down: Third,
-                        terrain: 1
+                        terrain: Yards(1),
                     ),
                     Play(
-                        action: HB? Rush Centre/Right,
+                        action: Unknown, // PowerZero or CSB RT? Original note: "HB? Rush Centre/Right"
                         down: Fourth,
-                        terrain: 6
+                        terrain: Yards(6),
                     ),
                     Play(
-                        action: PlayAction RushCentre,
-                    ),
-                    //Turnover, Colorado Offence
-                    Play(
-                        action: ShotgunDoubleFlex PlayActionComebacks, //Big Throw Right
-                        down: First,
-                        terrain: 10
-                    ),
-                    Play(
-                        action: Transfer HB? RushCentre,
-                        down: Second,
-                        terrain: 9
-                    ),
-                    Play(
-                        action: FailedThrow,
-                        down: Third,
-                        terrain: 17
-                    ),
-                    Play(
-                        action: Same FailedThrow,
+                        action: Unknown, // HalfbackSlam? Original note: PA Rush Centre
+                        down: None,
+                        terrain: None,
                     )
+                    Turnover(Colorado),
+                    Play(
+                        action: PlayActionComebacks,
+                        down: First,
+                        terrain: Yards(10),
+                    ),
+                    Play(
+                        action: HalfbackSlam, // Original note: "Transfer HB? Rush Centre"
+                        down: Second,
+                        terrain: Yards(9),
+                    ),
+                    Play(
+                        action: Unknown, // Original note: Failed Throw
+                        down: Third,
+                        terrain: Yards(17),
+                    ),
+                    Play(
+                        action: Unknown, // Original note: Same Failed Throw
+                        down: Fourth,
+                        terrain: Unknown,
+                    ),
                 ]
             ),
             Period(
                 start: Third,
                 end: None,
                 plays: [
+                    Kickoff(Colorado),
                     Play(
-                        action: Kickoff(offence:Colorado),
+                        action: Unknown, // Original note: Throw Right
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: ThrowRight,
+                        action: Unknown, // Original note: ShotgunDoubleFlex Throw Right
                         down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
-                        action: ShotgunDoubleFlex ThrowRight,
+                        action: Unknown, // Original note: Pass Run Centre
                         down: First,
-                        terrain: 10
-                    ),
-                    Play(
-                        action: Pass RushCentre,
-                        down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
                         action: PowerZero,
                         down: Second,
-                        terrain: 6
-                    )
+                        terrain: Yards(6),
+                    ),
                 ]
             ),
             Period(
@@ -331,31 +312,25 @@
                     Play(
                         action: CrackStudentBodyRightTackle,
                         down: Third,
-                        terrain: 11
+                        terrain: Yards(11),
                     ),
                     Play(
-                        action: SpikeCentre,
+                        action: Unknown, // Original note: Spike Centre
                         down: Fourth,
-                        terrain: 3
+                        terrain: Yards(3),
                     ),
+                    Score(0),
+                    Kickoff(Syracuse),
                     Play(
-                        action: SpecialTeams... PuntIntoNet,
-                    ),
-                    Play(
-                        action: Kickoff(offence: Syracuse),
+                        action: Unknown, // Original note: PA Throw Centre
                         down: First,
-                        terrain: 10
-                    ),
-                    Play(
-                        action: PlayAction ThrowCentre,
-                        down: First,
-                        terrain: 10
+                        terrain: Yards(10),
                     ),
                     Play(
                         action: SpeedOption,
                         down: Second,
-                        terrain: 3
-                    )
+                        terrain: Yards(3),
+                    ),
                 ]
             )
         ]
