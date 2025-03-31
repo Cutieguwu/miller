@@ -4,32 +4,26 @@ use std::{fmt, io};
 pub enum LogFileError {
     FailedToOpen(io::Error),
     RonSpannedError(ron::error::SpannedError),
-    CompatibilityCheck(semver::Version),
 }
 
 impl fmt::Display for LogFileError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::FailedToOpen(err) => write!(f, "{}", err),
-            Self::CompatibilityCheck(ver) => write!(
-                f,
-                "GameLogs cannot be older than {}, but {} was found in logfile.",
-                crate::MIN_VER.to_string(),
-                ver.to_string()
-            ),
             Self::RonSpannedError(err) => write!(f, "{}", err),
         }
     }
 }
 
-pub enum DownError {
-    NotKickoff,
+#[derive(Debug)]
+pub enum TeamsError {
+    NumberFound(usize),
 }
 
-impl fmt::Display for DownError {
+impl fmt::Display for TeamsError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match *self {
-            Self::NotKickoff => write!(f, "Variant was not Down::Kickoff."),
+        match self {
+            Self::NumberFound(err) => write!(f, "Expected two, found: {:?}", err),
         }
     }
 }

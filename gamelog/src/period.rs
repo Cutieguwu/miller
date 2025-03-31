@@ -1,22 +1,29 @@
+use crate::{Event, PlayHandle};
 use serde::Deserialize;
-
-#[deprecated(since = "0.2.0", note = "Migrated to Game")]
-type GameRecord = Game;
-
-#[derive(Debug, Deserialize, Clone)]
-pub struct Game {
-    pub version: semver::Version,
-    periods: Vec<Option<Period>>,
-}
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Period {
-    start: Quarter,
-    end: Option<Quarter>,
-    plays: Vec<super::Play>,
+    pub start: Quarter,
+    pub end: Option<Quarter>,
+    pub events: Vec<Event>,
 }
 
-#[derive(Debug, Deserialize, Clone)]
+impl PlayHandle for Period {
+    fn plays(&self) -> Vec<crate::Play> {
+        self.events
+            .iter()
+            .filter_map(|event| {
+                if let Event::Play(play) = event {
+                    Some(play.to_owned())
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+}
+
+#[derive(Debug, Deserialize, Clone, PartialEq)]
 pub enum Quarter {
     First,
     Second,

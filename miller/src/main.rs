@@ -29,10 +29,5 @@ fn main() {
             Ok(f) => f,
             Err(err) => panic!("Error: Failed to open logfile: {:?}", err),
         };
-
-        match file.ensure_compatible() {
-            Ok(f) => f,
-            Err(err) => panic!("Error: Failed to ensure logfile compatibility: {:?}", err),
-        }
     };
 }
