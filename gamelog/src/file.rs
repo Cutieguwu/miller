@@ -20,7 +20,7 @@ impl LogFile {
 
     /// Returns if the LogFile min version is compatible.
     pub fn is_compatible(&self) -> bool {
-        self.min_ver().cmp_precedence(&super::MIN_VER).is_lt()
+        self.min_ver().cmp_precedence(&crate::MIN_VER).is_lt()
     }
 }
 
@@ -28,7 +28,9 @@ impl TryFrom<File> for LogFile {
     type Error = ron::error::SpannedError;
 
     fn try_from(file: File) -> Result<Self, Self::Error> {
-        ron::de::from_reader(file)
+        ron::Options::default()
+            .with_default_extension(ron::extensions::Extensions::EXPLICIT_STRUCT_NAMES)
+            .from_reader(file)
     }
 }
 

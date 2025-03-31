@@ -7,7 +7,6 @@ mod file;
 mod game;
 mod period;
 mod play;
-mod score;
 mod terrain;
 
 #[allow(unused)]
@@ -19,5 +18,4 @@ pub use file::LogFile;
 pub use game::{Game, GameRecord};
 pub use period::*;
 pub use play::*;
-pub use score::ScoreChange;
 pub use terrain::TerrainState;

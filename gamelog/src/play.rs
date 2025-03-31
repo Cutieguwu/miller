@@ -6,17 +6,29 @@ pub trait PlayHandle {
     fn plays(&self) -> Vec<Play>;
 }
 
+pub trait Distance {
+    fn distance(&self) -> u8;
+
+    fn delta<D: Distance>(&self, d: D);
+}
+
 #[derive(Debug, Deserialize, Clone, Default, PartialEq)]
 pub struct Play {
     pub action: Action,
-    pub down: Down,
-    pub terrain: TerrainState,
+    pub down: Option<Down>,
+    pub terrain: Option<TerrainState>,
 }
 
 impl PlayHandle for Play {
     fn plays(&self) -> Vec<Play> {
         vec![self.to_owned()]
     }
+}
+
+impl Distance for Play {
+    fn distance(&self) -> u8 {}
+
+    fn delta<D: Distance>(&self, d: D) {}
 }
 
 #[derive(Debug, Deserialize, Clone, Default, PartialEq)]
@@ -26,7 +38,6 @@ pub enum Down {
     Second,
     Third,
     Fourth,
-    PointAfterTouchdown(Option<u8>),
 }
 
 #[derive(Debug, Deserialize, Clone, PartialEq)]

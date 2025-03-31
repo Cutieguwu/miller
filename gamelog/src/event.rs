@@ -1,4 +1,4 @@
-use crate::{Play, ScoreChange, Team, TerrainState};
+use crate::{Play, Team, TerrainState};
 
 use serde::Deserialize;
 
@@ -10,5 +10,13 @@ pub enum Event {
     Kickoff(Offence),
     Turnover(Offence),
     Penalty(TerrainState),
-    ScoreChange(ScoreChange),
+    Score(u8),
+    Pat(PatPoints),
+}
+
+#[derive(Debug, Deserialize, Clone, PartialEq)]
+pub enum PatPoints {
+    Fail,
+    One,
+    Two,
 }
