@@ -26,9 +26,13 @@ impl PlayHandle for Play {
 }
 
 impl Distance for Play {
-    fn distance(&self) -> u8 {}
+    fn distance(&self) -> u8 {
+        todo!()
+    }
 
-    fn delta<D: Distance>(&self, d: D) {}
+    fn delta<D: Distance>(&self, d: D) {
+        todo!()
+    }
 }
 
 #[derive(Debug, Deserialize, Clone, Default, PartialEq)]

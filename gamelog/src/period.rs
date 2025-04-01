@@ -1,4 +1,4 @@
-use crate::{Event, PlayHandle};
+use crate::{Event, Play, PlayHandle};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize, Clone)]
@@ -9,7 +9,7 @@ pub struct Period {
 }
 
 impl PlayHandle for Period {
-    fn plays(&self) -> Vec<crate::Play> {
+    fn plays(&self) -> Vec<Play> {
         self.events
             .iter()
             .filter_map(|event| {
