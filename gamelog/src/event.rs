@@ -1,5 +1,4 @@
-use crate::{Play, Team, TerrainState};
-
+use crate::{Down, Play, Team, TerrainState, error};
 use serde::Deserialize;
 
 type Offence = Team;
@@ -11,6 +10,56 @@ pub enum Event {
     Turnover(Offence),
     Penalty(TerrainState),
     Score(ScorePoints),
+}
+
+impl Event {
+    pub fn delta(&self, following: &Self) -> Option<i8> {
+        // Clean this trash spaghetti code up.
+
+        fn make_play(event: &Event) -> Option<Play> {
+            match event {
+                Event::Kickoff(_) => Some(Play::default()),
+                Event::Play(play) => {
+                    let p = play.to_owned();
+
+                    if p.down.is_none()
+                        || p.terrain.is_none()
+                        || p.terrain.as_ref()? == &TerrainState::Unknown
+                    {
+                        None
+                    } else {
+                        Some(p)
+                    }
+                }
+                _ => None,
+            }
+        }
+
+        let preceeding = make_play(self)?;
+        let following = make_play(following)?;
+
+        if following.down? == Down::First {
+            if let TerrainState::Yards(yrds) = preceeding.terrain? {
+                Some(yrds as i8)
+            } else {
+                None
+            }
+        } else {
+            let a = if let TerrainState::Yards(yrds) = preceeding.terrain? {
+                yrds
+            } else {
+                unreachable!()
+            };
+
+            let b = if let TerrainState::Yards(yrds) = following.terrain? {
+                yrds
+            } else {
+                unreachable!()
+            };
+
+            Some((a - b) as i8)
+        }
+    }
 }
 
 #[derive(Debug, Deserialize, Clone, PartialEq)]

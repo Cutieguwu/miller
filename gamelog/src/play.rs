@@ -6,13 +6,7 @@ pub trait PlayHandle {
     fn plays(&self) -> Vec<Play>;
 }
 
-pub trait Distance {
-    fn distance(&self) -> u8;
-
-    fn delta<D: Distance>(&self, d: D);
-}
-
-#[derive(Debug, Deserialize, Clone, Default, PartialEq)]
+#[derive(Debug, Deserialize, Clone, PartialEq)]
 pub struct Play {
     pub action: Action,
     pub down: Option<Down>,
@@ -25,13 +19,13 @@ impl PlayHandle for Play {
     }
 }
 
-impl Distance for Play {
-    fn distance(&self) -> u8 {
-        todo!()
-    }
-
-    fn delta<D: Distance>(&self, d: D) {
-        todo!()
+impl Default for Play {
+    fn default() -> Self {
+        Self {
+            action: Action::default(),
+            down: Some(Down::First),
+            terrain: Some(TerrainState::Yards(10)),
+        }
     }
 }
 
