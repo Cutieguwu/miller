@@ -1,4 +1,4 @@
-use crate::{Down, Play, Team, TerrainState, error};
+use crate::{Down, Play, Team, TerrainState};
 use serde::Deserialize;
 
 type Offence = Team;

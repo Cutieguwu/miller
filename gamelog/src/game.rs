@@ -7,6 +7,7 @@ pub type GameRecord = Game;
 #[derive(Debug, Deserialize, Clone)]
 pub struct Game {
     pub version: semver::Version,
+    pub flags: Vec<FeatureFlags>,
     pub periods: Vec<Period>,
 }
 
@@ -41,4 +42,9 @@ impl PlayHandle for Game {
             .collect::<Vec<Vec<Play>>>() // Make compiler happy with turbofish.
             .concat()
     }
+}
+
+#[derive(Debug, Deserialize, Clone)]
+pub enum FeatureFlags {
+    Ignore(Team),
 }
