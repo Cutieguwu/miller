@@ -32,6 +32,14 @@ impl Game {
             Err(error::TeamsError::NumberFound(teams.len()))
         }
     }
+
+    pub fn deltas(&self) -> Vec<i8> {
+        self.periods
+            .iter()
+            .map(|period| period.deltas())
+            .collect::<Vec<Vec<i8>>>()
+            .concat()
+    }
 }
 
 impl PlayHandle for Game {
