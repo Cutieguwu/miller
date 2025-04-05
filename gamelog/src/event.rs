@@ -1,9 +1,9 @@
-use crate::{Down, Play, Team, TerrainState};
+use crate::{Down, Play, Team, TerrainState, error};
 use serde::Deserialize;
 
 type Offence = Team;
 
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Debug, Deserialize, Clone, PartialEq)]
 pub enum Event {
     Play(Play),
     Kickoff(Offence),
@@ -18,7 +18,7 @@ impl Event {
 
         fn make_play(event: &Event) -> Option<Play> {
             match event {
-                Event::Kickoff(_) => Some(Play::default()),
+                Event::Kickoff(_) | Event::Turnover(_) => Some(Play::default()),
                 Event::Play(play) => {
                     let p = play.to_owned();
 
@@ -36,7 +36,13 @@ impl Event {
         }
 
         let preceeding = make_play(self)?;
-        let following = make_play(following)?;
+        let following = if let Event::Turnover(_) = following {
+            // I should really just early return
+            // but this is too funny to look at.
+            None?
+        } else {
+            make_play(following)?
+        };
 
         if following.down? == Down::First {
             if let TerrainState::Yards(yrds) = preceeding.terrain? {
@@ -58,6 +64,14 @@ impl Event {
             };
 
             Some(a as i8 - b as i8)
+        }
+    }
+
+    pub fn team(&self) -> Result<Team, error::NoTeamAttribute> {
+        match self {
+            Self::Kickoff(team) => Ok(team.to_owned()),
+            Self::Turnover(team) => Ok(team.to_owned()),
+            _ => Err(error::NoTeamAttribute),
         }
     }
 }
@@ -90,45 +104,54 @@ impl ScorePoints {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::{Action, Down, Team, TerrainState};
+    use crate::*;
 
     #[test]
     fn delta() {
         let kickoff = Event::Kickoff(Team::Nebraska);
+
         let first_down = Event::Play(Play {
             action: Action::Unknown,
             down: Some(Down::First),
             terrain: Some(TerrainState::Yards(10)),
         });
+
         let second_down = Event::Play(Play {
             action: Action::Unknown,
             down: Some(Down::Second),
             terrain: Some(TerrainState::Yards(10)),
         });
+
         let third_down = Event::Play(Play {
             action: Action::Unknown,
             down: Some(Down::Third),
             terrain: Some(TerrainState::Yards(13)),
         });
+
         let fourth_down = Event::Play(Play {
             action: Action::Unknown,
             down: Some(Down::Fourth),
             terrain: Some(TerrainState::Yards(5)),
         });
+
         let penalty = Event::Penalty(TerrainState::Yards(15));
+
         let turnover = Event::Turnover(Team::Nebraska);
+
         let noned_down = Event::Play(Play {
             action: Action::Unknown,
             down: None,
             terrain: None,
         });
+
         let score = Event::Score(ScorePoints::default());
+
         let goal_line = Event::Play(Play {
             action: Action::Unknown,
             down: Some(Down::First),
             terrain: Some(TerrainState::GoalLine),
         });
+
         let inches = Event::Play(Play {
             action: Action::Unknown,
             down: Some(Down::First),
@@ -155,5 +178,8 @@ mod tests {
         assert!(None == goal_line.delta(&first_down));
         assert!(None == inches.delta(&first_down));
         assert!(None == goal_line.delta(&inches));
+        assert!(10_i8 == turnover.delta(&first_down).unwrap());
+        assert!(0_i8 == turnover.delta(&second_down).unwrap());
+        assert!(-3_i8 == turnover.delta(&third_down).unwrap());
     }
 }

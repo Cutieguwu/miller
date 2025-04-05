@@ -3,7 +3,7 @@ use serde::Deserialize;
 use std::{fs::File, path::PathBuf};
 
 #[derive(Debug, Deserialize, Clone)]
-pub struct LogFile(Vec<super::Game>);
+pub struct LogFile(pub Vec<super::Game>);
 
 impl LogFile {
     pub fn min_ver(&self) -> semver::Version {

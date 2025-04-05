@@ -4,20 +4,20 @@
 
 [
     Game(
-        version: "0.3.0",
+        version: "0.5.0",
+        flags: [],
         periods: [
             Period(
                 start: First,
                 end: Fourth,
-                plays: [
+                events: [
                     Kickoff(Nebraska),
                     Play(
                         action: Unknown,
                         down: First,
                         terrain: Yards(10)
                     ),
-                    Score(3),
-                    Pat(Fail)
+                    Score(FieldGoal),
                 ]
             )
         ]

@@ -1,22 +1,11 @@
 use crate::{Action, TerrainState};
 use serde::Deserialize;
 
-pub trait PlayHandle {
-    /// Returns all plays within object's scope.
-    fn plays(&self) -> Vec<Play>;
-}
-
 #[derive(Debug, Deserialize, Clone, PartialEq)]
 pub struct Play {
     pub action: Action,
     pub down: Option<Down>,
     pub terrain: Option<TerrainState>,
-}
-
-impl PlayHandle for Play {
-    fn plays(&self) -> Vec<Play> {
-        vec![self.to_owned()]
-    }
 }
 
 impl Default for Play {

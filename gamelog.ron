@@ -4,12 +4,13 @@
 
 [
     Game(
-        version: "0.3.0",
+        version: "0.5.0",
+        flags: [IgnoreScore],
         periods: [
             Period(
                 start: First,
                 end: Third,
-                plays: [
+                events: [
                     Kickoff(ArizonaState),
                     Play(
                         action: Unknown,
@@ -47,7 +48,7 @@
                         terrain: Yards(7),
                     ),
                     Play(
-                        action: HalfbackSweep
+                        action: HalfbackSweep,
                         down: Fourth,
                         terrain: Yards(11),
                     ),
@@ -130,7 +131,7 @@
             Period(
                 start: Fourth,
                 end: None,
-                plays: [
+                events: [
                     Play(
                         action: PlayActionComebacks, // Original note: Dupe Spike Centre
                         down: Fourth,
@@ -182,12 +183,13 @@
         ]
     ),
     Game(
-        version: "0.3.1",
+        version: "0.5.0",
+        flags: [IgnoreScore],
         periods: [
             Period(
                 start: First,
                 end: None,
-                plays: [
+                events: [
                     Kickoff(Syracuse),
                     Play(
                         action: Unknown,
@@ -224,7 +226,7 @@
             Period(
                 start: Second,
                 end: None,
-                plays: [
+                events: [
                     Play(
                         action: Unknown, // Original note: PA Throw Centre
                         down: Second,
@@ -254,7 +256,7 @@
                         action: Unknown, // HalfbackSlam? Original note: PA Rush Centre
                         down: None,
                         terrain: None,
-                    )
+                    ),
                     Turnover(Colorado),
                     Play(
                         action: PlayActionComebacks,
@@ -281,7 +283,7 @@
             Period(
                 start: Third,
                 end: None,
-                plays: [
+                events: [
                     Kickoff(Colorado),
                     Play(
                         action: Unknown, // Original note: Throw Right
@@ -308,7 +310,7 @@
             Period(
                 start: Fourth,
                 end: None,
-                plays: [
+                events: [
                     Play(
                         action: CrackStudentBodyRightTackle,
                         down: Third,
@@ -319,7 +321,6 @@
                         down: Fourth,
                         terrain: Yards(3),
                     ),
-                    Score(0),
                     Kickoff(Syracuse),
                     Play(
                         action: Unknown, // Original note: PA Throw Centre
@@ -336,18 +337,19 @@
         ]
     ),
     Game(
-        version: "0.3.1",
+        version: "0.5.0",
+        flags: [],
         periods: [
             Period(
                 start: First,
                 end: None,
-                plays: [
+                events: [
                     Kickoff(Nebraska),
                     Play(
                         action: Curls,
                         down: First,
                         terrain: Yards(10)
-                    )
+                    ),
                     Play(
                         action: Unknown,
                         down: Second,
@@ -379,14 +381,14 @@
             Period(
                 start: Second,
                 end: None,
-                plays: [
+                events: [
                     Play(
                         action: Unknown, // Original note: Throw Centre
                         down: First,
                         terrain: GoalLine,
                     ),
-                    Pat(Fail),
-                    Score(6),
+                    Score(Touchdown),
+                    Score(PatFail),
                     Kickoff(Nebraska),
                     Play(
                         action: StrongFlood,
@@ -429,7 +431,7 @@
             Period(
                 start: Third,
                 end: None,
-                plays: [
+                events: [
                     Kickoff(SouthCarolina),
                     Play(
                         action: Unknown,
@@ -452,7 +454,7 @@
                         down: None,
                         terrain: None,
                     ),
-                    Score(3),
+                    Score(FieldGoal),
                     Kickoff(SouthCarolina),
                     Play(
                         action: Unknown,
@@ -469,7 +471,7 @@
             Period(
                 start: Fourth,
                 end: None,
-                plays: [
+                events: [
                     Play(
                         action: Unknown, // Original note: Throw Centre
                         down: Fourth,
@@ -490,8 +492,8 @@
                         down: Third,
                         terrain: Yards(5),
                     ),
-                    Pat(), // Original note: Dupe, Throw Centre
-                    Score(12),
+                    Score(Touchdown),
+                    Score(PatFail),
                     Kickoff(Nebraska),
                     Play(
                         action: PowerZero,
@@ -536,7 +538,7 @@
                     ),
                     Turnover(Nebraska),
                     // Field Goal 41 yrds
-                    Score(6),
+                    Score(FieldGoal),
                     Kickoff(SouthCarolina),
                     Play(
                         action: Unknown,
@@ -548,7 +550,8 @@
         ]
     ),
     Game(
-        version: "0.4.0",
+        version: "0.5.0",
+        flags: [],
         periods: [
             Period(
                 start: First,
@@ -617,8 +620,8 @@
                         terrain: GoalLine,
                     ),
                     // Touchdown
-                    Pat(One), // Throw
-                    Score(7),
+                    Score(Touchdown),
+                    Score(PatSafety),
                     Kickoff(Iowa),
                     Penalty(Yards(15)),
                     Play(
@@ -656,7 +659,7 @@
                         down: First,
                         terrain: GoalLine,
                     ),
-                    Score(3),
+                    Score(FieldGoal),
                 ]
             ),
             Period(
@@ -716,8 +719,8 @@
                         terrain: Yards(4),
                     ),
                     // Touchdown
-                    Pat(One)
-                    Score(7),
+                    Score(Touchdown),
+                    Score(PatSafety),
                     Kickoff(Colorado),
                     Play(
                         action: Unknown, // Original note: Dupe, Throw Left
@@ -752,13 +755,14 @@
                         terrain: Yards(15),
                     ),
                     //Field Goal
-                    Score(10)
+                    Score(FieldGoal)
                 ]
             )
         ]
     ),
     Game(
         version: "0.5.0",
+        flags: [],
         periods: [
             Period(
                 start: First,
@@ -878,7 +882,7 @@
                         terrain:Yards(10),
                     ),
                     Play(
-                        action: //IForm Normal, Thrown
+                        action: Unknown,//IForm Normal, Thrown
                         down: None,
                         terrain: None
                     ),
@@ -985,6 +989,7 @@
         // TexasAnM were opponents, but not recorded as
         // they were not present; Miller played in place.
         version: "0.5.0",
+        flags: [IgnoreTeam(TexasAnM)],
         periods: [
             Period(
                 start: First,
@@ -1053,7 +1058,7 @@
                         terrain: Yards(13)
                     ),
                     Play(
-                        action: First,
+                        action: Unknown,
                         down: First,
                         terrain: Yards(10)
                     ),

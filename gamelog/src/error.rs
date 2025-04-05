@@ -27,3 +27,21 @@ impl fmt::Display for TeamsError {
         }
     }
 }
+
+#[derive(Debug)]
+pub struct NoTeamAttribute;
+
+impl fmt::Display for NoTeamAttribute {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Object has no team definition.")
+    }
+}
+
+#[derive(Debug)]
+pub struct CannotDetermineTeams;
+
+impl fmt::Display for CannotDetermineTeams {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Cannot determine teams present.")
+    }
+}
