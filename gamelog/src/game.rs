@@ -53,8 +53,6 @@ impl Game {
         let mut idx: usize = 0;
         let mut deltas: Vec<i8> = vec![];
 
-        dbg!(&events);
-
         while idx < len {
             if let Some(value) = events[idx].delta(&events[idx + 1]) {
                 deltas.push(value);
@@ -64,31 +62,6 @@ impl Game {
         }
 
         deltas
-    }
-
-    /// The average number of plays in a quarter.
-    /// Does not include OT plays or quarters where team indeterminate.
-    pub fn avg_plays_per_quarter(&self, team: Team) -> f32 {
-        // Handle if teams known at start or not override via index calculation of all game events.
-
-        let quarterly_avgs: Vec<f32> = self
-            .periods
-            .iter()
-            .filter_map(|period| {
-                if !period.is_overtime() {
-                    let plays = period.team_plays(team.to_owned(), None);
-                    Some(plays.unwrap().len() as f32 / period.quarters().len() as f32)
-                } else {
-                    None
-                }
-            })
-            .collect::<Vec<f32>>();
-
-        let mut summation = 0_f32;
-
-        quarterly_avgs.iter().for_each(|float| summation += float);
-
-        summation / quarterly_avgs.len() as f32
     }
 
     pub fn team_plays(&self, team: Team) -> usize {
@@ -110,6 +83,67 @@ impl Game {
         quarterly_plays.iter().for_each(|value| summation += value);
 
         summation
+    }
+
+    /// The average number of plays in a quarter.
+    /// Does not include OT plays or quarters where team indeterminate.
+    pub fn avg_plays_per_quarter(&self, team: Team) -> f32 {
+        // Handle if teams known at start or not override via index calculation of all game events.
+
+        let quarterly_avgs: Vec<f32> = self
+            .periods
+            .iter()
+            .filter_map(|period| {
+                if !period.is_overtime() {
+                    let plays = period.team_plays(team.to_owned(), None);
+                    Some(plays.unwrap().len() as f32 / period.quarters().len() as f32)
+                } else {
+                    None
+                }
+            })
+            .collect::<Vec<f32>>();
+
+        quarterly_avgs.iter().sum::<f32>() / quarterly_avgs.len() as f32
+    }
+
+    pub fn avg_delta(&self, team: Team) -> f32 {
+        let deltas = self.deltas(team);
+
+        // Summation doesn't like directly returning f32 from i8.
+        deltas.iter().sum::<i8>() as f32 / deltas.len() as f32
+    }
+
+    pub fn avg_gain(&self, team: Team) -> f32 {
+        let deltas: Vec<u8> = self
+            .deltas(team)
+            .iter()
+            .filter_map(|value| {
+                if value.is_positive() {
+                    Some(value.to_owned() as u8)
+                } else {
+                    None
+                }
+            })
+            .collect();
+
+        // Summation doesn't like directly returning f32 from u8.
+        deltas.iter().sum::<u8>() as f32 / deltas.len() as f32
+    }
+
+    pub fn avg_loss(&self, team: Team) -> f32 {
+        let deltas: Vec<i8> = self
+            .deltas(team)
+            .iter()
+            .filter_map(|value| {
+                if value.is_negative() {
+                    Some(value.to_owned())
+                } else {
+                    None
+                }
+            })
+            .collect();
+
+        deltas.iter().sum::<i8>() as f32 / deltas.len() as f32
     }
 }
 
