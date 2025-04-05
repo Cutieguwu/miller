@@ -1,4 +1,4 @@
-use crate::{Event, Play, PlayHandle, Team, error};
+use crate::{Event, Play, Team, error};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize, Clone)]
@@ -6,21 +6,6 @@ pub struct Period {
     pub start: Quarter,
     pub end: Option<Quarter>,
     pub events: Vec<Event>,
-}
-
-impl PlayHandle for Period {
-    fn plays(&self) -> Vec<Play> {
-        self.events
-            .iter()
-            .filter_map(|event| {
-                if let Event::Play(play) = event {
-                    Some(play.to_owned())
-                } else {
-                    None
-                }
-            })
-            .collect()
-    }
 }
 
 impl Period {
