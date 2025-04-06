@@ -51,8 +51,8 @@ I figured, that since I already had to digitize every note, that I was required 
 ** [*] Avg. Terrain Loss
 ** [*] Avg. Terrain Delta
 ** [*] Avg. Offence Plays per quarter
-** [ ] Avg. Offence Plays per game
-** [ ] Avg. Penalties per game
+** [*] Avg. Offence Plays per game
+** [*] Avg. Penalties per game
 * [ ] Play Trend Analysis
 ** [ ] Most Frequent Play
 ** [ ] Least Frequent Play
