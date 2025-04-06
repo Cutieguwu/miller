@@ -19,7 +19,7 @@ impl Period {
         let mut record: bool = true;
         let assume_team_known = assume_team_known.unwrap_or(false);
 
-        for event in self.events.iter() {
+        self.events.iter().for_each(|event| {
             if let Event::Kickoff(_) | Event::Turnover(_) = event {
                 record = {
                     if team == event.team().unwrap() {
@@ -42,7 +42,7 @@ impl Period {
             if record {
                 events.push(event.to_owned());
             }
-        }
+        });
 
         // If already handled or assumption override applicable
         if !first || (first && assume_team_known) {
@@ -115,11 +115,7 @@ impl Period {
     }
 
     pub fn is_overtime(&self) -> bool {
-        if self.start.is_overtime() || self.end.as_ref().is_some_and(|some| some.is_overtime()) {
-            true
-        } else {
-            false
-        }
+        self.start.is_overtime() || self.end.as_ref().is_some_and(|some| some.is_overtime())
     }
 }
 

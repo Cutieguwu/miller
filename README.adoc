@@ -5,14 +5,20 @@
 
 == Prelude
 
-VERY EARLY ALPHA -- NOT YET FUNCTIONAL
-
 For my stats course (4U Data Management) I have to interpret a bunch of data generated in class.
 In an effort to not spend ages mindlessly using a calculator every summative check-in, I have started this project.
 
 I figured, that since I already had to digitize every note, that I was required to make by hand, from during the game, that I might as well employ a format of my own. This format, would allow me to use code to interpret the monotonous mathematics for me. Even if I don't fully complete the code, it would ease the burden by completing some of the math for me.
 
 == Goals
+
+* [ ] Data Visualizer?
+* [ ] Dynamic Web Page?
+** Server Side Events?
+** IDK frontend web at all.
+** plotly.rs?
+** charming.rs?
+** WASM?
 
 === Gamelog
 * [*] Data Format

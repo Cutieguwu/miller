@@ -48,50 +48,49 @@ fn main() {
 
     // Work on knocking down the nesting here?
     for game in log.0.iter() {
-        if let Ok(teams) = game.teams() {
-            for team in teams {
-                if !game.flags.contains(&Flags::IgnoreTeam(team.to_owned())) {
-                    // Team is to have their stats recorded this game of file.
-                    let team_idx = stats
-                        .iter()
-                        .position(|stat| {
-                            if stat.team == team.to_owned() {
-                                true
-                            } else {
-                                false
-                            }
-                        })
-                        .unwrap();
+        let teams = match game.teams() {
+            Ok(teams) => teams,
+            Err(_) => continue,
+        };
 
-                    stats[team_idx]
-                        .avg_terrain_gain
-                        .push(game.avg_gain(team.to_owned()));
-
-                    stats[team_idx]
-                        .avg_terrain_loss
-                        .push(game.avg_loss(team.to_owned()));
-
-                    stats[team_idx]
-                        .avg_terrain_delta
-                        .push(game.avg_delta(team.to_owned()));
-
-                    stats[team_idx]
-                        .plays_per_quarter
-                        .push(game.avg_plays_per_quarter(team.to_owned()));
-
-                    stats[team_idx]
-                        .plays_per_game
-                        .push(game.team_plays(team.to_owned()));
-
-                    stats[team_idx]
-                        .penalties_per_game
-                        .push(game.penalties(team.to_owned()));
-                }
+        for team in teams {
+            // Skip team if they are to be ignored this game.
+            if game.flags.contains(&Flags::IgnoreTeam(team.to_owned())) {
+                continue;
             }
+
+            let team_idx = stats
+                .iter()
+                .position(|stat| stat.team == team.to_owned())
+                .unwrap();
+
+            stats[team_idx]
+                .avg_terrain_gain
+                .push(game.avg_gain(team.to_owned()));
+
+            stats[team_idx]
+                .avg_terrain_loss
+                .push(game.avg_loss(team.to_owned()));
+
+            stats[team_idx]
+                .avg_terrain_delta
+                .push(game.avg_delta(team.to_owned()));
+
+            stats[team_idx]
+                .plays_per_quarter
+                .push(game.avg_plays_per_quarter(team.to_owned()));
+
+            stats[team_idx]
+                .plays_per_game
+                .push(game.team_plays(team.to_owned()));
+
+            stats[team_idx]
+                .penalties_per_game
+                .push(game.penalties(team.to_owned()));
         }
     }
 
-    if dbg!(config.display_results) {
+    if config.display_results {
         // :#? for pretty-printing.
         stats.iter().for_each(|team| println!("{:#?}", team));
     }

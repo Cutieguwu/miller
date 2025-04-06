@@ -168,8 +168,10 @@ impl Game {
 
 #[derive(Debug, Deserialize, Clone, PartialEq)]
 pub enum Flags {
+    IgnoreActions,
     IgnoreTeam(Team),
     IgnoreScore,
+    Interval(u8),
 }
 
 #[cfg(test)]
