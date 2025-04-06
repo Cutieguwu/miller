@@ -12,6 +12,7 @@ I figured, that since I already had to digitize every note, that I was required 
 
 == Goals
 
+* [ ] Auto Ranking system?
 * [ ] Data Visualizer?
 * [ ] Dynamic Web Page?
 ** Server Side Events?
