@@ -3,20 +3,21 @@
 #![enable(unwrap_variant_newtypes)]
 
 [
-    GameRecord(
-        version: "0.3.0",
+    Game(
+        version: "0.5.0",
+        flags: [],
         periods: [
             Period(
                 start: First,
                 end: Fourth,
-                plays: [
+                events: [
+                    Kickoff(Nebraska),
                     Play(
-                        action: None,
-                        down: Kickoff(
-                            offence: Nebraska
-                        ),
+                        action: Unknown,
+                        down: First,
                         terrain: Yards(10)
                     ),
+                    Score(FieldGoal),
                 ]
             )
         ]

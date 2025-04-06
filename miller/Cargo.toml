@@ -3,7 +3,6 @@ name = "miller"
 version = "0.1.0"
 edition = "2024"
 license = "MIT"
-license-file = "LICENSE"
 
 [dependencies.clap]
 version = "4.5"

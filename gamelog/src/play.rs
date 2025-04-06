@@ -1,57 +1,33 @@
-use crate::{TerrainState, error};
+use crate::{Action, TerrainState};
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Debug, Deserialize, Clone, PartialEq)]
 pub struct Play {
-    down: Down,
-    terrain: TerrainState,
+    pub action: Action,
+    pub down: Option<Down>,
+    pub terrain: Option<TerrainState>,
 }
 
-type Offence = Team;
-impl Offence {}
-
-#[derive(Debug, Deserialize, Clone)]
-pub enum Event {
-    CrackStudentBodyRightTackle(Play),
-    Curls(Play),
-    FleaFlicker(Play),
-    HalfbackSlam(Play),
-    HalfbackSlipScreen(Play),
-    HalfbackSweep(Play),
-    Mesh(Play),
-    PlayActionBoot(Play),
-    PlayActionComebacks(Play),
-    PlayActionPowerZero(Play),
-    PowerZero(Play),
-    SlantBubble(Play),
-    SlotOut(Play),
-    SpeedOption(Play),
-    StrongFlood(Play),
-    Unknown(Play),
-    Kickoff { offence: Team },
-    Turnover { offence: Team },
-    Penalty { terrain: TerrainState },
-}
-
-#[derive(Debug, Deserialize, Clone)]
-pub enum Down {
-    First,
-    Second,
-    Third,
-    Fourth,
-    PointAfterTouchdown,
-}
-
-impl Down {
-    fn get_offence(&self) -> Result<&Team, error::DownError> {
-        match self {
-            Self::Kickoff { offence } => Ok(offence),
-            _ => Err(error::DownError::NotKickoff),
+impl Default for Play {
+    fn default() -> Self {
+        Self {
+            action: Action::default(),
+            down: Some(Down::First),
+            terrain: Some(TerrainState::Yards(10)),
         }
     }
 }
 
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Debug, Deserialize, Clone, Default, PartialEq)]
+pub enum Down {
+    #[default]
+    First,
+    Second,
+    Third,
+    Fourth,
+}
+
+#[derive(Debug, Deserialize, Clone, PartialEq)]
 pub enum Team {
     ArizonaState,
     #[deprecated(since = "0.2.0", note = "Team left the project.")]

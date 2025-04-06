@@ -14,12 +14,43 @@ I figured, that since I already had to digitize every note, that I was required 
 
 == Goals
 
+=== Gamelog
 * [*] Data Format
+** [*] Support recording multiple games
+** [*] Periods
+*** Quarters
+*** Overtime
+** [*] Teams
+*** Iowa
+*** Syracuse
+*** Texas A&M
+*** Colorado
+*** Nebraska
+*** Boise State [deprecated]
+*** Arizona State
+*** South Carolina
+** [*] Downs
+*** First - Fourth
+*** Kickoff
+*** PAT (Point After Touchdown)
+**** One
+**** Two
+**** Failed
+** [*] Score
+** [*] Terrain Position
+*** [*] Yards
+*** [*] In (Inches)
+*** [*] GL (Goal Line)
+** [*] Penalty
+** Out?
+** [*] Plays
+
+=== Miller:
 * [ ] Mathematics
-** [ ] Avg. Terrain Gain
-** [ ] Avg. Terrain Loss
-** [ ] Avg. Terrain Delta
-** [ ] Avg. Offence Plays per quarter
+** [*] Avg. Terrain Gain
+** [*] Avg. Terrain Loss
+** [*] Avg. Terrain Delta
+** [*] Avg. Offence Plays per quarter
 ** [ ] Avg. Offence Plays per game
 ** [ ] Avg. Penalties per game
 * [ ] Play Trend Analysis
