@@ -9,7 +9,7 @@
         periods: [
             Period(
                 start: First,
-                end: Third,
+                end: Second,
                 events: [
                     Kickoff(ArizonaState),
                     Play(
@@ -83,6 +83,12 @@
                         down: First,
                         terrain: Yards(10),
                     ),
+                ]
+            ),
+            Period(
+                start: Third,
+                end: None,
+                events: [
                     Kickoff(TexasAnM),
                     Play(
                         action: Unknown, // PA Comebacks or Curls? Original note: Spike Centre
@@ -619,7 +625,6 @@
                         down: First,
                         terrain: GoalLine,
                     ),
-                    // Touchdown
                     Score(Touchdown),
                     Score(PatSafety),
                     Kickoff(Iowa),

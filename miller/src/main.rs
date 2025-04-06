@@ -1,9 +1,10 @@
-use clap::Parser;
+use clap::{ArgAction, Parser};
 use core::panic;
-use gamelog::{Action, Flags, LogFile, Team};
+use gamelog::{Action, Flags, Key, LogFile, Team};
 use std::path::PathBuf;
 
 #[derive(Debug, Parser)]
+#[clap(author, version, about)]
 struct Args {
     /// Path to source file or block device
     #[arg(
@@ -17,6 +18,12 @@ struct Args {
             .unwrap())
     )]
     logfile_path: PathBuf,
+
+    // Behaviour is backwards.
+    // ArgAction::SetFalse by default evaluates to true,
+    // ArgAction::SetTrue by default evaluates to false.
+    #[arg(short, long, action=ArgAction::SetFalse)]
+    display_results: bool,
 }
 
 fn main() {
@@ -39,6 +46,7 @@ fn main() {
         TeamStats::new(Team::TexasAnM),
     ];
 
+    // Work on knocking down the nesting here?
     for game in log.0.iter() {
         if let Ok(teams) = game.teams() {
             for team in teams {
@@ -70,13 +78,22 @@ fn main() {
                     stats[team_idx]
                         .plays_per_quarter
                         .push(game.avg_plays_per_quarter(team.to_owned()));
+
+                    stats[team_idx]
+                        .plays_per_game
+                        .push(game.team_plays(team.to_owned()));
+
+                    stats[team_idx]
+                        .penalties_per_game
+                        .push(game.penalties(team.to_owned()));
                 }
             }
         }
     }
 
-    for team in stats {
-        dbg!(team);
+    if dbg!(config.display_results) {
+        // :#? for pretty-printing.
+        stats.iter().for_each(|team| println!("{:#?}", team));
     }
 }
 
@@ -91,13 +108,15 @@ struct TeamStats {
     plays_per_quarter: Vec<f32>,
     plays_per_game: Vec<usize>,
     // Penalties
-    penalties_per_game: Vec<u8>,
+    penalties_per_game: Vec<usize>,
     // Score
     points_per_quarter: Vec<u8>,
     points_per_game: Vec<u8>,
     // Biases
     most_common_play: Option<Action>,
     least_common_play: Option<Action>,
+    most_common_key: Option<Key>,
+    least_common_key: Option<Key>,
 }
 
 impl TeamStats {
@@ -114,6 +133,8 @@ impl TeamStats {
             points_per_game: vec![],
             most_common_play: None,
             least_common_play: None,
+            most_common_key: None,
+            least_common_key: None,
         }
     }
 }

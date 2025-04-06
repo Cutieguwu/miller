@@ -65,8 +65,7 @@ impl Game {
     }
 
     pub fn team_plays(&self, team: Team) -> usize {
-        let quarterly_plays: Vec<usize> = self
-            .periods
+        self.periods
             .iter()
             .filter_map(|period| {
                 if !period.is_overtime() {
@@ -76,13 +75,9 @@ impl Game {
                     None
                 }
             })
-            .collect::<Vec<usize>>();
-
-        let mut summation = 0_usize;
-
-        quarterly_plays.iter().for_each(|value| summation += value);
-
-        summation
+            .collect::<Vec<usize>>()
+            .iter()
+            .sum::<usize>()
     }
 
     /// The average number of plays in a quarter.
@@ -144,6 +139,30 @@ impl Game {
             .collect();
 
         deltas.iter().sum::<i8>() as f32 / deltas.len() as f32
+    }
+
+    pub fn penalties(&self, team: Team) -> usize {
+        self.periods
+            .iter()
+            .filter_map(|period| {
+                Some(
+                    period
+                        .team_events(team.to_owned(), None)
+                        .ok()?
+                        .iter()
+                        .filter_map(|event| {
+                            if let Event::Penalty(_) = event {
+                                Some(event.to_owned())
+                            } else {
+                                None
+                            }
+                        })
+                        .collect::<Vec<Event>>(),
+                )
+            })
+            .collect::<Vec<Vec<Event>>>()
+            .concat()
+            .len()
     }
 }
 

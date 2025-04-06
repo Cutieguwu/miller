@@ -47,10 +47,10 @@ I figured, that since I already had to digitize every note, that I was required 
 
 === Miller:
 * [ ] Mathematics
-** [ ] Avg. Terrain Gain
-** [ ] Avg. Terrain Loss
-** [ ] Avg. Terrain Delta
-** [ ] Avg. Offence Plays per quarter
+** [*] Avg. Terrain Gain
+** [*] Avg. Terrain Loss
+** [*] Avg. Terrain Delta
+** [*] Avg. Offence Plays per quarter
 ** [ ] Avg. Offence Plays per game
 ** [ ] Avg. Penalties per game
 * [ ] Play Trend Analysis
