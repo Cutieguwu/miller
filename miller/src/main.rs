@@ -11,11 +11,7 @@ struct Args {
         short,
         long,
         value_hint = clap::ValueHint::DirPath,
-        default_value = format!("{}/../templates/logfile.ron", std::env::current_dir()
-            .expect("Failed to get current working dir.")
-            .into_os_string()
-            .to_str()
-            .unwrap())
+        default_value = format!("../templates/logfile.ron")
     )]
     logfile_path: PathBuf,
 

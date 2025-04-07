@@ -142,6 +142,7 @@ impl Game {
     }
 
     pub fn penalties(&self, team: Team) -> usize {
+        // Knock down nesting?
         self.periods
             .iter()
             .filter_map(|period| {
@@ -405,7 +406,7 @@ mod tests {
             ],
         };
 
-        assert!(dbg!(game.deltas(Team::Nebraska)) == vec![10_i8, -3_i8, 5_i8, -2_i8, 12_i8]);
-        assert!(dbg!(game.deltas(Team::ArizonaState)) == vec![10_i8, 0_i8]);
+        assert!(game.deltas(Team::Nebraska) == vec![10_i8, -3_i8, 5_i8, -2_i8, 12_i8]);
+        assert!(game.deltas(Team::ArizonaState) == vec![10_i8, 0_i8]);
     }
 }

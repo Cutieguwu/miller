@@ -4,7 +4,7 @@
 
 [
     Game(
-        version: "0.5.1",
+        version: "0.6.0",
         flags: [Interval(2), IgnoreScore],
         periods: [
             Period(
@@ -189,7 +189,7 @@
         ]
     ),
     Game(
-        version: "0.5.1",
+        version: "0.6.0",
         flags: [Interval(2), IgnoreScore],
         periods: [
             Period(
@@ -343,7 +343,7 @@
         ]
     ),
     Game(
-        version: "0.5.1",
+        version: "0.6.0",
         flags: [Interval(2)],
         periods: [
             Period(
@@ -556,7 +556,7 @@
         ]
     ),
     Game(
-        version: "0.5.1",
+        version: "0.6.0",
         flags: [Interval(2)],
         periods: [
             Period(
@@ -766,7 +766,7 @@
         ]
     ),
     Game(
-        version: "0.5.1",
+        version: "0.6.0",
         flags: [Interval(2)],
         periods: [
             Period(
@@ -993,7 +993,7 @@
     Game(
         // TexasAnM were opponents, but not recorded as
         // they were not present; Miller played in place.
-        version: "0.5.1",
+        version: "0.6.0",
         flags: [Interval(2), IgnoreTeam(TexasAnM)],
         periods: [
             Period(
