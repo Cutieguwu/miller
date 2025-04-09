@@ -21,9 +21,7 @@ struct Args {
     // Behaviour is backwards.
     // ArgAction::SetFalse by default evaluates to true,
     // ArgAction::SetTrue by default evaluates to false.
-    #[arg(short, long, action=ArgAction::SetFalse)]
-    display_results: bool,
-
+    /// Provide flag to disable tui and dump info via Debug pretty printing.
     #[arg(short, long, action=ArgAction::SetTrue)]
     no_tui: bool,
 }
@@ -93,10 +91,8 @@ fn main() -> io::Result<()> {
             }
         }
 
-        if config.display_results {
-            // :#? for pretty-printing.
-            stats.iter().for_each(|team| println!("{:#?}", team));
-        }
+        // :#? for pretty-printing.
+        stats.iter().for_each(|team| println!("{:#?}", team));
 
         return Ok(());
     }
