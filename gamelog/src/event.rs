@@ -1,4 +1,4 @@
-use crate::{Down, Play, Team, TerrainState, error};
+use crate::{Down, Play, TerrainState, error};
 use serde::Deserialize;
 
 type Offence = Team;
@@ -74,6 +74,19 @@ impl Event {
             _ => Err(error::NoTeamAttribute),
         }
     }
+}
+
+#[derive(Debug, Deserialize, Clone, PartialEq)]
+pub enum Team {
+    ArizonaState,
+    #[deprecated(since = "0.2.0", note = "Team left the project.")]
+    BoiseState,
+    Colorado,
+    Iowa,
+    Nebraska,
+    SouthCarolina,
+    Syracuse,
+    TexasAnM,
 }
 
 #[derive(Debug, Deserialize, Clone, PartialEq, Default)]

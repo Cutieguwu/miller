@@ -26,16 +26,3 @@ pub enum Down {
     Third,
     Fourth,
 }
-
-#[derive(Debug, Deserialize, Clone, PartialEq)]
-pub enum Team {
-    ArizonaState,
-    #[deprecated(since = "0.2.0", note = "Team left the project.")]
-    BoiseState,
-    Colorado,
-    Iowa,
-    Nebraska,
-    SouthCarolina,
-    Syracuse,
-    TexasAnM,
-}

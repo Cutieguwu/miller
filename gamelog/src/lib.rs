@@ -1,10 +1,10 @@
 mod action;
 mod error;
+#[allow(deprecated)]
 mod event;
 mod file;
 mod game;
 mod period;
-#[allow(deprecated)]
 mod play;
 mod terrain;
 
