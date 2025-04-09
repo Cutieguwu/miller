@@ -11,16 +11,20 @@ use ratatui::{
     widgets::Widget,
 };
 
-enum Event {
+pub enum Event {
     Input(crossterm::event::KeyEvent),
 }
 
 pub struct App {
-    exit: bool,
+    pub exit: bool,
 }
 
 impl App {
-    fn run(&mut self, terminal: &mut DefaultTerminal, rx: mpsc::Receiver<Event>) -> io::Result<()> {
+    pub fn run(
+        &mut self,
+        terminal: &mut DefaultTerminal,
+        rx: mpsc::Receiver<Event>,
+    ) -> io::Result<()> {
         while !self.exit {
             // Render frame.
             terminal.draw(|frame| self.draw(frame))?;
@@ -35,11 +39,11 @@ impl App {
         Ok(())
     }
 
-    fn draw(&self, frame: &mut Frame) {
+    pub fn draw(&self, frame: &mut Frame) {
         frame.render_widget(self, frame.area());
     }
 
-    fn handle_key_event(&mut self, key_event: crossterm::event::KeyEvent) -> io::Result<()> {
+    pub fn handle_key_event(&mut self, key_event: crossterm::event::KeyEvent) -> io::Result<()> {
         if key_event.kind == KeyEventKind::Press && key_event.code == KeyCode::Char('q') {
             self.exit = true;
         }
@@ -54,5 +58,15 @@ impl Widget for &App {
         Self: Sized,
     {
         let layout: Layout;
+    }
+}
+
+pub fn input_fetcher(tx: mpsc::Sender<Event>) {
+    loop {
+        // unwraps, bc what could go wrong?
+        match crossterm::event::read().unwrap() {
+            crossterm::event::Event::Key(key_event) => tx.send(Event::Input(key_event)).unwrap(),
+            _ => (),
+        }
     }
 }
