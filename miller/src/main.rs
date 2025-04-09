@@ -2,7 +2,7 @@ mod tui;
 
 use clap::{ArgAction, Parser};
 use core::panic;
-use gamelog::{Action, Down, Key, LogFile, Team};
+use gamelog::{Action, Down, Flags, Key, LogFile, Team};
 use std::{io, path::PathBuf, sync::mpsc, thread};
 use tui::App;
 
@@ -37,7 +37,68 @@ fn main() -> io::Result<()> {
     };
 
     if config.no_tui {
-        return;
+        let mut stats = vec![
+            TeamStats::new(Team::ArizonaState),
+            #[allow(deprecated)]
+            TeamStats::new(Team::BoiseState),
+            TeamStats::new(Team::Colorado),
+            TeamStats::new(Team::Iowa),
+            TeamStats::new(Team::Nebraska),
+            TeamStats::new(Team::Syracuse),
+            TeamStats::new(Team::SouthCarolina),
+            TeamStats::new(Team::TexasAnM),
+        ];
+
+        // Work on knocking down the nesting here?
+        for game in log.0.iter() {
+            let teams = match game.teams() {
+                Ok(teams) => teams,
+                Err(_) => continue,
+            };
+
+            for team in teams {
+                // Skip team if they are to be ignored this game.
+                if game.flags.contains(&Flags::IgnoreTeam(team.to_owned())) {
+                    continue;
+                }
+
+                let team_idx = stats
+                    .iter()
+                    .position(|stat| stat.team == team.to_owned())
+                    .unwrap();
+
+                stats[team_idx]
+                    .avg_terrain_gain
+                    .push(game.avg_gain(team.to_owned()));
+
+                stats[team_idx]
+                    .avg_terrain_loss
+                    .push(game.avg_loss(team.to_owned()));
+
+                stats[team_idx]
+                    .avg_terrain_delta
+                    .push(game.avg_delta(team.to_owned()));
+
+                stats[team_idx]
+                    .plays_per_quarter
+                    .push(game.avg_plays_per_quarter(team.to_owned()));
+
+                stats[team_idx]
+                    .plays_per_game
+                    .push(game.team_plays(team.to_owned()));
+
+                stats[team_idx]
+                    .penalties_per_game
+                    .push(game.penalties(team.to_owned()));
+            }
+        }
+
+        if config.display_results {
+            // :#? for pretty-printing.
+            stats.iter().for_each(|team| println!("{:#?}", team));
+        }
+
+        return Ok(());
     }
 
     let mut app = App { exit: false };
