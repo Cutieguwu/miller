@@ -1,6 +1,8 @@
+mod tui;
+
 use clap::{ArgAction, Parser};
 use core::panic;
-use gamelog::{Action, Flags, Key, LogFile, Team};
+use gamelog::{Action, Down, Flags, Key, LogFile, Team};
 use std::path::PathBuf;
 
 #[derive(Debug, Parser)]
@@ -112,6 +114,9 @@ struct TeamStats {
     least_common_play: Option<Action>,
     most_common_key: Option<Key>,
     least_common_key: Option<Key>,
+    // Traits
+    // Typical number of downs to achieve 10 yards.
+    time_to_first_down: Option<Down>,
 }
 
 impl TeamStats {
@@ -130,6 +135,7 @@ impl TeamStats {
             least_common_play: None,
             most_common_key: None,
             least_common_key: None,
+            time_to_first_down: None,
         }
     }
 }
