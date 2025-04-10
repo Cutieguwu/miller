@@ -46,6 +46,8 @@ impl Game {
         let events = self
             .periods
             .iter()
+            // TOTALLY BORKED.
+            // BREAKS IF THE TEAMS ARE UNKNOWN, NEEDS FIXING.
             .filter_map(|period| Some(period.team_events(team.to_owned(), None).ok().unwrap()))
             .collect::<Vec<Vec<Event>>>()
             .concat();
