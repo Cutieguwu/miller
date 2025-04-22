@@ -283,6 +283,7 @@ pub enum Flags {
     IgnoreTeam(Team),
     IgnoreScore,
     Interval(u8),
+    SheerDumbFuckingLuck
 }
 
 /*
