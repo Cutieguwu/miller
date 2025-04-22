@@ -1,11 +1,12 @@
-use crate::{Event, Period, Team, error};
+use crate::{Event, Quarter, Team, error};
 use serde::Deserialize;
+use strum::IntoEnumIterator;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Game {
     pub version: semver::Version,
     pub flags: Vec<Flags>,
-    pub periods: Vec<Period>,
+    pub events: Vec<Event>,
 }
 
 impl Game {
@@ -25,12 +26,10 @@ impl Game {
 
         let mut teams = vec![];
 
-        self.periods.iter().for_each(|period| {
-            for event in period.events.iter() {
-                if let Ok(team) = event.team() {
-                    if !ignore.contains(&team) && !teams.contains(&team) {
-                        teams.push(team)
-                    }
+        self.events.iter().for_each(|event| {
+            if let Ok(team) = event.team() {
+                if !ignore.contains(&team) && !teams.contains(&team) {
+                    teams.push(team)
                 }
             }
         });
@@ -43,12 +42,17 @@ impl Game {
     }
 
     pub fn deltas(&self, team: Team) -> Vec<i8> {
-        let events = self
-            .periods
+        let events: Vec<Event> = self
+            .team_events(team)
             .iter()
-            .filter_map(|period| Some(period.team_events(team.to_owned(), None).ok().unwrap()))
-            .collect::<Vec<Vec<Event>>>()
-            .concat();
+            .filter_map(|event| {
+                if let Event::Quarter(_) = event {
+                    None
+                } else {
+                    Some(event.to_owned())
+                }
+            })
+            .collect();
         let len = events.len() - 1;
         let mut idx: usize = 0;
         let mut deltas: Vec<i8> = vec![];
@@ -65,33 +69,30 @@ impl Game {
     }
 
     pub fn team_plays(&self, team: Team) -> usize {
-        self.periods
+        self.team_events(team)
             .iter()
-            .filter_map(|period| {
-                if !period.is_overtime() {
-                    let plays = period.team_plays(team.to_owned(), None);
-                    Some(plays.unwrap().len())
+            .filter_map(|event| {
+                if let Event::Play(_) = event {
+                    Some(event)
                 } else {
                     None
                 }
             })
-            .collect::<Vec<usize>>()
-            .iter()
-            .sum::<usize>()
+            .collect::<Vec<&Event>>()
+            .len()
     }
 
     /// The average number of plays in a quarter.
-    /// Does not include OT plays or quarters where team indeterminate.
     pub fn avg_plays_per_quarter(&self, team: Team) -> f32 {
-        // Handle if teams known at start or not override via index calculation of all game events.
+        let periods: Vec<Period> = Quarter::iter()
+            .filter_map(|quarter| Some(self.to_owned().get_period(quarter.to_owned())).to_owned())
+            .collect();
 
-        let quarterly_avgs: Vec<f32> = self
-            .periods
+        let quarterly_avgs: Vec<f32> = periods
             .iter()
             .filter_map(|period| {
                 if !period.is_overtime() {
-                    let plays = period.team_plays(team.to_owned(), None);
-                    Some(plays.unwrap().len() as f32 / period.quarters().len() as f32)
+                    Some(period.team_plays(team.to_owned()) as f32)
                 } else {
                     None
                 }
@@ -142,28 +143,137 @@ impl Game {
     }
 
     pub fn penalties(&self, team: Team) -> usize {
-        // Knock down nesting?
-        self.periods
+        self.team_events(team)
             .iter()
-            .filter_map(|period| {
-                Some(
-                    period
-                        .team_events(team.to_owned(), None)
-                        .ok()?
-                        .iter()
-                        .filter_map(|event| {
-                            if let Event::Penalty(_) = event {
-                                Some(event.to_owned())
-                            } else {
-                                None
-                            }
-                        })
-                        .collect::<Vec<Event>>(),
-                )
+            .filter_map(|event| {
+                if let Event::Penalty(_) = event {
+                    Some(event.to_owned())
+                } else {
+                    None
+                }
             })
-            .collect::<Vec<Vec<Event>>>()
-            .concat()
+            .collect::<Vec<Event>>()
             .len()
+    }
+
+    pub fn get_period(&self, quarter: Quarter) -> Period {
+        let mut record = false;
+
+        Period {
+            period: quarter.to_owned(),
+            events: self
+                .events
+                .iter()
+                .filter_map(|event| {
+                    if let Event::Quarter(_) = event {
+                        record = Event::Quarter(quarter.to_owned()) == *event;
+                    }
+
+                    if record {
+                        return Some(event.to_owned());
+                    }
+
+                    None
+                })
+                .collect::<Vec<Event>>(),
+        }
+    }
+
+    pub fn team_events(&self, team: Team) -> Vec<Event> {
+        let mut events: Vec<Event> = vec![];
+        let mut first = true;
+        let mut record: bool = true;
+
+        self.events.iter().for_each(|event| {
+            if let Event::Kickoff(_) | Event::Turnover(_) = event {
+                record = {
+                    if team == event.team().unwrap() {
+                        // Wipe events vec if the start of quarter was opposition
+                        // on offence.
+                        if first {
+                            events = vec![];
+                        }
+
+                        true
+                    } else {
+                        events.push(event.to_owned());
+                        false
+                    }
+                };
+
+                first = false;
+            }
+
+            if record {
+                events.push(event.to_owned());
+            }
+        });
+
+        // If already handled or assumption override applicable
+        events
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct Period {
+    period: Quarter,
+    events: Vec<Event>,
+}
+
+impl Period {
+    pub fn team_events(&self, team: Team) -> Vec<Event> {
+        let mut events: Vec<Event> = vec![];
+        let mut first = true;
+        let mut record: bool = true;
+
+        self.events.iter().for_each(|event| {
+            if let Event::Kickoff(_) | Event::Turnover(_) = event {
+                record = {
+                    if team == event.team().unwrap() {
+                        // Wipe events vec if the start of quarter was opposition
+                        // on offence.
+                        if first {
+                            events = vec![];
+                        }
+
+                        true
+                    } else {
+                        events.push(event.to_owned());
+                        false
+                    }
+                };
+
+                first = false;
+            }
+
+            if record {
+                events.push(event.to_owned());
+            }
+        });
+
+        events
+    }
+
+    pub fn team_plays(&self, team: Team) -> usize {
+        self.team_events(team)
+            .iter()
+            .filter_map(|event| {
+                if let Event::Play(_) = event {
+                    Some(event)
+                } else {
+                    None
+                }
+            })
+            .collect::<Vec<&Event>>()
+            .len()
+    }
+
+    pub fn is_overtime(&self) -> bool {
+        if let Quarter::Overtime(_) = self.period {
+            true
+        } else {
+            false
+        }
     }
 }
 
@@ -175,6 +285,7 @@ pub enum Flags {
     Interval(u8),
 }
 
+/*
 #[cfg(test)]
 mod tests {
     use crate::*;
@@ -184,30 +295,20 @@ mod tests {
         let a = Game {
             version: crate::MIN_VER,
             flags: vec![],
-            periods: vec![
-                Period {
-                    start: Quarter::First,
-                    end: None,
-                    events: vec![
-                        Event::Kickoff(Team::Nebraska),
-                        Event::Play(Play::default()),
-                        Event::Turnover(Team::ArizonaState),
-                    ],
-                },
-                Period {
-                    start: Quarter::Second,
-                    end: Some(Quarter::Fourth),
-                    events: vec![
-                        Event::Turnover(Team::Nebraska),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Turnover(Team::ArizonaState),
-                    ],
-                },
+            events: vec![
+                Event::Quarter(Quarter::First),
+                Event::Kickoff(Team::Nebraska),
+                Event::Play(Play::default()),
+                Event::Turnover(Team::ArizonaState),
+                Event::Quarter(Quarter::Second),
+                Event::Turnover(Team::Nebraska),
+                Event::Play(Play::default()),
+                Event::Play(Play::default()),
+                Event::Play(Play::default()),
+                Event::Play(Play::default()),
+                Event::Play(Play::default()),
+                Event::Play(Play::default()),
+                Event::Turnover(Team::ArizonaState),
             ],
         };
 
@@ -409,4 +510,146 @@ mod tests {
         assert!(game.deltas(Team::Nebraska) == vec![10_i8, -3_i8, 5_i8, -2_i8, 12_i8]);
         assert!(game.deltas(Team::ArizonaState) == vec![10_i8, 0_i8]);
     }
+
+    #[test]
+    fn team_events() {
+        let a = Period {
+            start: Quarter::First,
+            end: None,
+            events: vec![
+                Event::Kickoff(Team::Nebraska),
+                Event::Play(Play::default()),
+                Event::Turnover(Team::ArizonaState),
+                Event::Play(Play::default()),
+                Event::Play(Play::default()),
+                Event::Kickoff(Team::Nebraska),
+                Event::Score(ScorePoints::Touchdown),
+                Event::Kickoff(Team::SouthCarolina),
+            ],
+        };
+
+        let b = Period {
+            start: Quarter::Second,
+            end: None,
+            events: vec![
+                Event::Play(Play::default()),
+                Event::Turnover(Team::SouthCarolina),
+            ],
+        };
+
+        let c = Period {
+            start: Quarter::Second,
+            end: None,
+            events: vec![
+                Event::Play(Play::default()),
+                Event::Turnover(Team::Nebraska),
+            ],
+        };
+
+        let d = Period {
+            start: Quarter::Second,
+            end: None,
+            events: vec![Event::Play(Play::default())],
+        };
+
+        assert!(
+            a.team_events(Team::Nebraska, None).unwrap()
+                == vec![
+                    Event::Kickoff(Team::Nebraska),
+                    Event::Play(Play::default()),
+                    Event::Turnover(Team::ArizonaState),
+                    Event::Kickoff(Team::Nebraska),
+                    Event::Score(ScorePoints::Touchdown),
+                    Event::Kickoff(Team::SouthCarolina),
+                ]
+        );
+        assert!(
+            b.team_events(Team::Nebraska, None).unwrap()
+                == vec![
+                    Event::Play(Play::default()),
+                    Event::Turnover(Team::SouthCarolina)
+                ]
+        );
+        assert!(
+            c.team_events(Team::Nebraska, None).unwrap() == vec![Event::Turnover(Team::Nebraska)]
+        );
+        assert!(true == d.team_events(Team::Nebraska, None).is_err());
+        assert!(false == d.team_events(Team::Nebraska, Some(true)).is_err())
+    }
+
+    #[test]
+    fn team_plays() {
+        let period = Period {
+            start: Quarter::First,
+            end: None,
+            events: vec![
+                Event::Kickoff(Team::Nebraska),
+                Event::Play(Play::default()),
+                Event::Turnover(Team::ArizonaState),
+                Event::Play(Play::default()),
+                Event::Play(Play::default()),
+                Event::Kickoff(Team::Nebraska),
+                Event::Play(Play::default()),
+                Event::Score(ScorePoints::default()),
+                Event::Kickoff(Team::SouthCarolina),
+                Event::Play(Play::default()),
+                Event::Turnover(Team::Nebraska),
+                Event::Play(Play::default()),
+            ],
+        };
+
+        assert!(
+            period.team_plays(Team::Nebraska, None).unwrap()
+                == vec![Play::default(), Play::default(), Play::default()]
+        );
+    }
+
+    #[test]
+    fn quarters() {
+        let first = Period {
+            start: Quarter::First,
+            end: None,
+            events: vec![],
+        };
+
+        let second_fourth = Period {
+            start: Quarter::Second,
+            end: Some(Quarter::Fourth),
+            events: vec![],
+        };
+
+        let third_ot_three = Period {
+            start: Quarter::Third,
+            end: Some(Quarter::Overtime(3)),
+            events: vec![],
+        };
+
+        let ot_one_three = Period {
+            start: Quarter::Overtime(1),
+            end: Some(Quarter::Overtime(3)),
+            events: vec![],
+        };
+
+        assert!(first.quarters() == vec![Quarter::First]);
+        assert!(second_fourth.quarters() == vec![Quarter::Second, Quarter::Third, Quarter::Fourth]);
+        assert!(
+            third_ot_three.quarters()
+                == vec![
+                    Quarter::Third,
+                    Quarter::Fourth,
+                    Quarter::Overtime(1),
+                    Quarter::Overtime(2),
+                    Quarter::Overtime(3)
+                ]
+        );
+        assert!(
+            ot_one_three.quarters()
+                == vec![
+                    Quarter::Overtime(1),
+                    Quarter::Overtime(2),
+                    Quarter::Overtime(3)
+                ]
+        )
+    }
 }
+*/

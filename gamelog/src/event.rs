@@ -1,4 +1,4 @@
-use crate::{Down, Play, TerrainState, error};
+use crate::{Down, Play, Quarter, TerrainState, error};
 use serde::Deserialize;
 
 type Offence = Team;
@@ -10,6 +10,7 @@ pub enum Event {
     Turnover(Offence),
     Penalty(TerrainState),
     Score(ScorePoints),
+    Quarter(Quarter),
 }
 
 impl Event {
@@ -72,6 +73,14 @@ impl Event {
             Self::Kickoff(team) => Ok(team.to_owned()),
             Self::Turnover(team) => Ok(team.to_owned()),
             _ => Err(error::NoTeamAttribute),
+        }
+    }
+
+    pub fn quarter(&self) -> Option<Quarter> {
+        if let Event::Quarter(quarter) = self {
+            Some(quarter.to_owned())
+        } else {
+            None
         }
     }
 }
@@ -171,6 +180,20 @@ mod tests {
             terrain: Some(TerrainState::Inches),
         });
 
+        let quarter = Event::Quarter(Quarter::First);
+
+        assert!(None == quarter.delta(&kickoff));
+        assert!(None == quarter.delta(&first_down));
+        assert!(None == quarter.delta(&second_down));
+        assert!(None == quarter.delta(&third_down));
+        assert!(None == quarter.delta(&fourth_down));
+        assert!(None == quarter.delta(&turnover));
+        assert!(None == quarter.delta(&penalty));
+        assert!(None == quarter.delta(&goal_line));
+        assert!(None == quarter.delta(&inches));
+        assert!(None == quarter.delta(&score));
+        assert!(None == quarter.delta(&quarter));
+
         assert!(10_i8 == kickoff.delta(&first_down).unwrap());
         assert!(0_i8 == kickoff.delta(&second_down).unwrap());
         assert!(None == kickoff.delta(&penalty));
@@ -248,9 +271,9 @@ mod tests {
 
         assert!(None == inches.delta(&kickoff));
         assert!(None == inches.delta(&first_down));
-        assert!(-10_i8 == goal_line.delta(&second_down).unwrap());
-        assert!(-13_i8 == goal_line.delta(&third_down).unwrap());
-        assert!(-5_i8 == goal_line.delta(&fourth_down).unwrap());
+        assert!(-10_i8 == inches.delta(&second_down).unwrap());
+        assert!(-13_i8 == inches.delta(&third_down).unwrap());
+        assert!(-5_i8 == inches.delta(&fourth_down).unwrap());
         assert!(None == inches.delta(&turnover));
         assert!(None == inches.delta(&penalty));
         assert!(None == inches.delta(&goal_line));
