@@ -14,11 +14,15 @@ I figured, that since I already had to digitize every note, that I was required 
 
 * [ ] Data Visualizer?
 * [ ] Dynamic Web Page?
-** Server Side Events?
-** IDK frontend web at all.
-** plotly.rs?
-** charming.rs?
-** WASM?
+* [ ] Pattern Analysis / Play Trend Analysis
+** [ ] Most Frequent Play
+** [ ] Least Frequent Play
+** [ ] Most Effective Play (Greatest Terrain Gain on average)
+** [ ] Most frequent play set.
+** [ ] Repeating play pattern.
+** [ ] Slow after score.
+** [ ] Bias to using Play Actions
+** [ ] Bias to using Runs
 
 === Gamelog
 * [*] Data Format
@@ -59,7 +63,3 @@ I figured, that since I already had to digitize every note, that I was required 
 ** [*] Avg. Offence Plays per quarter
 ** [*] Avg. Offence Plays per game
 ** [*] Avg. Penalties per game
-* [ ] Play Trend Analysis
-** [ ] Most Frequent Play
-** [ ] Least Frequent Play
-** [ ] Most Effective Play (Greatest Terrain Gain given sufficient data)
