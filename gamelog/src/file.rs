@@ -1,6 +1,7 @@
-use crate::error;
+use crate::{Action, Team, error};
 use serde::Deserialize;
 use std::{fs::File, path::PathBuf};
+use strum::IntoEnumIterator;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct LogFile(pub Vec<super::Game>);
@@ -21,6 +22,46 @@ impl LogFile {
     /// Returns if the LogFile min version is compatible.
     pub fn is_compatible(&self) -> bool {
         self.min_ver().cmp_precedence(&crate::MIN_VER).is_lt()
+    }
+
+    /// Returns the most common action for a given team.
+    pub fn most_frequent_action(&self, team: Team) -> Action {
+        let mut most_common_action = Action::Unknown;
+        let mut frequency = 0;
+
+        for action in Action::iter() {
+            if action == Action::Unknown {
+                continue;
+            }
+
+            let found = self
+                .0
+                .iter()
+                .filter_map(|game| {
+                    Some(
+                        game.team_plays(team.to_owned())
+                            .0
+                            .iter()
+                            .filter_map(|play| {
+                                if play.action == action {
+                                    Some(())
+                                } else {
+                                    None
+                                }
+                            })
+                            .collect::<Vec<()>>()
+                            .len(),
+                    )
+                })
+                .sum::<usize>();
+
+            if found > frequency {
+                frequency = found;
+                most_common_action = action.to_owned();
+            }
+        }
+
+        most_common_action
     }
 }
 

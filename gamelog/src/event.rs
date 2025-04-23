@@ -85,13 +85,14 @@ impl Event {
     }
 }
 
-#[derive(Debug, Deserialize, Clone, PartialEq)]
+#[derive(Debug, Deserialize, Clone, PartialEq, Default)]
 pub enum Team {
     ArizonaState,
     #[deprecated(since = "0.2.0", note = "Team left the project.")]
     BoiseState,
     Colorado,
     Iowa,
+    #[default]
     Nebraska,
     SouthCarolina,
     Syracuse,

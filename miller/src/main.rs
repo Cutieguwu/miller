@@ -83,7 +83,7 @@ fn main() -> io::Result<()> {
 
                 stats[team_idx]
                     .plays_per_game
-                    .push(game.team_plays(team.to_owned()));
+                    .push(game.team_plays(team.to_owned()).0.len());
 
                 stats[team_idx]
                     .penalties_per_game

@@ -1,6 +1,7 @@
 use serde::Deserialize;
+use strum::EnumIter;
 
-#[derive(Debug, Deserialize, Clone, Default, PartialEq)]
+#[derive(Debug, Deserialize, Clone, Default, PartialEq, EnumIter)]
 pub enum Action {
     CrackStudentBodyRightTackle,
     Curls,

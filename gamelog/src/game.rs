@@ -1,4 +1,4 @@
-use crate::{Event, Quarter, Team, error};
+use crate::{Event, Play, Quarter, Team, error};
 use serde::Deserialize;
 use strum::IntoEnumIterator;
 
@@ -44,6 +44,7 @@ impl Game {
     pub fn deltas(&self, team: Team) -> Vec<i8> {
         let events: Vec<Event> = self
             .team_events(team)
+            .0
             .iter()
             .filter_map(|event| {
                 if let Event::Quarter(_) = event {
@@ -68,18 +69,20 @@ impl Game {
         deltas
     }
 
-    pub fn team_plays(&self, team: Team) -> usize {
-        self.team_events(team)
-            .iter()
-            .filter_map(|event| {
-                if let Event::Play(_) = event {
-                    Some(event)
-                } else {
-                    None
-                }
-            })
-            .collect::<Vec<&Event>>()
-            .len()
+    pub fn team_plays(&self, team: Team) -> TeamPlays {
+        TeamPlays(
+            self.team_events(team)
+                .0
+                .iter()
+                .filter_map(|event| {
+                    if let Event::Play(play) = event {
+                        Some(play.to_owned())
+                    } else {
+                        None
+                    }
+                })
+                .collect::<Vec<Play>>(),
+        )
     }
 
     /// The average number of plays in a quarter.
@@ -144,6 +147,7 @@ impl Game {
 
     pub fn penalties(&self, team: Team) -> usize {
         self.team_events(team)
+            .0
             .iter()
             .filter_map(|event| {
                 if let Event::Penalty(_) = event {
@@ -179,7 +183,7 @@ impl Game {
         }
     }
 
-    pub fn team_events(&self, team: Team) -> Vec<Event> {
+    pub fn team_events(&self, team: Team) -> TeamEvents {
         let mut events: Vec<Event> = vec![];
         let mut first = true;
         let mut record: bool = true;
@@ -210,9 +214,14 @@ impl Game {
         });
 
         // If already handled or assumption override applicable
-        events
+        TeamEvents(events)
     }
 }
+
+#[derive(Debug)]
+pub struct TeamEvents(pub Vec<Event>);
+
+pub struct TeamPlays(pub Vec<Play>);
 
 #[derive(Debug, Clone)]
 pub struct Period {
@@ -283,7 +292,7 @@ pub enum Flags {
     IgnoreTeam(Team),
     IgnoreScore,
     Interval(u8),
-    SheerDumbFuckingLuck
+    SheerDumbFuckingLuck,
 }
 
 /*
