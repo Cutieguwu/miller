@@ -14,6 +14,9 @@ pub enum Event {
 }
 
 impl Event {
+    /// Returns the terrain delta between the self and given following events.
+    /// Returns `None` if no delta can be calculated between
+    /// `self` and following events.
     pub fn delta(&self, following: &Self) -> Option<i8> {
         // Clean this trash spaghetti code up.
 
@@ -68,6 +71,8 @@ impl Event {
         }
     }
 
+    /// Returns the team for variants which possess this attribute.
+    /// Errors if `self` has no team attribute.
     pub fn team(&self) -> Result<Team, error::NoTeamAttribute> {
         match self {
             Self::Kickoff(team) => Ok(team.to_owned()),
@@ -76,6 +81,8 @@ impl Event {
         }
     }
 
+    /// Returns the team for variants which possess this attribute.
+    /// Returns `None` if `self` has no team attribute.
     pub fn quarter(&self) -> Option<Quarter> {
         if let Event::Quarter(quarter) = self {
             Some(quarter.to_owned())

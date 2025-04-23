@@ -10,7 +10,7 @@ pub struct Game {
 }
 
 impl Game {
-    /// Returns the teams of this game.
+    /// Returns the teams that played.
     pub fn teams(&self) -> Result<Vec<Team>, error::TeamsError> {
         let ignore: Vec<Team> = self
             .flags
@@ -41,6 +41,7 @@ impl Game {
         }
     }
 
+    /// Returns all of the terrain deltas of a team.
     pub fn deltas(&self, team: Team) -> Vec<i8> {
         let events: Vec<Event> = self
             .team_events(team)
@@ -69,6 +70,7 @@ impl Game {
         deltas
     }
 
+    /// Returns all of the plays of a team.
     pub fn team_plays(&self, team: Team) -> TeamPlays {
         TeamPlays(
             self.team_events(team)
@@ -88,7 +90,7 @@ impl Game {
     /// The average number of plays in a quarter.
     pub fn avg_plays_per_quarter(&self, team: Team) -> f32 {
         let periods: Vec<Period> = Quarter::iter()
-            .filter_map(|quarter| Some(self.to_owned().get_period(quarter.to_owned())).to_owned())
+            .filter_map(|quarter| Some(self.get_period(quarter.to_owned())).to_owned())
             .collect();
 
         let quarterly_avgs: Vec<f32> = periods
@@ -105,6 +107,7 @@ impl Game {
         quarterly_avgs.iter().sum::<f32>() / quarterly_avgs.len() as f32
     }
 
+    /// Returns the average delta of a team.
     pub fn avg_delta(&self, team: Team) -> f32 {
         let deltas = self.deltas(team);
 
@@ -112,6 +115,7 @@ impl Game {
         deltas.iter().sum::<i8>() as f32 / deltas.len() as f32
     }
 
+    /// Returns the average delta for a team's positive deltas.
     pub fn avg_gain(&self, team: Team) -> f32 {
         let deltas: Vec<u8> = self
             .deltas(team)
@@ -129,6 +133,7 @@ impl Game {
         deltas.iter().sum::<u8>() as f32 / deltas.len() as f32
     }
 
+    /// Returns the average delta for a team's negative deltas.
     pub fn avg_loss(&self, team: Team) -> f32 {
         let deltas: Vec<i8> = self
             .deltas(team)
@@ -145,6 +150,7 @@ impl Game {
         deltas.iter().sum::<i8>() as f32 / deltas.len() as f32
     }
 
+    /// Returns the number of penalties that a team experienced.
     pub fn penalties(&self, team: Team) -> usize {
         self.team_events(team)
             .0
@@ -160,6 +166,7 @@ impl Game {
             .len()
     }
 
+    /// Returns the requested quarter.
     pub fn get_period(&self, quarter: Quarter) -> Period {
         let mut record = false;
 
@@ -183,6 +190,7 @@ impl Game {
         }
     }
 
+    /// Returns all events relevent to a team's deltas and score.
     pub fn team_events(&self, team: Team) -> TeamEvents {
         let mut events: Vec<Event> = vec![];
         let mut first = true;
@@ -221,6 +229,7 @@ impl Game {
 #[derive(Debug)]
 pub struct TeamEvents(pub Vec<Event>);
 
+#[derive(Debug)]
 pub struct TeamPlays(pub Vec<Play>);
 
 #[derive(Debug, Clone)]
@@ -230,6 +239,7 @@ pub struct Period {
 }
 
 impl Period {
+    /// Returns all events relevent to a team's deltas and score.
     pub fn team_events(&self, team: Team) -> Vec<Event> {
         let mut events: Vec<Event> = vec![];
         let mut first = true;
@@ -263,6 +273,7 @@ impl Period {
         events
     }
 
+    /// Returns all of the plays of a team.
     pub fn team_plays(&self, team: Team) -> usize {
         self.team_events(team)
             .iter()
@@ -277,6 +288,7 @@ impl Period {
             .len()
     }
 
+    /// Returns true if the current period is overtime.
     pub fn is_overtime(&self) -> bool {
         if let Quarter::Overtime(_) = self.period {
             true
