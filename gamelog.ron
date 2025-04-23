@@ -4,1106 +4,1698 @@
 
 [
     Game(
-        version: "0.5.0",
-        flags: [IgnoreScore],
-        periods: [
-            Period(
-                start: First,
-                end: Second,
-                events: [
-                    Kickoff(ArizonaState),
-                    Play(
-                        action: Unknown,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(2),
-                    ),
-                    Play(
-                        action: Unknown, // Throw Left
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Throw Right
-                        down: Second,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // PA Throw Right
-                        down: Second,
-                        terrain: Yards(2),
-                    ),
-                    Play(
-                        action: Unknown, // PA Run Right
-                        down: Third,
-                        terrain: Yards(7),
-                    ),
-                    Play(
-                        action: HalfbackSweep,
-                        down: Fourth,
-                        terrain: Yards(11),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Turnover(TexasAnM),
-                    Play(
-                        action: Unknown, // PA Throw Right
-                        down: Second,
-                        terrain: Yards(11),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Third,
-                        terrain: Yards(9),
-                    ),
-                    Play(
-                        action: Unknown, // Throw Centre
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Throw Run Right
-                        down: Second,
-                        terrain: Yards(3),
-                    ),
-                    Play(
-                        action: Unknown, // Throw that failed miserably.
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                ]
+        version: "0.7.0",
+        flags: [Interval(2), IgnoreScore],
+        events: [
+            Quarter(First),
+            Kickoff(ArizonaState),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
             ),
-            Period(
-                start: Third,
-                end: None,
-                events: [
-                    Kickoff(TexasAnM),
-                    Play(
-                        action: Unknown, // PA Comebacks or Curls? Original note: Spike Centre
-                        down: Second,
-                        terrain: Yards(6),
-                    ),
-                    Play(
-                        action: Unknown, // Halfback? Original note: None
-                        down: Third,
-                        terrain: Yards(13),
-                    ),
-                    Play(
-                        action: Unknown, // HB Slip Screen? Original note: Throw Right
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Turnover(ArizonaState),
-                    Play(
-                        action: SlotOut, // Slot Out or PA Comebacks. Original note: ShotgunDoubleFlex Throw
-                        down: Second,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: PlayActionComebacks, // Curls or PA Comebacks. Original note: Spike Centre
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Turnover(TexasAnM),
-                    Play(
-                        action: PlayActionComebacks, // Original note: Dupe Spike Centre
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Failed Throw
-                        down: Second,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: PowerZero, // Power 0 or Crack Student Body RT. Original note: Transfer Rush Right
-                        down: Third,
-                        terrain: Yards(15),
-                    ),
-                ]
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(2),
             ),
-            Period(
-                start: Fourth,
-                end: None,
-                events: [
-                    Play(
-                        action: PlayActionComebacks, // Original note: Dupe Spike Centre
-                        down: Fourth,
-                        terrain: Yards(17),
-                    ),
-                    Play(
-                        action: Unknown, // Punt
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw Left
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw Centre
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: HalfbackSweep, // Original note: Transfer Run Left
-                        down: Second,
-                        terrain: Yards(12),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw Centre
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: PowerZero, // Original note: Transfer Run Right
-                        down: Second,
-                        terrain: Yards(8),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Kickoff(ArizonaState),
-                ]
+            Play(
+                action: Unknown, // Throw Left
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Throw Right
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // PA Throw Right
+                down: Second,
+                terrain: Yards(2),
+            ),
+            Play(
+                action: Unknown, // PA Run Right
+                down: Third,
+                terrain: Yards(7),
+            ),
+            Quarter(Second),
+            Play(
+                action: HalfbackSweep,
+                down: Fourth,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Turnover(TexasAnM),
+            Play(
+                action: Unknown, // PA Throw Right
+                down: Second,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(9),
+            ),
+            Play(
+                action: Unknown, // Throw Centre
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Throw Run Right
+                down: Second,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: Unknown, // Throw that failed miserably.
+                down: First,
+                terrain: Yards(10),
+            ),
+            Quarter(Third),
+            Kickoff(TexasAnM),
+            Play(
+                action: Unknown, // PA Comebacks or Curls? Original note: Spike Centre
+                down: Second,
+                terrain: Yards(6),
+            ),
+            Play(
+                action: Unknown, // Halfback? Original note: None
+                down: Third,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: Unknown, // HB Slip Screen? Original note: Throw Right
+                down: First,
+                terrain: Yards(10),
+            ),
+            Turnover(ArizonaState),
+            Play(
+                action: SlotOut, // Slot Out or PA Comebacks. Original note: ShotgunDoubleFlex Throw
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionComebacks, // Curls or PA Comebacks. Original note: Spike Centre
+                down: First,
+                terrain: Yards(10),
+            ),
+            Turnover(TexasAnM),
+            Play(
+                action: PlayActionComebacks, // Original note: Dupe Spike Centre
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Failed Throw
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero, // Power 0 or Crack Student Body RT. Original note: Transfer Rush Right
+                down: Third,
+                terrain: Yards(15),
+            ),
+            Quarter(Fourth),
+            Play(
+                action: PlayActionComebacks, // Original note: Dupe Spike Centre
+                down: Fourth,
+                terrain: Yards(17),
+            ),
+            Play(
+                action: Unknown, // Punt
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Throw Left
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Throw Centre
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSweep, // Original note: Transfer Run Left
+                down: Second,
+                terrain: Yards(12),
+            ),
+            Play(
+                action: Unknown, // Original note: Throw Centre
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero, // Original note: Transfer Run Right
+                down: Second,
+                terrain: Yards(8),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Kickoff(ArizonaState),
+        ]
+    ),
+    Game(
+        version: "0.7.0",
+        flags: [Interval(2), IgnoreScore],
+        events: [
+            Quarter(First),
+            Kickoff(Syracuse),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: Unknown, // Original note: Spike Centre
+                down: Third,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: Curls,
+                down: Fourth,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: Mesh,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(15),
+            ),
+            Play(
+                action: Unknown, // Original note: PA Throw Left
+                down: First,
+                terrain: Yards(10),
+            ),
+            Quarter(Second),
+            Play(
+                action: Unknown, // Original note: PA Throw Centre
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSlam, // Original note: Transfer Rush Centre/Left
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Shotgun Throw Right
+                down: Second,
+                terrain: Yards(8),
+            ),
+            Play(
+                action: PlayActionPowerZero, // Original note: PA Rush Right
+                down: Third,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: Unknown, // PowerZero or CSB RT? Original note: "HB? Rush Centre/Right"
+                down: Fourth,
+                terrain: Yards(6),
+            ),
+            Play(
+                action: Unknown, // HalfbackSlam? Original note: PA Rush Centre
+                down: None,
+                terrain: None,
+            ),
+            Turnover(Colorado),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSlam, // Original note: "Transfer HB? Rush Centre"
+                down: Second,
+                terrain: Yards(9),
+            ),
+            Play(
+                action: Unknown, // Original note: Failed Throw
+                down: Third,
+                terrain: Yards(17),
+            ),
+            Play(
+                action: Unknown, // Original note: Same Failed Throw
+                down: Fourth,
+                terrain: Unknown,
+            ),
+            Quarter(Third),
+            Kickoff(Colorado),
+            Play(
+                action: Unknown, // Original note: Throw Right
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: ShotgunDoubleFlex Throw Right
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Pass Run Centre
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero,
+                down: Second,
+                terrain: Yards(6),
+            ),
+            Quarter(Fourth),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Third,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: Unknown, // Original note: Spike Centre
+                down: Fourth,
+                terrain: Yards(3),
+            ),
+            Kickoff(Syracuse),
+            Play(
+                action: Unknown, // Original note: PA Throw Centre
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SpeedOption,
+                down: Second,
+                terrain: Yards(3),
             ),
         ]
     ),
     Game(
-        version: "0.5.0",
-        flags: [IgnoreScore],
-        periods: [
-            Period(
-                start: First,
-                end: None,
-                events: [
-                    Kickoff(Syracuse),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(3),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Spike Centre
-                        down: Third,
-                        terrain: Yards(3),
-                    ),
-                    Play(
-                        action: Curls,
-                        down: Fourth,
-                        terrain: Yards(3),
-                    ),
-                    Play(
-                        action: Mesh,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(15),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: PA Throw Left
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                ]
+        version: "0.7.0",
+        flags: [Interval(2)],
+        events: [
+            Quarter(First),
+            Kickoff(Nebraska),
+            Play(
+                action: Curls,
+                down: First,
+                terrain: Yards(10)
             ),
-            Period(
-                start: Second,
-                end: None,
-                events: [
-                    Play(
-                        action: Unknown, // Original note: PA Throw Centre
-                        down: Second,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: HalfbackSlam, // Original note: Transfer Rush Centre/Left
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Shotgun Throw Right
-                        down: Second,
-                        terrain: Yards(8),
-                    ),
-                    Play(
-                        action: PlayActionPowerZero, // Original note: PA Rush Right
-                        down: Third,
-                        terrain: Yards(1),
-                    ),
-                    Play(
-                        action: Unknown, // PowerZero or CSB RT? Original note: "HB? Rush Centre/Right"
-                        down: Fourth,
-                        terrain: Yards(6),
-                    ),
-                    Play(
-                        action: Unknown, // HalfbackSlam? Original note: PA Rush Centre
-                        down: None,
-                        terrain: None,
-                    ),
-                    Turnover(Colorado),
-                    Play(
-                        action: PlayActionComebacks,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: HalfbackSlam, // Original note: "Transfer HB? Rush Centre"
-                        down: Second,
-                        terrain: Yards(9),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Failed Throw
-                        down: Third,
-                        terrain: Yards(17),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Same Failed Throw
-                        down: Fourth,
-                        terrain: Unknown,
-                    ),
-                ]
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(7),
             ),
-            Period(
-                start: Third,
-                end: None,
-                events: [
-                    Kickoff(Colorado),
-                    Play(
-                        action: Unknown, // Original note: Throw Right
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: ShotgunDoubleFlex Throw Right
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Pass Run Centre
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: PowerZero,
-                        down: Second,
-                        terrain: Yards(6),
-                    ),
-                ]
+            Play(
+                action: Curls,
+                down: Third,
+                terrain: Yards(9),
             ),
-            Period(
-                start: Fourth,
-                end: None,
-                events: [
-                    Play(
-                        action: CrackStudentBodyRightTackle,
-                        down: Third,
-                        terrain: Yards(11),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Spike Centre
-                        down: Fourth,
-                        terrain: Yards(3),
-                    ),
-                    Kickoff(Syracuse),
-                    Play(
-                        action: Unknown, // Original note: PA Throw Centre
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: SpeedOption,
-                        down: Second,
-                        terrain: Yards(3),
-                    ),
-                ]
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Fourth,
+                terrain: Yards(9),
             ),
-        ]
-    ),
-    Game(
-        version: "0.5.0",
-        flags: [],
-        periods: [
-            Period(
-                start: First,
-                end: None,
-                events: [
-                    Kickoff(Nebraska),
-                    Play(
-                        action: Curls,
-                        down: First,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(7),
-                    ),
-                    Play(
-                        action: Curls,
-                        down: Third,
-                        terrain: Yards(9),
-                    ),
-                    Play(
-                        action: CrackStudentBodyRightTackle,
-                        down: Fourth,
-                        terrain: Yards(9),
-                    ),
-                    Play(
-                        action: FleaFlicker,
-                        down: None,
-                        terrain: None,
-                    ),
-                    Turnover(SouthCarolina),
-                    Play(
-                        action: Unknown, // Original note: Throw Right Dash
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                ]
+            Play(
+                action: FleaFlicker,
+                down: None,
+                terrain: None,
             ),
-            Period(
-                start: Second,
-                end: None,
-                events: [
-                    Play(
-                        action: Unknown, // Original note: Throw Centre
-                        down: First,
-                        terrain: GoalLine,
-                    ),
-                    Score(Touchdown),
-                    Score(PatFail),
-                    Kickoff(Nebraska),
-                    Play(
-                        action: StrongFlood,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: HalfbackSweep,
-                        down: Second,
-                        terrain: Yards(15),
-                    ),
-                    Play(
-                        action: SlantBubble,
-                        down: Third,
-                        terrain: Yards(4),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Halfback Slant Dummy
-                        down: Fourth,
-                        terrain: Yards(6),
-                    ),
-                    Play(
-                        action: SlantBubble,
-                        down: None,
-                        terrain: None,
-                    ),
-                    Turnover(SouthCarolina),
-                    Play(
-                        action: Unknown,
-                        down: First,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(10)
-                    ),
-                ]
+            Turnover(SouthCarolina),
+            Play(
+                action: Unknown, // Original note: Throw Right Dash
+                down: First,
+                terrain: Yards(10),
             ),
-            Period(
-                start: Third,
-                end: None,
-                events: [
-                    Kickoff(SouthCarolina),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(18),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Third,
-                        terrain: Yards(14),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Spike Centre
-                        down: Fourth,
-                        terrain: Yards(16),
-                    ),
-                    Turnover(Nebraska),
-                    Play(
-                        action: Unknown, // Original note: Fake Field Goal 44yrds
-                        down: None,
-                        terrain: None,
-                    ),
-                    Score(FieldGoal),
-                    Kickoff(SouthCarolina),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(3),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Third,
-                        terrain: Yards(3),
-                    ),
-                ]
+            Quarter(Second),
+            Play(
+                action: Unknown, // Original note: Throw Centre
+                down: First,
+                terrain: GoalLine,
             ),
-            Period(
-                start: Fourth,
-                end: None,
-                events: [
-                    Play(
-                        action: Unknown, // Original note: Throw Centre
-                        down: Fourth,
-                        terrain: Yards(3),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw, Run Left
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw Left
-                        down: Second,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Third,
-                        terrain: Yards(5),
-                    ),
-                    Score(Touchdown),
-                    Score(PatFail),
-                    Kickoff(Nebraska),
-                    Play(
-                        action: PowerZero,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: StrongFlood,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: PlayActionComebacks,
-                        down: Second,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Punt
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Turnover(SouthCarolina),
-                    Play(
-                        action: Unknown,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Third,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Fourth,
-                        terrain: Yards(6),
-                    ),
-                    Turnover(Nebraska),
-                    // Field Goal 41 yrds
-                    Score(FieldGoal),
-                    Kickoff(SouthCarolina),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(18),
-                    )
-                ]
+            Score(Touchdown),
+            Score(PatFail),
+            Kickoff(Nebraska),
+            Play(
+                action: StrongFlood,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: Second,
+                terrain: Yards(15),
+            ),
+            Play(
+                action: SlantBubble,
+                down: Third,
+                terrain: Yards(4),
+            ),
+            Play(
+                action: Unknown, // Original note: Halfback Slant Dummy
+                down: Fourth,
+                terrain: Yards(6),
+            ),
+            Play(
+                action: SlantBubble,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(SouthCarolina),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(10)
+            ),
+            Quarter(Third),
+            Kickoff(SouthCarolina),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(18),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(14),
+            ),
+            Play(
+                action: Unknown, // Original note: Spike Centre
+                down: Fourth,
+                terrain: Yards(16),
+            ),
+            Turnover(Nebraska),
+            Play(
+                action: Unknown, // Original note: Fake Field Goal 44yrds
+                down: None,
+                terrain: None,
+            ),
+            Score(FieldGoal),
+            Kickoff(SouthCarolina),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(3),
+            ),
+            Quarter(Fourth),
+            Play(
+                action: Unknown, // Original note: Throw Centre
+                down: Fourth,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: Unknown, // Original note: Throw, Run Left
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Throw Left
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(5),
+            ),
+            Score(Touchdown),
+            Score(PatFail),
+            Kickoff(Nebraska),
+            Play(
+                action: PowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: StrongFlood,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Punt
+                down: First,
+                terrain: Yards(10),
+            ),
+            Turnover(SouthCarolina),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Fourth,
+                terrain: Yards(6),
+            ),
+            Turnover(Nebraska),
+            // Field Goal 41 yrds
+            Score(FieldGoal),
+            Kickoff(SouthCarolina),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(18),
             ),
         ]
     ),
     Game(
-        version: "0.5.0",
-        flags: [],
-        periods: [
-            Period(
-                start: First,
-                end: None,
-                events: [
-                    Kickoff(Colorado),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(3),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Pass, Dash Centre
-                        down: Third,
-                        terrain: Yards(3),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw, Dash Right
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Dash Centre
-                        down: Second,
-                        terrain: Yards(12),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                ]
+        version: "0.7.0",
+        flags: [Interval(2)],
+        events: [
+            Quarter(First),
+            Kickoff(Colorado),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(3),
             ),
-            Period(
-                start: Second,
-                end: None,
-                events: [
-                    Play(
-                        action: Unknown, // Original note: Pass Back, Dash
-                        down: Second,
-                        terrain: Yards(15),
-                    ),
-                    Play( // Golden Play
-                        action: Unknown, // Original note: Throw, Dash Right
-                        down: Third,
-                        terrain: Yards(2),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Same as last.
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Pass Back, Dash Right
-                        down: Second,
-                        terrain: Yards(7),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw Right; Went Out
-                        down: Third,
-                        terrain: Yards(7),
-                    ),
-                    Play(
-                        action: Unknown, // HB? Original note: Walk Back Throw Centre,
-                        down: First,
-                        terrain: GoalLine,
-                    ),
-                    Score(Touchdown),
-                    Score(PatSafety),
-                    Kickoff(Iowa),
-                    Penalty(Yards(15)),
-                    Play(
-                        action: Unknown, // Original note: PA Throw Right and Dash
-                        down: Second,
-                        terrain: Yards(6),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw Right
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(1),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Spike Left
-                        down: Third,
-                        terrain: Yards(1),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: PA Throw Right and Dash
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw Right
-                        down: First,
-                        terrain: GoalLine,
-                    ),
-                    Score(FieldGoal),
-                ]
+            Play(
+                action: Unknown, // Original note: Pass, Dash Centre
+                down: Third,
+                terrain: Yards(3),
             ),
-            Period(
-                start: Third,
-                end: None,
-                events: [
-                    Kickoff(Iowa),
-                    Play(
-                        action: Unknown, // HB? Original note: Run Back, Throw Centre, Run Centre
-                        down: Second,
-                        terrain: Yards(4),
-                    ),
-                    Play(
-                        action: Unknown, // PA? Original note: Dupe, Throw Right
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Orignal note: Run Left
-                        down: Second,
-                        terrain: Yards(13),
-                    ),
-                    Play(
-                        action: Unknown, // PA? Original note: Dupe, Throw Centre, Run Centre
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Orignal note: Throw Right
-                        down: Second,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw Left
-                        down: Third,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Dupe, Throw Centre, Run Centre
-                        down: First,
-                        terrain: Yards(10),
-                    ),
-                ]
+            Play(
+                action: Unknown, // Original note: Throw, Dash Right
+                down: First,
+                terrain: Yards(10),
             ),
-            Period(
-                start: Fourth,
-                end: None,
-                events: [
-                    Play(
-                        action: Unknown, // Original note: Throw Left, Run Left
-                        down: Second,
-                        terrain: Yards(8),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Dupe, Throw Centre, Run Centre
-                        down: Third,
-                        terrain: Yards(4),
-                    ),
-                    // Touchdown
-                    Score(Touchdown),
-                    Score(PatSafety),
-                    Kickoff(Colorado),
-                    Play(
-                        action: Unknown, // Original note: Dupe, Throw Left
-                        down: Second,
-                        terrain: Yards(10),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Throw Centre, Run Centre
-                        down: Third,
-                        terrain: Yards(1),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Run Left
-                        down: Fourth,
-                        terrain: Yards(4)
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Dupe, Run Right,
-                        down: None,
-                        terrain: None,
-                    ),
-                    Turnover(Iowa),
-                    Penalty(Yards(15)),
-                    Play(
-                        action: Unknown, // Original note: Run Left
-                        down: Second,
-                        terrain: Yards(11),
-                    ),
-                    Play(
-                        action: Unknown, // Original note: Pass Back, Run Left
-                        down: Third,
-                        terrain: Yards(15),
-                    ),
-                    //Field Goal
-                    Score(FieldGoal)
-                ]
-            )
+            Play(
+                action: Unknown, // Original note: Dash Centre
+                down: Second,
+                terrain: Yards(12),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Quarter(Second),
+            Play(
+                action: Unknown, // Original note: Pass Back, Dash
+                down: Second,
+                terrain: Yards(15),
+            ),
+            Play( // Golden Play
+                action: Unknown, // Original note: Throw, Dash Right
+                down: Third,
+                terrain: Yards(2),
+            ),
+            Play(
+                action: Unknown, // Original note: Same as last.
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Pass Back, Dash Right
+                down: Second,
+                terrain: Yards(7),
+            ),
+            Play(
+                action: Unknown, // Original note: Throw Right; Went Out
+                down: Third,
+                terrain: Yards(7),
+            ),
+            Play(
+                action: Unknown, // HB? Original note: Walk Back Throw Centre,
+                down: First,
+                terrain: GoalLine,
+            ),
+            Score(Touchdown),
+            Score(PatSafety),
+            Kickoff(Iowa),
+            Penalty(Yards(15)),
+            Play(
+                action: Unknown, // Original note: PA Throw Right and Dash
+                down: Second,
+                terrain: Yards(6),
+            ),
+            Play(
+                action: Unknown, // Original note: Throw Right
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: Unknown, // Original note: Spike Left
+                down: Third,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: Unknown, // Original note: PA Throw Right and Dash
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Throw Right
+                down: First,
+                terrain: GoalLine,
+            ),
+            Score(FieldGoal),
+            Quarter(Third),
+            Kickoff(Iowa),
+            Play(
+                action: Unknown, // HB? Original note: Run Back, Throw Centre, Run Centre
+                down: Second,
+                terrain: Yards(4),
+            ),
+            Play(
+                action: Unknown, // PA? Original note: Dupe, Throw Right
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Orignal note: Run Left
+                down: Second,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: Unknown, // PA? Original note: Dupe, Throw Centre, Run Centre
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Orignal note: Throw Right
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Throw Left
+                down: Third,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Dupe, Throw Centre, Run Centre
+                down: First,
+                terrain: Yards(10),
+            ),
+            Quarter(Fourth),
+            Play(
+                action: Unknown, // Original note: Throw Left, Run Left
+                down: Second,
+                terrain: Yards(8),
+            ),
+            Play(
+                action: Unknown, // Original note: Dupe, Throw Centre, Run Centre
+                down: Third,
+                terrain: Yards(4),
+            ),
+            // Touchdown
+            Score(Touchdown),
+            Score(PatSafety),
+            Kickoff(Colorado),
+            Play(
+                action: Unknown, // Original note: Dupe, Throw Left
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown, // Original note: Throw Centre, Run Centre
+                down: Third,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: Unknown, // Original note: Run Left
+                down: Fourth,
+                terrain: Yards(4)
+            ),
+            Play(
+                action: Unknown, // Original note: Dupe, Run Right,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(Iowa),
+            Penalty(Yards(15)),
+            Play(
+                action: Unknown, // Original note: Run Left
+                down: Second,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: Unknown, // Original note: Pass Back, Run Left
+                down: Third,
+                terrain: Yards(15),
+            ),
+            Score(FieldGoal)
         ]
     ),
     Game(
-        version: "0.5.0",
-        flags: [],
-        periods: [
-            Period(
-                start: First,
-                end: None,
-                events: [
-                    Kickoff(Nebraska),
-                    Play(
-                        action: CrackStudentBodyRightTackle,
-                        down:Second,
-                        terrain:Yards(13)
-                    ),
-                    Play(
-                        action:Mesh,
-                        down:Third,
-                        terrain:Yards(14)
-                    ),
-                    Play(
-                        action:StrongFlood,
-                        down:Fourth,
-                        terrain:Yards(14)
-                    ),
-                    Play(
-                        action: PlayActionComebacks,
-                        down:First,
-                        terrain:Yards(10)
-                    ),
-                    Play(
-                        action:SlotOut,
-                        down:Second,
-                        terrain:Yards(1)
-                    )
-                ]
+        version: "0.7.0",
+        flags: [Interval(2)],
+        events: [
+            Quarter(First),
+            Kickoff(Nebraska),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down:Second,
+                terrain:Yards(13)
             ),
-            Period(
-                start:Second,
-                end:None,
-                events:[
-                    Play(
-                        action:PlayActionComebacks,
-                        down: First,
-                        terrain:Yards(10)
-                    ),
-                    Play(
-                        action:SpeedOption,
-                        down:Second,
-                        terrain:Yards(7)
-                    ),
-                    Play(
-                        action:SlotOut,
-                        down:First,
-                        terrain:Yards(10)
-                    ),
-                    Play(
-                        action:PlayActionComebacks,
-                        down:First,
-                        terrain:Yards(10)
-                    ),
-                    Play(
-                        action:StrongFlood,
-                        down:First,
-                        terrain:GoalLine
-                    ),
-                    Play(
-                        action:StrongFlood,
-                        down:Second,
-                        terrain:GoalLine
-                    ),
-                    Play(
-                        action:HalfbackSlipScreen,
-                        down:Third,
-                        terrain: GoalLine
-                    ),
-                    Play(
-                        action:PlayActionComebacks,
-                        down:None,
-                        terrain:None,
-                    ),
-                    Score(Touchdown),
-                    Score(PatFail),
-                    Kickoff(Iowa),
-                    Play(
-                        action: Unknown,
-                        down:Second,
-                        terrain:Yards(10)
-                    ),
-                    Play(
-                        action: Unknown,
-                        down:Third,
-                        terrain:Yards(10)
-                    ),
-                    Play(
-                        action: Unknown, //Shotgun double flex Shoot Centre
-                        down:Fourth,
-                        terrain:Yards(10)
-                    ),
-                    Turnover(Nebraska),
-                    Play(
-                        action:SlantBubble,
-                        down: First,
-                        terrain: GoalLine,
-                    )
-                ]
+            Play(
+                action:Mesh,
+                down:Third,
+                terrain:Yards(14)
             ),
-            Period(
-                start:Third,
-                end: Fourth,
-                events: [
-                    Kickoff(Iowa),
-                    Play(
-                        action:Unknown,
-                        down: Second,
-                        terrain:Yards(4)
-                    ),
-                    Play(
-                        action:Unknown, //PA?
-                        down: First,
-                        terrain:Yards(10),
-                    ),
-                    Play(
-                        action: Unknown,//IForm Normal, Thrown
-                        down: None,
-                        terrain: None
-                    ),
-                    Score(Touchdown),
-                    Score(PatSafety),
-                    Kickoff(Nebraska),
-                    Play(
-                        action: PlayActionBoot,
-                        down: First,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: SlantBubble,
-                        down: First,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: FleaFlicker,
-                        down: Second,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action:PlayActionComebacks,
-                        down: Third,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: SlotOut,
-                        down: First,
-                        terrain: GoalLine
-                    ),
-                    Play(
-                        action: HalfbackSlipScreen,
-                        down: Second,
-                        terrain: GoalLine,
-                    ),
-                    Play(
-                        action: SpeedOption,
-                        down: Third,
-                        terrain: GoalLine,
-                    ),
-                    Play(
-                        action: StrongFlood,
-                        down: Fourth,
-                        terrain: GoalLine
-                    ),
-                    Play(
-                        action: Curls,
-                        down: None,
-                        terrain: None
-                    ),
-                    Turnover(Iowa),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Third,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: Unknown,// Run
-                        down: Fourth,
-                        terrain: Yards(7)
-                    ),
-                    Play(
-                        action:Unknown,
-                        down: First,
-                        terrain: Yards(10)
-                    ),
-                    Turnover(Nebraska),
-                    Play(
-                        action:SlantBubble,
-                        down: Second,
-                        terrain: Yards(2)
-                    ),
-                    Play(
-                        action: PlayActionPowerZero,
-                        down: Third,
-                        terrain: Yards(2)
-                    ),
-                    Play(
-                        action: CrackStudentBodyRightTackle,
-                        down: First,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: StrongFlood,
-                        down: Second,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: PlayActionComebacks,
-                        down: None,
-                        terrain: None
-                    )
-                ]
+            Play(
+                action:StrongFlood,
+                down:Fourth,
+                terrain:Yards(14)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down:First,
+                terrain:Yards(10)
+            ),
+            Play(
+                action:SlotOut,
+                down:Second,
+                terrain:Yards(1)
+            ),
+            Quarter(Second),
+            Play(
+                action:PlayActionComebacks,
+                down: First,
+                terrain:Yards(10)
+            ),
+            Play(
+                action:SpeedOption,
+                down:Second,
+                terrain:Yards(7)
+            ),
+            Play(
+                action:SlotOut,
+                down:First,
+                terrain:Yards(10)
+            ),
+            Play(
+                action:PlayActionComebacks,
+                down:First,
+                terrain:Yards(10)
+            ),
+            Play(
+                action:StrongFlood,
+                down:First,
+                terrain:GoalLine
+            ),
+            Play(
+                action:StrongFlood,
+                down:Second,
+                terrain:GoalLine
+            ),
+            Play(
+                action:HalfbackSlipScreen,
+                down:Third,
+                terrain: GoalLine
+            ),
+            Play(
+                action:PlayActionComebacks,
+                down:None,
+                terrain:None,
+            ),
+            Score(Touchdown),
+            Score(PatFail),
+            Kickoff(Iowa),
+            Play(
+                action: Unknown,
+                down:Second,
+                terrain:Yards(10)
+            ),
+            Play(
+                action: Unknown,
+                down:Third,
+                terrain:Yards(10)
+            ),
+            Play(
+                action: Unknown, //Shotgun double flex Shoot Centre
+                down:Fourth,
+                terrain:Yards(10)
+            ),
+            Turnover(Nebraska),
+            Play(
+                action:SlantBubble,
+                down: First,
+                terrain: GoalLine,
+            ),
+            Quarter(Third),
+            Kickoff(Iowa),
+            Play(
+                action:Unknown,
+                down: Second,
+                terrain:Yards(4)
+            ),
+            Play(
+                action:Unknown, //PA?
+                down: First,
+                terrain:Yards(10),
+            ),
+            Play(
+                action: Unknown,//IForm Normal, Thrown
+                down: None,
+                terrain: None
+            ),
+            Score(Touchdown),
+            Score(PatSafety),
+            Kickoff(Nebraska),
+            Play(
+                action: PlayActionBoot,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: SlantBubble,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: FleaFlicker,
+                down: Second,
+                terrain: Yards(10)
+            ),
+            Play(
+                action:PlayActionComebacks,
+                down: Third,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: GoalLine
+            ),
+            Play(
+                action: HalfbackSlipScreen,
+                down: Second,
+                terrain: GoalLine,
+            ),
+            Quarter(Fourth),
+            Play(
+                action: SpeedOption,
+                down: Third,
+                terrain: GoalLine,
+            ),
+            Play(
+                action: StrongFlood,
+                down: Fourth,
+                terrain: GoalLine
+            ),
+            Play(
+                action: Curls,
+                down: None,
+                terrain: None
+            ),
+            Turnover(Iowa),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: Unknown,// Run
+                down: Fourth,
+                terrain: Yards(7)
+            ),
+            Play(
+                action:Unknown,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Turnover(Nebraska),
+            Play(
+                action:SlantBubble,
+                down: Second,
+                terrain: Yards(2)
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: Third,
+                terrain: Yards(2)
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: StrongFlood,
+                down: Second,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: None,
+                terrain: None
             )
         ]
     ),
     Game(
         // TexasAnM were opponents, but not recorded as
         // they were not present; Miller played in place.
-        version: "0.5.0",
-        flags: [IgnoreTeam(TexasAnM)],
-        periods: [
-            Period(
-                start: First,
-                end: None,
-                events: [
-                    Turnover(SouthCarolina),
-                    Play(
-                        action: FleaFlicker,
-                        down: None,
-                        terrain: None
-                    ),
-                    Turnover(TexasAnM)
-                ]
+        version: "0.7.0",
+        flags: [Interval(2), IgnoreTeam(TexasAnM)],
+        events: [
+            Quarter(First),
+            Turnover(SouthCarolina),
+            Play(
+                action: FleaFlicker,
+                down: None,
+                terrain: None
             ),
-            Period(
-                start: Second,
-                end: None,
-                events:[
-                    Turnover(SouthCarolina),
-                    Play(
-                        action: SpeedOption,
-                        down: Second,
-                        terrain: Yards(9)
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: None,
-                        terrain: None,
-                    ),
-                    Turnover(TexasAnM),
-                    Score(FieldGoal)
-                ]
+            Turnover(TexasAnM),
+            Quarter(Second),
+            Turnover(SouthCarolina),
+            Play(
+                action: SpeedOption,
+                down: Second,
+                terrain: Yards(9)
             ),
-            Period(
-                start: Third,
-                end: Fourth,
-                events: [
-                    Kickoff(SouthCarolina),
-                    Play(
-                        action: Unknown, // Rush
-                        down: Second,
-                        terrain: Yards(7)
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Third,
-                        terrain: Yards(16)
-                    ),
-                    Play(
-                        action: HalfbackSweep,
-                        down: Fourth,
-                        terrain: Yards(17)
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: None,
-                        terrain: None,
-                    ),
-                    Turnover(TexasAnM),
-                    Score(Touchdown),
-                    Score(PatSafety),
-                    Kickoff(SouthCarolina),
-                    Play(
-                        action: HalfbackSweep,
-                        down: Second,
-                        terrain: Yards(13)
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: First,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: Unknown,//DoubleFlex Throw
-                        down: Second,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Third,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: Unknown,
-                        down: Fourth,
-                        terrain: Yards(10)
-                    ),
-                    Play(
-                        action: Unknown, // Rush
-                        down: None,
-                        terrain: None
-                    ),
-                    Turnover(TexasAnM),
-                    Score(Touchdown),
-                    Score(PatSafety),
-                    Kickoff(SouthCarolina),
-                    Play(
-                        action: Unknown,
-                        down: Second,
-                        terrain: Yards(13)
-                    ),
-                    Play(
-                        action: HalfbackSweep,
-                        down: None,
-                        terrain: None,
-                    )
-                    //Texas 17, SouthCarolina 0
-                ]
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(TexasAnM),
+            Score(FieldGoal),
+            Quarter(Third),
+            Kickoff(SouthCarolina),
+            Play(
+                action: Unknown, // Rush
+                down: Second,
+                terrain: Yards(7)
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(16)
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: Fourth,
+                terrain: Yards(17)
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(TexasAnM),
+            Score(Touchdown),
+            Score(PatSafety),
+            Kickoff(SouthCarolina),
+            Play(
+                action: HalfbackSweep,
+                down: Second,
+                terrain: Yards(13)
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Quarter(Fourth),
+            Play(
+                action: Unknown,//DoubleFlex Throw
+                down: Second,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: Unknown,
+                down: Fourth,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: Unknown, // Rush
+                down: None,
+                terrain: None
+            ),
+            Turnover(TexasAnM),
+            Score(Touchdown),
+            Score(PatSafety),
+            Kickoff(SouthCarolina),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(13)
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: None,
+                terrain: None,
             )
+            //Texas 17, SouthCarolina 0
+        ]
+    ),
+    Game(
+        version: "0.7.0",
+        flags: [Interval(3)],
+        events: [
+            Quarter(First),
+            Kickoff(Nebraska),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: StrongFlood,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: HalfbackSlipScreen,
+                down: Second,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: PlayActionBoot,
+                down: Third,
+                terrain: Yards(13)
+            ),
+            Play(
+                action: SlotOut,
+                down: Fourth,
+                terrain: Yards(13)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Quarter(Second),
+            Play(
+                action: Curls,
+                down: Second,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Third,
+                terrain: Yards(4)
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: GoalLine
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: GoalLine
+            ),
+            Score(Touchdown),
+            Score(PatTouchdown),
+            Kickoff(Syracuse),
+            Penalty(Yards(15)),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(19)
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: Third,
+                terrain: Yards(13)
+            ),
+            Play(
+                action: Unknown,
+                down: Fourth,
+                terrain: Yards(11)
+            ),
+            Quarter(Third),
+            Kickoff(Syracuse),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: StrongFlood,
+                down: Second,
+                terrain: Yards(11)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: Third,
+                terrain: Inches,
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: GoalLine
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: GoalLine
+            ),
+            Quarter(Fourth),
+            Play(
+                action: StrongFlood,
+                down: Third,
+                terrain: GoalLine
+            ),
+            Score(Touchdown),
+            Score(PatTouchdown),
+            Kickoff(Nebraska),
+            Play(
+                action: Curls,
+                down: Second,
+                terrain: Yards(1)
+            ),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: Curls,
+                down: Second,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: SlotOut,
+                down: Third,
+                terrain: Yards(10)
+            ),
+            Turnover(Syracuse),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(1)
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Quarter(Overtime(1)),
+            Play(
+                action: StrongFlood,
+                down: Second,
+                terrain: Yards(8)
+            ),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: None,
+                terrain: None
+            ),
+            Turnover(Syracuse),
+            Play(
+                action: Unknown, // It failed so bad.
+                down: Second,
+                terrain: Yards(15)
+            ),
+            Play(
+                action: Unknown, // It failed so bad.
+                down: Third,
+                terrain: Yards(22)
+            ),
+            Play(
+                action: PlayActionBoot,
+                down: Fourth,
+                terrain: Yards(10)
+            ),
+            Score(FieldGoal)
+        ]
+    ),
+    Game(
+        version: "0.7.0",
+        flags: [Interval(3)],
+        events: [
+            Quarter(First),
+            Kickoff(SouthCarolina),
+            Play(
+                action: FleaFlicker,
+                down: Second,
+                terrain: Yards(16)
+            ),
+            Play(
+                action: HalfbackSlipScreen,
+                down: Third,
+                terrain: Yards(13)
+            ),
+            Play(
+                action: Unknown,
+                down: Fourth,
+                terrain: Yards(8)
+            ),
+            Play(
+                action: HailMary,
+                down: None,
+                terrain: None
+            ),
+            Turnover(Colorado),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: None,
+                terrain: None
+            ),
+            Turnover(SouthCarolina),
+            Quarter(Second),
+            Play(
+                action: HalfbackSweep,
+                down: Second,
+                terrain: Yards(13)
+            ),
+            Play(
+                action: Mesh,
+                down: Third,
+                terrain: Yards(9)
+            ),
+            Play(
+                action: FleaFlicker,
+                down: None,
+                terrain: None
+            ),
+            Turnover(Colorado),
+            Play(
+                action: StrongFlood,
+                down: Second,
+                terrain: Yards(8)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Score(Touchdown),
+            Score(PatSafety),
+            Kickoff(SouthCarolina),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(9)
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None
+            ),
+            Quarter(Third),
+            Kickoff(Colorado),
+            Play(
+                action: SpeedOption,
+                down: Second,
+                terrain: Yards(4)
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(13)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Quarter(Fourth),
+            Play(
+                action: SpeedOption,
+                down: Second,
+                terrain: Yards(6)
+            ),
+            Penalty(Yards(11)),
+            Play(
+                action: PlayActionComebacks,
+                down: Third,
+                terrain: Yards(5)
+            ),
+            Play(
+                action: HalfbackSlipScreen,
+                down: First,
+                terrain: Yards(10)
+            ),
+        ]
+    ),
+    Game(
+        version: "0.7.0",
+        flags: [Interval(3)],
+        events: [
+            Quarter(First),
+            Kickoff(ArizonaState),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(4),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(4),
+            ),
+            Penalty(Yards(9)),
+            Play(
+                action: PlayActionComebacks,
+                down: Fourth,
+                terrain: Yards(3),
+            ),
+            Quarter(Second),
+            Play(
+                action: HailMary,
+                down: None,
+                terrain: None
+            ),
+            Turnover(Iowa),
+            Play(
+                action: Unknown, // Iform throw
+                down: Second,
+                terrain: Inches
+            ),
+            Play(
+                action:Unknown,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(11)
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(11)
+            ),
+            Play(
+                action: PlayActionBoot,
+                down: Fourth,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None
+            ),
+            Turnover(ArizonaState),
+            Play(
+                action: PlayActionComebacks,
+                down: Second,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Quarter(Third),
+            Kickoff(Iowa),
+            Play(
+                action: SpeedOption,
+                down: Second,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: SlotOut,
+                down: Third,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: HalfbackSlipScreen,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SpeedOption,
+                down: Second,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: SlotOut,
+                down: Third,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: Unknown,
+                down: Fourth,
+                terrain: Yards(11),
+            ),
+            Turnover(ArizonaState),
+            Play(
+                action: HalfbackSlipScreen,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSlam,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Quarter(Fourth),
+            Play(
+                action: PlayActionBoot,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SlotOut,
+                down: Third,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: PowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSlam,
+                down: Second,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: PlayActionBoot,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SlotOut,
+                down: Second,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: HalfbackSlam,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: GoalLine,
+            ),
+            Score(FieldGoal),
+            Kickoff(Iowa),
+            Play(
+                action: HailMary,
+                down: First,
+                terrain: Yards(10),
+            )
+        ]
+    ),
+    Game(
+        version: "0.7.1",
+        flags: [Interval(3), SheerDumbFuckingLuck],
+        events: [
+            Quarter(First),
+            Kickoff(Nebraska),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SlantBubble,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(5),
+            ),
+            Play(
+                action: HalfbackSlipScreen,
+                down: Third,
+                terrain: Yards(5),
+            ),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Penalty(Yards(15)),
+            Play(
+                action: StrongFlood,
+                down: Second,
+                terrain: Yards(22)
+            ),
+            Play(
+                action: SlotOut,
+                down: Third,
+                terrain: Yards(22)
+            ),
+            Quarter(Second),
+            Play(
+                action: StrongFlood,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(TexasAnM),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Play(
+                action: Curls,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: SlotOut,
+                down: Second,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: GoalLine
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Score(Touchdown),
+            Score(PatSafety),
+            Kickoff(Nebraska),
+            Play(
+                action: PlayActionBoot,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: Third,
+                terrain: Yards(13),
+            ),
+            Quarter(Third),
+            Kickoff(TexasAnM),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: Second,
+                terrain: Yards(15),
+            ),
+            Play(
+                action: FleaFlicker,
+                down: Third,
+                terrain: Yards(15),
+            ),
+            Play(
+                action: StrongFlood,
+                down: Fourth,
+                terrain: Yards(19),
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(Nebraska),
+            Play(
+                action: SlotOut,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero,
+                down: Third,
+                terrain: Yards(7),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Quarter(Fourth),
+            Penalty(Yards(15)),
+            Play(
+                action: StrongFlood,
+                down: Second,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: Third,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SlotOut,
+                down: Fourth,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: None,
+                terrain: None,
+            ),
+            Score(Touchdown),
+            Score(PatSafety),
+            Kickoff(TexasAnM),
+            Play(
+                action: StrongFlood,
+                down: Second,
+                terrain: Inches,
+            ),
+            Play(
+                action: PlayActionBoot,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(17),
+            ),
+            Play(
+                action: PlayActionBoot, //Fucking bull
+                down: None,
+                terrain: None,
+            ),
+            Score(Touchdown), // Across 75% of the field
+            Score(PatTouchdown),
+            Kickoff(Nebraska),
+            Play(
+                action: Unknown, // Fucking hit the wrong button. Fake punted instead of punted.
+                down: None,
+                terrain: None,
+            ),
         ]
     )
 ]

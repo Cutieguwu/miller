@@ -5,6 +5,7 @@ pub enum Action {
     CrackStudentBodyRightTackle,
     Curls,
     FleaFlicker,
+    HailMary,
     HalfbackSlam,
     HalfbackSlipScreen,
     HalfbackSweep,
