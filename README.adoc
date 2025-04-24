@@ -16,7 +16,7 @@ I figured, that since I already had to digitize every note, that I was required 
 * [ ] Data Visualizer?
 * [ ] Dynamic Web Page?
 * [ ] Pattern Analysis / Play Trend Analysis
-** [ ] Most Frequent Play
+** [*] Most Frequent Play
 ** [ ] Least Frequent Play
 ** [ ] Most Effective Play (Greatest Terrain Gain on average)
 ** [ ] Most frequent play set.
@@ -57,7 +57,7 @@ I figured, that since I already had to digitize every note, that I was required 
 ** [*] Plays
 
 === Miller:
-* [ ] Mathematics
+* [*] Mathematics
 ** [*] Avg. Terrain Gain
 ** [*] Avg. Terrain Loss
 ** [*] Avg. Terrain Delta
