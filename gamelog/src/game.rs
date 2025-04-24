@@ -27,7 +27,7 @@ impl Game {
         let mut teams = vec![];
 
         self.events.iter().for_each(|event| {
-            if let Ok(team) = event.team() {
+            if let Some(team) = event.team() {
                 if !ignore.contains(&team) && !teams.contains(&team) {
                     teams.push(team)
                 }

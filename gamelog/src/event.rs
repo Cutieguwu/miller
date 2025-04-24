@@ -1,4 +1,4 @@
-use crate::{Down, Play, Quarter, TerrainState, error};
+use crate::{Down, Play, Quarter, TerrainState};
 use serde::Deserialize;
 
 type Offence = Team;
@@ -73,11 +73,11 @@ impl Event {
 
     /// Returns the team for variants which possess this attribute.
     /// Errors if `self` has no team attribute.
-    pub fn team(&self) -> Result<Team, error::NoTeamAttribute> {
+    pub fn team(&self) -> Option<Team> {
         match self {
-            Self::Kickoff(team) => Ok(team.to_owned()),
-            Self::Turnover(team) => Ok(team.to_owned()),
-            _ => Err(error::NoTeamAttribute),
+            Self::Kickoff(team) => Some(team.to_owned()),
+            Self::Turnover(team) => Some(team.to_owned()),
+            _ => None,
         }
     }
 
