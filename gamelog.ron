@@ -564,7 +564,7 @@
                 terrain: GoalLine,
             ),
             Score(Touchdown),
-            Score(PatSafety),
+            Score(PatFieldGoal),
             Kickoff(Iowa),
             Penalty(Yards(15)),
             Play(
@@ -653,7 +653,7 @@
             ),
             // Touchdown
             Score(Touchdown),
-            Score(PatSafety),
+            Score(PatFieldGoal),
             Kickoff(Colorado),
             Play(
                 action: Unknown, // Original note: Dupe, Throw Left
@@ -804,7 +804,7 @@
                 terrain: None
             ),
             Score(Touchdown),
-            Score(PatSafety),
+            Score(PatFieldGoal),
             Kickoff(Nebraska),
             Play(
                 action: PlayActionBoot,
@@ -953,7 +953,7 @@
             ),
             Turnover(TexasAnM),
             Score(Touchdown),
-            Score(PatSafety),
+            Score(PatFieldGoal),
             Kickoff(SouthCarolina),
             Play(
                 action: HalfbackSweep,
@@ -988,7 +988,7 @@
             ),
             Turnover(TexasAnM),
             Score(Touchdown),
-            Score(PatSafety),
+            Score(PatFieldGoal),
             Kickoff(SouthCarolina),
             Play(
                 action: Unknown,
@@ -1267,7 +1267,7 @@
                 terrain: Yards(10)
             ),
             Score(Touchdown),
-            Score(PatSafety),
+            Score(PatFieldGoal),
             Kickoff(SouthCarolina),
             Play(
                 action: CrackStudentBodyRightTackle,
@@ -1588,7 +1588,7 @@
                 terrain: None,
             ),
             Score(Touchdown),
-            Score(PatSafety),
+            Score(PatFieldGoal),
             Kickoff(Nebraska),
             Play(
                 action: PlayActionBoot,
@@ -1666,7 +1666,7 @@
                 terrain: None,
             ),
             Score(Touchdown),
-            Score(PatSafety),
+            Score(PatFieldGoal),
             Kickoff(TexasAnM),
             Play(
                 action: StrongFlood,
