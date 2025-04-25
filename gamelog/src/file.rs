@@ -17,6 +17,7 @@ impl LogFile {
                 continue;
             }
 
+            // Clean this up?
             let found = self
                 .0
                 .iter()

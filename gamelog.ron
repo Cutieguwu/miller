@@ -1955,7 +1955,7 @@
                 action: Curls, // Big throw
                 down: None,
                 terrain: None,
-            )
+            ),
             Quarter(Third),
             Kickoff(Colorado),
             Play(
