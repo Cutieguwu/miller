@@ -30,6 +30,8 @@ impl LogFile {
         // I just write iterators more naturally for some reason
         // despite them being less readable afterward.
         // I suppose I like the lack of nesting.
+        //
+        // I have no clue if the iterator is actually more efficient.
 
         let team_actions = self
             .0
