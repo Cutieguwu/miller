@@ -12,6 +12,25 @@ impl LogFile {
         let mut most_freq_action = Action::Unknown;
         let mut frequency = 0;
 
+        // The following let statement is equivalent to:
+        //
+        //  let team_actions = {
+        //      let mut actions = vec![];
+        //
+        //      for game in &self.0 {
+        //          for play in game.team_plays(team.to_owned()).0 {
+        //              actions.push(play.action.to_owned())
+        //          }
+        //      }
+        //
+        //      actions
+        //  }
+        //  .into_iter();
+        //
+        // I just write iterators more naturally for some reason
+        // despite them being less readable afterward.
+        // I suppose I like the lack of nesting.
+
         let team_actions = self
             .0
             .iter()
@@ -28,7 +47,6 @@ impl LogFile {
                 continue;
             }
 
-            // Clean this up?
             let found: usize = team_actions.clone().filter(|a| *a == action).count();
 
             if found > frequency {
