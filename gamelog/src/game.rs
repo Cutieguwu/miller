@@ -11,7 +11,7 @@ pub struct Game {
 
 impl Game {
     /// Returns the teams that played.
-    pub fn teams(&self) -> Result<Vec<Team>, error::TeamsError> {
+    pub fn teams(&self) -> Result<Vec<Team>, error::LogFileError> {
         let ignore: Vec<Team> = self
             .flags
             .iter()
@@ -37,7 +37,7 @@ impl Game {
         if teams.len() == 2 || ignore.len() != 0 {
             Ok(teams)
         } else {
-            Err(error::TeamsError::NumberFound(teams.len()))
+            Err(error::LogFileError::TooManyTeams(teams.len()))
         }
     }
 

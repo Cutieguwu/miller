@@ -1,29 +1,32 @@
 use std::{fmt, io};
 
+use ron::de::SpannedError;
+
 #[derive(Debug)]
 pub enum LogFileError {
-    FailedToOpen(io::Error),
-    RonSpannedError(ron::error::SpannedError),
+    IOError(io::Error),
+    RonSpanned(ron::error::SpannedError),
+    TooManyTeams(usize),
 }
 
 impl fmt::Display for LogFileError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::FailedToOpen(err) => write!(f, "{}", err),
-            Self::RonSpannedError(err) => write!(f, "{}", err),
+            Self::IOError(err) => write!(f, "{}", err),
+            Self::RonSpanned(err) => write!(f, "{}", err),
+            Self::TooManyTeams(err) => write!(f, "Expected two, found: {:?}", err),
         }
     }
 }
 
-#[derive(Debug)]
-pub enum TeamsError {
-    NumberFound(usize),
+impl From<SpannedError> for LogFileError {
+    fn from(value: SpannedError) -> Self {
+        Self::RonSpanned(value)
+    }
 }
 
-impl fmt::Display for TeamsError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Self::NumberFound(err) => write!(f, "Expected two, found: {:?}", err),
-        }
+impl From<io::Error> for LogFileError {
+    fn from(value: io::Error) -> Self {
+        Self::IOError(value)
     }
 }

@@ -1,4 +1,4 @@
-use crate::{Action, Team, error};
+use crate::{Action, Play, Team, error};
 use serde::Deserialize;
 use std::{fs::File, path::PathBuf};
 use strum::IntoEnumIterator;
@@ -9,8 +9,19 @@ pub struct LogFile(pub Vec<super::Game>);
 impl LogFile {
     /// Returns the most common action for a given team.
     pub fn most_frequent_action(&self, team: Team) -> Action {
-        let mut most_common_action = Action::Unknown;
+        let mut most_freq_action = Action::Unknown;
         let mut frequency = 0;
+
+        let team_actions = self
+            .0
+            .iter()
+            .filter_map(|game| Some(game.team_plays(team.to_owned()).0))
+            .collect::<Vec<Vec<Play>>>()
+            .concat()
+            .iter()
+            .filter_map(|play| Some(play.action.to_owned()))
+            .collect::<Vec<Action>>()
+            .into_iter();
 
         for action in Action::iter() {
             if action == Action::Unknown {
@@ -18,44 +29,37 @@ impl LogFile {
             }
 
             // Clean this up?
-            let found = self
-                .0
-                .iter()
-                .filter_map(|game| {
-                    Some(
-                        game.team_plays(team.to_owned())
-                            .0
-                            .iter()
-                            .filter_map(|play| {
-                                if play.action == action {
-                                    Some(())
-                                } else {
-                                    None
-                                }
-                            })
-                            .collect::<Vec<()>>()
-                            .len(),
-                    )
-                })
-                .sum::<usize>();
+            let found: usize = team_actions.clone().filter(|a| *a == action).count();
 
             if found > frequency {
                 frequency = found;
-                most_common_action = action.to_owned();
+                most_freq_action = action.to_owned();
             }
         }
 
-        most_common_action
+        most_freq_action
+    }
+
+    pub fn check_teams(self) -> Result<LogFile, error::LogFileError> {
+        for game in &self.0 {
+            if let Err(err) = game.teams() {
+                return Err(err);
+            }
+        }
+
+        Ok(self)
     }
 }
 
 impl TryFrom<File> for LogFile {
-    type Error = ron::error::SpannedError;
+    type Error = error::LogFileError;
 
-    fn try_from(file: File) -> Result<Self, Self::Error> {
-        ron::Options::default()
+    fn try_from(file: File) -> Result<LogFile, Self::Error> {
+        let file: LogFile = ron::Options::default()
             .with_default_extension(ron::extensions::Extensions::EXPLICIT_STRUCT_NAMES)
-            .from_reader(file)
+            .from_reader(file)?;
+
+        file.check_teams()
     }
 }
 
@@ -63,17 +67,10 @@ impl TryFrom<PathBuf> for LogFile {
     type Error = error::LogFileError;
 
     fn try_from(path: PathBuf) -> Result<Self, Self::Error> {
-        match Self::try_from(
-            match std::fs::OpenOptions::new() // Defaults to setting all options false.
+        Self::try_from(
+            std::fs::OpenOptions::new() // Defaults to setting all options false.
                 .read(true) // Only need ensure that reading is possible.
-                .open(path.as_path())
-            {
-                Ok(f) => f,
-                Err(err) => return Err(error::LogFileError::FailedToOpen(err)),
-            },
-        ) {
-            Ok(f) => Ok(f),
-            Err(err) => Err(error::LogFileError::RonSpannedError(err)),
-        }
+                .open(path.as_path())?,
+        )
     }
 }
