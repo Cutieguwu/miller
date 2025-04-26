@@ -42,12 +42,14 @@ impl LogFile {
             .collect::<Vec<Action>>()
             .into_iter();
 
+        let mut found: usize;
+
         for action in Action::iter() {
             if action == Action::Unknown {
                 continue;
             }
 
-            let found: usize = team_actions.clone().filter(|a| *a == action).count();
+            found = team_actions.clone().filter(|a| *a == action).count();
 
             if found > frequency {
                 frequency = found;
