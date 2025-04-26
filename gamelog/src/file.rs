@@ -28,7 +28,8 @@ impl LogFile {
         //  .into_iter();
         //
         // I just write iterators more naturally for some reason
-        // despite them being less readable afterward.
+        // despite them being less readable afterward. I came from
+        // loving python's list comprehensions.
         // I suppose I like the lack of nesting.
         //
         // I have no clue if the iterator is actually more efficient.
