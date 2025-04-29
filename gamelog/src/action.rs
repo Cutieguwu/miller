@@ -84,7 +84,7 @@ impl Action {
         Some(match self {
             Self::SlantBubble | Self::HalfbackSlam | Self::PlayActionBoot => Playset::PistolSpread,
             Self::StrongFlood | Self::SpeedOption | Self::HalfbackSlipScreen => {
-                Playset::ShotgunTripleWingsOffset
+                Playset::ShotgunWingOffsetWk
             }
             Self::SlotOut | Self::HalfbackSweep | Self::PlayActionComebacks => {
                 Playset::ShotgunDoubleFlex
@@ -126,7 +126,7 @@ impl Action {
 #[derive(Debug, Clone, PartialEq)]
 pub enum Playset {
     PistolSpread,
-    ShotgunTripleWingsOffset,
+    ShotgunWingOffsetWk,
     ShotgunDoubleFlex,
     IFormNormal,
     IFormTight,
