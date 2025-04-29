@@ -636,52 +636,5 @@ mod tests {
         );
     }
 
-    #[test]
-    fn quarters() {
-        let first = Period {
-            start: Quarter::First,
-            end: None,
-            events: vec![],
-        };
-
-        let second_fourth = Period {
-            start: Quarter::Second,
-            end: Some(Quarter::Fourth),
-            events: vec![],
-        };
-
-        let third_ot_three = Period {
-            start: Quarter::Third,
-            end: Some(Quarter::Overtime(3)),
-            events: vec![],
-        };
-
-        let ot_one_three = Period {
-            start: Quarter::Overtime(1),
-            end: Some(Quarter::Overtime(3)),
-            events: vec![],
-        };
-
-        assert!(first.quarters() == vec![Quarter::First]);
-        assert!(second_fourth.quarters() == vec![Quarter::Second, Quarter::Third, Quarter::Fourth]);
-        assert!(
-            third_ot_three.quarters()
-                == vec![
-                    Quarter::Third,
-                    Quarter::Fourth,
-                    Quarter::Overtime(1),
-                    Quarter::Overtime(2),
-                    Quarter::Overtime(3)
-                ]
-        );
-        assert!(
-            ot_one_three.quarters()
-                == vec![
-                    Quarter::Overtime(1),
-                    Quarter::Overtime(2),
-                    Quarter::Overtime(3)
-                ]
-        )
-    }
     */
 }
