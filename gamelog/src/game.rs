@@ -45,6 +45,7 @@ impl Game {
     pub fn deltas(&self, team: Team) -> Vec<i8> {
         let events: Vec<Event> = self
             .team_events(team)
+            .unwrap_or(TeamEvents(vec![]))
             .0
             .iter()
             .filter_map(|event| {
@@ -74,6 +75,7 @@ impl Game {
     pub fn team_plays(&self, team: Team) -> TeamPlays {
         TeamPlays(
             self.team_events(team)
+                .unwrap_or(TeamEvents(vec![]))
                 .0
                 .iter()
                 .filter_map(|event| {
@@ -154,6 +156,7 @@ impl Game {
     /// Returns the number of penalties that a team experienced.
     pub fn penalties(&self, team: Team) -> usize {
         self.team_events(team)
+            .unwrap_or(TeamEvents(vec![]))
             .0
             .iter()
             .filter_map(|event| {
@@ -200,7 +203,11 @@ impl Game {
     }
 
     /// Returns all events relevent to a team's deltas and score.
-    pub fn team_events(&self, team: Team) -> TeamEvents {
+    pub fn team_events(&self, team: Team) -> Option<TeamEvents> {
+        if !self.teams().is_ok_and(|ok| ok.contains(&team)) {
+            return None;
+        }
+
         let mut events: Vec<Event> = vec![];
         let mut first = true;
         let mut record: bool = true;
@@ -231,7 +238,7 @@ impl Game {
         });
 
         // If already handled or assumption override applicable
-        TeamEvents(events)
+        Some(TeamEvents(events))
     }
 }
 
@@ -458,16 +465,16 @@ mod tests {
         assert!(game.deltas(Team::ArizonaState) == vec![10_i8, 0_i8]);
     }
 
-    /*
     #[test]
+    #[allow(deprecated)]
     fn team_events() {
-        let a = Period {
-            start: Quarter::First,
-            end: None,
+        let a = Game {
+            version: crate::MIN_VER,
+            flags: vec![],
             events: vec![
                 Event::Kickoff(Team::Nebraska),
                 Event::Play(Play::default()),
-                Event::Turnover(Team::ArizonaState),
+                Event::Turnover(Team::SouthCarolina),
                 Event::Play(Play::default()),
                 Event::Play(Play::default()),
                 Event::Kickoff(Team::Nebraska),
@@ -476,55 +483,19 @@ mod tests {
             ],
         };
 
-        let b = Period {
-            start: Quarter::Second,
-            end: None,
-            events: vec![
-                Event::Play(Play::default()),
-                Event::Turnover(Team::SouthCarolina),
-            ],
-        };
-
-        let c = Period {
-            start: Quarter::Second,
-            end: None,
-            events: vec![
-                Event::Play(Play::default()),
-                Event::Turnover(Team::Nebraska),
-            ],
-        };
-
-        let d = Period {
-            start: Quarter::Second,
-            end: None,
-            events: vec![Event::Play(Play::default())],
-        };
-
         assert!(
-            a.team_events(Team::Nebraska, None).unwrap()
+            a.team_events(Team::Nebraska).unwrap().0
                 == vec![
                     Event::Kickoff(Team::Nebraska),
                     Event::Play(Play::default()),
-                    Event::Turnover(Team::ArizonaState),
+                    Event::Turnover(Team::SouthCarolina),
                     Event::Kickoff(Team::Nebraska),
                     Event::Score(ScorePoints::Touchdown),
                     Event::Kickoff(Team::SouthCarolina),
                 ]
         );
-        assert!(
-            b.team_events(Team::Nebraska, None).unwrap()
-                == vec![
-                    Event::Play(Play::default()),
-                    Event::Turnover(Team::SouthCarolina)
-                ]
-        );
-        assert!(
-            c.team_events(Team::Nebraska, None).unwrap() == vec![Event::Turnover(Team::Nebraska)]
-        );
-        assert!(true == d.team_events(Team::Nebraska, None).is_err());
-        assert!(false == d.team_events(Team::Nebraska, Some(true)).is_err())
+        assert!(a.team_events(Team::BoiseState).is_none());
     }
-    */
 
     #[test]
     fn team_plays() {
