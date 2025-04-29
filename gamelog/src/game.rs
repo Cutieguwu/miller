@@ -361,116 +361,43 @@ mod tests {
         assert!(b.avg_plays_per_quarter(Team::Nebraska) == 1_f32)
     }
 
-    /*
-    #[test]
-    fn team_plays() {
-        let a = Game {
-            version: crate::MIN_VER,
-            flags: vec![],
-            periods: vec![
-                Period {
-                    start: Quarter::First,
-                    end: None,
-                    events: vec![
-                        Event::Kickoff(Team::Nebraska),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                    ],
-                },
-                Period {
-                    start: Quarter::Second,
-                    end: Some(Quarter::Fourth),
-                    events: vec![
-                        Event::Turnover(Team::Nebraska),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                        Event::Play(Play::default()),
-                    ],
-                },
-            ],
-        };
-
-        assert!(a.team_plays(Team::Nebraska) == 12_usize)
-    }
-
     #[test]
     #[allow(deprecated)]
     fn teams() {
         let a = Game {
             version: crate::MIN_VER,
             flags: vec![],
-            periods: vec![
-                Period {
-                    start: Quarter::First,
-                    end: None,
-                    events: vec![Event::Kickoff(Team::Nebraska)],
-                },
-                Period {
-                    start: Quarter::Second,
-                    end: Some(Quarter::Fourth),
-                    events: vec![
-                        Event::Turnover(Team::ArizonaState),
-                        Event::Kickoff(Team::Nebraska),
-                    ],
-                },
+            events: vec![
+                Event::Kickoff(Team::Nebraska),
+                Event::Turnover(Team::ArizonaState),
+                Event::Kickoff(Team::Nebraska),
             ],
         };
 
         let b = Game {
             version: crate::MIN_VER,
             flags: vec![],
-            periods: vec![
-                Period {
-                    start: Quarter::First,
-                    end: None,
-                    events: vec![Event::Kickoff(Team::Nebraska)],
-                },
-                Period {
-                    start: Quarter::Second,
-                    end: Some(Quarter::Fourth),
-                    events: vec![
-                        Event::Turnover(Team::ArizonaState),
-                        Event::Kickoff(Team::BoiseState),
-                    ],
-                },
+            events: vec![
+                Event::Kickoff(Team::Nebraska),
+                Event::Turnover(Team::ArizonaState),
+                Event::Kickoff(Team::BoiseState),
             ],
         };
 
         let c = Game {
             version: crate::MIN_VER,
             flags: vec![Flags::IgnoreTeam(Team::Nebraska)],
-            periods: vec![
-                Period {
-                    start: Quarter::First,
-                    end: None,
-                    events: vec![Event::Kickoff(Team::Nebraska)],
-                },
-                Period {
-                    start: Quarter::Second,
-                    end: Some(Quarter::Fourth),
-                    events: vec![
-                        Event::Turnover(Team::ArizonaState),
-                        Event::Kickoff(Team::Nebraska),
-                    ],
-                },
+            events: vec![
+                Event::Kickoff(Team::Nebraska),
+                Event::Turnover(Team::ArizonaState),
+                Event::Kickoff(Team::Nebraska),
             ],
         };
 
         let d = Game {
             version: crate::MIN_VER,
             flags: vec![Flags::IgnoreTeam(Team::Nebraska)],
-            periods: vec![Period {
-                start: Quarter::First,
-                end: None,
-                events: vec![Event::Kickoff(Team::Nebraska)],
-            }],
+            events: vec![Event::Kickoff(Team::Nebraska)],
         };
 
         assert!(a.teams().unwrap() == vec![Team::Nebraska, Team::ArizonaState]);
@@ -479,6 +406,7 @@ mod tests {
         assert!(d.teams().unwrap() == vec![]);
     }
 
+    /*
     #[test]
     fn deltas() {
         let game = Game {
@@ -608,7 +536,6 @@ mod tests {
         assert!(true == d.team_events(Team::Nebraska, None).is_err());
         assert!(false == d.team_events(Team::Nebraska, Some(true)).is_err())
     }
-
     */
 
     #[test]
