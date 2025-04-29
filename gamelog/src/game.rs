@@ -609,11 +609,13 @@ mod tests {
         assert!(false == d.team_events(Team::Nebraska, Some(true)).is_err())
     }
 
+    */
+
     #[test]
     fn team_plays() {
-        let period = Period {
-            start: Quarter::First,
-            end: None,
+        let game = Game {
+            version: crate::MIN_VER,
+            flags: vec![],
             events: vec![
                 Event::Kickoff(Team::Nebraska),
                 Event::Play(Play::default()),
@@ -631,10 +633,8 @@ mod tests {
         };
 
         assert!(
-            period.team_plays(Team::Nebraska, None).unwrap()
+            game.team_plays(Team::Nebraska).0
                 == vec![Play::default(), Play::default(), Play::default()]
         );
     }
-
-    */
 }
