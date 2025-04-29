@@ -406,64 +406,51 @@ mod tests {
         assert!(d.teams().unwrap() == vec![]);
     }
 
-    /*
     #[test]
     fn deltas() {
         let game = Game {
             version: crate::MIN_VER,
             flags: vec![],
-            periods: vec![
-                Period {
-                    start: Quarter::First,
-                    end: None,
-                    events: vec![
-                        Event::Kickoff(Team::Nebraska),
-                        Event::Play(Play {
-                            action: Action::Unknown,
-                            down: Some(Down::First),
-                            terrain: Some(TerrainState::Yards(10)),
-                        }),
-                        Event::Play(Play {
-                            action: Action::Unknown,
-                            down: Some(Down::Second),
-                            terrain: Some(TerrainState::Yards(13)),
-                        }),
-                        Event::Play(Play {
-                            action: Action::Unknown,
-                            down: Some(Down::Third),
-                            terrain: Some(TerrainState::Yards(8)),
-                        }),
-                        Event::Turnover(Team::ArizonaState),
-                        Event::Play(Play {
-                            action: Action::Unknown,
-                            down: Some(Down::First),
-                            terrain: Some(TerrainState::Yards(10)),
-                        }),
-                        Event::Play(Play {
-                            action: Action::Unknown,
-                            down: Some(Down::Second),
-                            terrain: Some(TerrainState::Yards(10)),
-                        }),
-                        Event::Turnover(Team::Nebraska),
-                        Event::Play(Play {
-                            action: Action::Unknown,
-                            down: Some(Down::Second),
-                            terrain: Some(TerrainState::Yards(12)),
-                        }),
-                    ],
-                },
-                Period {
-                    start: Quarter::Second,
-                    end: None,
-                    events: vec![
-                        Event::Play(Play {
-                            action: Action::Unknown,
-                            down: Some(Down::First),
-                            terrain: Some(TerrainState::Yards(10)),
-                        }),
-                        Event::Turnover(Team::ArizonaState),
-                    ],
-                },
+            events: vec![
+                Event::Kickoff(Team::Nebraska),
+                Event::Play(Play {
+                    action: Action::Unknown,
+                    down: Some(Down::First),
+                    terrain: Some(TerrainState::Yards(10)),
+                }),
+                Event::Play(Play {
+                    action: Action::Unknown,
+                    down: Some(Down::Second),
+                    terrain: Some(TerrainState::Yards(13)),
+                }),
+                Event::Play(Play {
+                    action: Action::Unknown,
+                    down: Some(Down::Third),
+                    terrain: Some(TerrainState::Yards(8)),
+                }),
+                Event::Turnover(Team::ArizonaState),
+                Event::Play(Play {
+                    action: Action::Unknown,
+                    down: Some(Down::First),
+                    terrain: Some(TerrainState::Yards(10)),
+                }),
+                Event::Play(Play {
+                    action: Action::Unknown,
+                    down: Some(Down::Second),
+                    terrain: Some(TerrainState::Yards(10)),
+                }),
+                Event::Turnover(Team::Nebraska),
+                Event::Play(Play {
+                    action: Action::Unknown,
+                    down: Some(Down::Second),
+                    terrain: Some(TerrainState::Yards(12)),
+                }),
+                Event::Play(Play {
+                    action: Action::Unknown,
+                    down: Some(Down::First),
+                    terrain: Some(TerrainState::Yards(10)),
+                }),
+                Event::Turnover(Team::ArizonaState),
             ],
         };
 
@@ -471,6 +458,7 @@ mod tests {
         assert!(game.deltas(Team::ArizonaState) == vec![10_i8, 0_i8]);
     }
 
+    /*
     #[test]
     fn team_events() {
         let a = Period {
