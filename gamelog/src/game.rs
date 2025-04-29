@@ -90,7 +90,8 @@ impl Game {
     /// The average number of plays in a quarter.
     pub fn avg_plays_per_quarter(&self, team: Team) -> f32 {
         let periods: Vec<Period> = Quarter::iter()
-            .filter_map(|quarter| Some(self.get_period(quarter.to_owned())).to_owned())
+            .filter_map(|quarter| self.get_period(quarter.to_owned()))
+            .to_owned()
             .collect();
 
         let quarterly_avgs: Vec<f32> = periods
@@ -167,10 +168,12 @@ impl Game {
     }
 
     /// Returns the requested quarter.
-    pub fn get_period(&self, quarter: Quarter) -> Period {
+    /// If there is no history logged for the requested quarter, returns `None`.
+    /// For example, if requesting an OT that doesn't exist.
+    pub fn get_period(&self, quarter: Quarter) -> Option<Period> {
         let mut record = false;
 
-        Period {
+        let period = Period {
             period: quarter.to_owned(),
             events: self
                 .events
@@ -187,6 +190,12 @@ impl Game {
                     None
                 })
                 .collect::<Vec<Event>>(),
+        };
+
+        if period.events.len() != 0 {
+            Some(period)
+        } else {
+            None
         }
     }
 
@@ -308,7 +317,6 @@ pub enum Flags {
     SheerDumbFuckingLuck,
 }
 
-/*
 #[cfg(test)]
 mod tests {
     use crate::*;
@@ -338,21 +346,22 @@ mod tests {
         let b = Game {
             version: crate::MIN_VER,
             flags: vec![],
-            periods: vec![Period {
-                start: Quarter::Second,
-                end: Some(Quarter::Fourth),
-                events: vec![
-                    Event::Turnover(Team::Nebraska),
-                    Event::Play(Play::default()),
-                    Event::Turnover(Team::ArizonaState),
-                ],
-            }],
+            events: vec![
+                Event::Quarter(Quarter::First),
+                Event::Turnover(Team::Nebraska),
+                Event::Play(Play::default()),
+                Event::Turnover(Team::ArizonaState),
+            ],
         };
 
-        assert!(a.avg_plays_per_quarter(Team::Nebraska) == ((1_f32 + 2_f32) / 2_f32));
-        assert!(b.avg_plays_per_quarter(Team::Nebraska) == (1_f32 / 3_f32))
+        dbg!(a.avg_plays_per_quarter(Team::Nebraska));
+        dbg!(b.avg_plays_per_quarter(Team::Nebraska));
+
+        assert!(a.avg_plays_per_quarter(Team::Nebraska) == ((1_f32 + 6_f32) / 2_f32));
+        assert!(b.avg_plays_per_quarter(Team::Nebraska) == 1_f32)
     }
 
+    /*
     #[test]
     fn team_plays() {
         let a = Game {
@@ -674,5 +683,5 @@ mod tests {
                 ]
         )
     }
+    */
 }
-*/
