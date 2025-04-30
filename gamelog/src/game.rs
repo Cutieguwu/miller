@@ -323,6 +323,7 @@ pub enum Flags {
     Interval(u8),
     LowDataCredibility,
     SheerDumbFuckingLuck,
+    Stub,
 }
 
 #[cfg(test)]
