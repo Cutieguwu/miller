@@ -18,34 +18,13 @@ impl Event {
     /// Returns `None` if no delta can be calculated between
     /// `self` and following events.
     pub fn delta(&self, following: &Self) -> Option<i8> {
-        // Clean this trash spaghetti code up.
-
-        fn make_play(event: &Event) -> Option<Play> {
-            match event {
-                Event::Kickoff(_) | Event::Turnover(_) => Some(Play::default()),
-                Event::Play(play) => {
-                    let p = play.to_owned();
-
-                    if p.down.is_none()
-                        || p.terrain.is_none()
-                        || p.terrain.as_ref()? == &TerrainState::Unknown
-                    {
-                        None
-                    } else {
-                        Some(p)
-                    }
-                }
-                _ => None,
-            }
-        }
-
-        let preceeding = make_play(self)?;
+        let preceeding = self.to_play()?;
         let following = if let Event::Turnover(_) = following {
             // I should really just early return
             // but this is too funny to look at.
             None?
         } else {
-            make_play(following)?
+            following.to_play()?
         };
 
         if following.down? == Down::First {
@@ -86,6 +65,21 @@ impl Event {
     pub fn quarter(&self) -> Option<Quarter> {
         if let Event::Quarter(quarter) = self {
             Some(quarter.to_owned())
+        } else {
+            None
+        }
+    }
+
+    /// Converts an event into it's associated Play object, if there is one.
+    fn to_play(self: &Event) -> Option<Play> {
+        if let Event::Play(play) = self {
+            if play.down.is_none() || play.terrain.is_none() {
+                None
+            } else {
+                Some(play.to_owned())
+            }
+        } else if let Event::Kickoff(_) | Event::Turnover(_) = self {
+            Some(Play::default())
         } else {
             None
         }

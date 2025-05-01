@@ -1,10 +1,14 @@
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize, Clone, Default, PartialEq)]
+#[derive(Debug, Deserialize, Clone, PartialEq)]
 pub enum TerrainState {
     Yards(u8),
     GoalLine,
     Inches,
-    #[default]
-    Unknown,
+}
+
+impl Default for TerrainState {
+    fn default() -> Self {
+        TerrainState::Yards(10)
+    }
 }
