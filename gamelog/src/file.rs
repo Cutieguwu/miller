@@ -1,4 +1,4 @@
-use crate::{Action, Game, Play, Team, error};
+use crate::{Action, Event, Game, Play, Team, TeamEvents, TerrainState, error, terrain};
 use serde::Deserialize;
 use std::{fs::File, path::PathBuf, usize};
 use strum::IntoEnumIterator;
@@ -49,6 +49,64 @@ impl LogFile {
             });
 
         least_freq_action
+    }
+
+    pub fn most_effective_play(&self, team: Team) -> (Action, TerrainState) {
+        let deltas: Vec<Vec<i8>> = self
+            .0
+            .iter()
+            .map(|game| game.deltas(team.to_owned()))
+            .collect();
+
+        let team_events: Vec<Vec<Event>> = self
+            .0
+            .iter()
+            .filter_map(|game| game.team_events(team.to_owned()))
+            .collect::<Vec<TeamEvents>>()
+            .iter()
+            .map(|team_events| team_events.0.to_owned())
+            .collect::<Vec<Vec<Event>>>();
+
+        let mut action_return = Action::Unknown;
+        let mut terrain_delta: u8 = 0;
+
+        let mut action_deltas: Vec<i8>;
+        let mut game_idx: usize;
+        let mut event_idx: usize;
+
+        for action in Action::iter().filter(|action| *action != Action::Unknown) {
+            action_deltas = vec![];
+            game_idx = 0;
+            event_idx = 0;
+
+            for game in &team_events {
+                for _ in game {
+                    if let Event::Play(play) = &team_events[game_idx][event_idx] {
+                        if play.action == action {
+                            action_deltas.push(deltas[game_idx][event_idx]);
+                        }
+                    }
+
+                    event_idx += 1;
+                }
+
+                game_idx += 1;
+
+                if (event_idx + 1) == game.len() {
+                    event_idx = 0;
+                    continue;
+                }
+            }
+
+            let sum: u8 = action_deltas.iter().sum::<i8>() as u8;
+
+            if sum > terrain_delta {
+                terrain_delta = sum;
+                action_return = action.to_owned();
+            }
+        }
+
+        (action_return, TerrainState::Yards(terrain_delta))
     }
 
     pub fn check_teams(self) -> Result<LogFile, error::LogFileError> {
