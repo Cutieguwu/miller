@@ -513,7 +513,7 @@ mod tests {
                 Event::Kickoff(Team::Nebraska),
                 Event::Play(Play::default()),
                 Event::Score(ScorePoints::default()),
-                Event::Kickoff(Team::SouthCarolina),
+                Event::Kickoff(Team::ArizonaState),
                 Event::Play(Play::default()),
                 Event::Turnover(Team::Nebraska),
                 Event::Play(Play::default()),

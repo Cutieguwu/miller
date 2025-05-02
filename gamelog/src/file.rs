@@ -1,66 +1,54 @@
-use crate::{Action, Play, Team, error};
+use crate::{Action, Game, Play, Team, error};
 use serde::Deserialize;
-use std::{fs::File, path::PathBuf};
+use std::{fs::File, path::PathBuf, usize};
 use strum::IntoEnumIterator;
 
-#[derive(Debug, Deserialize, Clone)]
-pub struct LogFile(pub Vec<super::Game>);
+#[derive(Debug, Deserialize, Clone, Default)]
+pub struct LogFile(pub Vec<Game>);
 
 impl LogFile {
     /// Returns the most common action for a given team.
     pub fn most_frequent_action(&self, team: Team) -> Action {
-        let mut most_freq_action = Action::Unknown;
-        let mut frequency = 0;
+        let mut most_freq_action = Action::default();
+        let mut frequency = usize::MIN;
+        let mut found = usize::MIN;
+        let team_actions = self.team_actions(team).into_iter();
 
-        // The following let statement is equivalent to:
-        //
-        //  let team_actions = {
-        //      let mut actions = vec![];
-        //
-        //      for game in &self.0 {
-        //          for play in game.team_plays(team.to_owned()).0 {
-        //              actions.push(play.action.to_owned())
-        //          }
-        //      }
-        //
-        //      actions
-        //  }
-        //  .into_iter();
-        //
-        // I just write iterators more naturally for some reason
-        // despite them being less readable afterward. I came from
-        // loving python's list comprehensions.
-        // I suppose I like the lack of nesting.
-        //
-        // I have no clue if the iterator is actually more efficient.
+        Action::iter()
+            .filter(|action| *action != Action::Unknown)
+            .for_each(|action| {
+                found = team_actions.clone().filter(|a| *a == action).count();
 
-        let team_actions = self
-            .0
-            .iter()
-            .filter_map(|game| Some(game.team_plays(team.to_owned()).0))
-            .collect::<Vec<Vec<Play>>>()
-            .concat()
-            .iter()
-            .filter_map(|play| Some(play.action.to_owned()))
-            .collect::<Vec<Action>>()
-            .into_iter();
-
-        let mut found: usize;
-
-        for action in Action::iter() {
-            if action == Action::Unknown {
-                continue;
-            }
-
-            found = team_actions.clone().filter(|a| *a == action).count();
-
-            if found > frequency {
-                frequency = found;
-                most_freq_action = action.to_owned();
-            }
-        }
+                if found > frequency {
+                    frequency = found;
+                    most_freq_action = action.to_owned();
+                }
+            });
 
         most_freq_action
+    }
+
+    /// Returns the least common action for a given team.
+    /// This action has to have been played at least once.
+    pub fn least_frequent_action(&self, team: Team) -> Action {
+        let mut least_freq_action = Action::default();
+        let mut frequency = usize::MAX;
+        let mut found = usize::MAX;
+        let team_actions = self.team_actions(team).into_iter();
+
+        Action::iter()
+            .filter(|action| *action != Action::Unknown)
+            .for_each(|action| {
+                found = team_actions.clone().filter(|a| *a == action).count();
+
+                if (found != 0_usize) && (found < frequency) {
+                    dbg!("hit");
+                    frequency = found;
+                    least_freq_action = action.to_owned();
+                }
+            });
+
+        least_freq_action
     }
 
     pub fn check_teams(self) -> Result<LogFile, error::LogFileError> {
@@ -71,6 +59,38 @@ impl LogFile {
         }
 
         Ok(self)
+    }
+
+    /// Returns the team actions.
+    /// The following code is equivalent to:
+    fn team_actions(&self, team: Team) -> Vec<Action> {
+        // ```
+        // fn foo(&self, team: Team) -> Vec<Action> {
+        //     let mut actions = vec![];
+        //
+        //     for game in &self.0 {
+        //         for play in game.team_plays(team.to_owned()).0 {
+        //             actions.push(play.action.to_owned())
+        //         }
+        //     }
+        //
+        //     actions
+        // }
+        // ```
+        // I just write iterators more naturally for some reason
+        // despite them being less readable afterward. I came from
+        // loving python's list comprehensions.
+        // I suppose I like the lack of nesting.
+        //
+        // I have no clue if the iterator is actually more efficient.
+        self.0
+            .iter()
+            .filter_map(|game| Some(game.team_plays(team.to_owned()).0))
+            .collect::<Vec<Vec<Play>>>()
+            .concat()
+            .iter()
+            .filter_map(|play| Some(play.action.to_owned()))
+            .collect::<Vec<Action>>()
     }
 }
 
@@ -95,5 +115,86 @@ impl TryFrom<PathBuf> for LogFile {
                 .read(true) // Only need ensure that reading is possible.
                 .open(path.as_path())?,
         )
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::*;
+
+    #[test]
+    fn most_frequent_action() {
+        let a = LogFile(vec![Game {
+            version: crate::MIN_VER,
+            flags: vec![],
+            events: vec![
+                Event::Kickoff(Team::Nebraska),
+                Event::Play(Play {
+                    action: Action::Mesh,
+                    ..Default::default()
+                }),
+                Event::Play(Play {
+                    action: Action::Mesh,
+                    ..Default::default()
+                }),
+                Event::Play(Play {
+                    action: Action::Mesh,
+                    ..Default::default()
+                }),
+                Event::Play(Play {
+                    action: Action::Curls,
+                    ..Default::default()
+                }),
+                Event::Play(Play {
+                    action: Action::Curls,
+                    ..Default::default()
+                }),
+                Event::Play(Play {
+                    action: Action::SlotOut,
+                    ..Default::default()
+                }),
+                Event::Kickoff(Team::ArizonaState),
+            ],
+        }]);
+
+        assert!(a.most_frequent_action(Team::Nebraska) == Action::Mesh)
+    }
+
+    #[test]
+    fn least_frequent_action() {
+        let a = LogFile(vec![Game {
+            version: crate::MIN_VER,
+            flags: vec![],
+            events: vec![
+                Event::Kickoff(Team::Nebraska),
+                Event::Play(Play {
+                    action: Action::Mesh,
+                    ..Default::default()
+                }),
+                Event::Play(Play {
+                    action: Action::Mesh,
+                    ..Default::default()
+                }),
+                Event::Play(Play {
+                    action: Action::Mesh,
+                    ..Default::default()
+                }),
+                Event::Play(Play {
+                    action: Action::Curls,
+                    ..Default::default()
+                }),
+                Event::Play(Play {
+                    action: Action::Curls,
+                    ..Default::default()
+                }),
+                Event::Play(Play {
+                    action: Action::SlotOut,
+                    ..Default::default()
+                }),
+                Event::Kickoff(Team::ArizonaState),
+            ],
+        }]);
+
+        assert!(a.least_frequent_action(Team::Nebraska) == Action::SlotOut)
     }
 }
