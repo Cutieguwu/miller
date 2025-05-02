@@ -1,6 +1,5 @@
-use std::{fmt, io};
-
 use ron::de::SpannedError;
+use std::{fmt, io};
 
 #[derive(Debug)]
 pub enum LogFileError {

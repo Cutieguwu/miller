@@ -95,6 +95,7 @@ pub enum Team {
     Iowa,
     #[default]
     Nebraska,
+    #[deprecated(since = "0.7.3", note = "Team left the project.")]
     SouthCarolina,
     Syracuse,
     TexasAnM,

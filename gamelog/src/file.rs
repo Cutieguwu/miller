@@ -1,4 +1,4 @@
-use crate::{Action, Event, Game, Play, Team, TeamEvents, TerrainState, error, terrain};
+use crate::{Action, Event, Game, Play, Team, TeamEvents, TerrainState, error};
 use serde::Deserialize;
 use std::{fs::File, path::PathBuf, usize};
 use strum::IntoEnumIterator;
