@@ -2018,5 +2018,301 @@
             ),
             Score(FieldGoal)
         ]
+    ),
+    Game(
+        version: "0.7.1",
+        flags: [Interval(3), ClockBleed(Iowa)],
+        events: [
+            Quarter(First),
+            Kickoff(Iowa),
+            Play(
+                action: PowerZero,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: Third,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: PlayActionBoot,
+                down: Fourth,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SpeedOption,
+                down: Second,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(13),
+            ),
+            Quarter(Second),
+            Play(
+                action: PlayActionComebacks,
+                down: Fourth,
+                terrain: Yards(4),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HailMary,
+                down: Second,
+                terrain: None,
+            ),
+            Play(
+                action: HalfbackSlipScreen,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(TexasAnM),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(4),
+            ),
+            Play(
+                action: PowerZero,
+                down: Third,
+                terrain: Yards(2),
+            ),
+            Quarter(Third),
+            Kickoff(TexasAnM),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(15),
+            ),
+            Play(
+                action: SlotOut,
+                down: Third,
+                terrain: Yards(5),
+            ),
+            Play(
+                action: PlayActionBoot,
+                down: Fourth,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: StrongFlood,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(Iowa),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(4),
+            ),
+            Quarter(Fourth),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HailMary,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: First,
+                terrain: GoalLine,
+            ),
+            Play(
+                action: PowerZero,
+                down: Second,
+                terrain: GoalLine,
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: Third,
+                terrain: GoalLine,
+            ),
+            Play(
+                action: Curls,
+                down: None,
+                terrain: None,
+            ),
+            Score(Touchdown),
+            Score(PatFieldGoal), // One point.
+            Kickoff(TexasAnM),
+            Play(
+                action: HalfbackSweep,
+                down: Second,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: HailMary,
+                down: Third,
+                terrain: Yards(19),
+            ),
+            Play(
+                action: HailMary,
+                down: Fourth,
+                terrain: None,
+            ),
+        ]
+    ),
+    Game(
+        version: "0.7.1",
+        flags: [Interval(3)],
+        events: [
+            Quarter(First),
+            Kickoff(Nebraska),
+            Play(
+                action: PlayActionBoot,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(ArizonaState), // Oh you have to be kidding me.
+            Score(Touchdown),
+            Score(PatTouchdown), // Two points. Bold Jerks.
+            Kickoff(Nebraska),
+            Play(
+                action: HailMary,
+                down: Second,
+                terrain: Yards(10), //Almost
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: First,
+                terrain: Yards(10), //WTF how did that work?!
+            ),
+            Play(
+                action: FleaFlicker,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SlotOut,
+                down: Third,
+                terrain: Inches,
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero,
+                down: Second,
+                terrain: Yards(13),
+            ),
+            Quarter(Second),
+            Play(
+                action: StrongFlood,
+                down: Third,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: Mesh,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SlotOut,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(ArizonaState),
+            Play(
+                action: Mesh,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: StrongFlood,
+                down: Second,
+                terrain: Yards(6),
+            ),
+            Play(
+                action: PowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Quarter(Third),
+            Kickoff(ArizonaState),
+            Play(
+                action: Curls,
+                down: Second,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: FleaFlicker,
+                down: Second,
+                terrain: Inches,
+            ),
+            Play(
+                action: SlantBubble,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero,
+                down: Second,
+                terrain: Yards(7),
+            ),
+            Quarter(Fourth),
+            Play(
+                action: StrongFlood,
+                down: First,
+                terrain: GoalLine,
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Score(Touchdown),
+            Kickoff(ArizonaState),
+            Play(
+                action: PlayActionComebacks,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(4),
+            ),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionBoot,
+                down: Second,
+                terrain: Yards(1),
+            ),
+        ]
     )
 ]
