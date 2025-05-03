@@ -1,4 +1,4 @@
-use crate::{Event, Play, Quarter, Team, error};
+use crate::{Event, MIN_VER, Play, Quarter, Team, error};
 use serde::Deserialize;
 use strum::IntoEnumIterator;
 
@@ -242,6 +242,16 @@ impl Game {
     }
 }
 
+impl Default for Game {
+    fn default() -> Self {
+        Game {
+            version: MIN_VER,
+            flags: vec![],
+            events: vec![Event::Quarter(Quarter::default())],
+        }
+    }
+}
+
 #[derive(Debug)]
 pub struct TeamEvents(pub Vec<Event>);
 
@@ -333,8 +343,6 @@ mod tests {
     #[test]
     fn avg_plays_per_quarter() {
         let a = Game {
-            version: crate::MIN_VER,
-            flags: vec![],
             events: vec![
                 Event::Quarter(Quarter::First),
                 Event::Kickoff(Team::Nebraska),
@@ -350,17 +358,17 @@ mod tests {
                 Event::Play(Play::default()),
                 Event::Turnover(Team::ArizonaState),
             ],
+            ..Default::default()
         };
 
         let b = Game {
-            version: crate::MIN_VER,
-            flags: vec![],
             events: vec![
                 Event::Quarter(Quarter::First),
                 Event::Turnover(Team::Nebraska),
                 Event::Play(Play::default()),
                 Event::Turnover(Team::ArizonaState),
             ],
+            ..Default::default()
         };
 
         dbg!(a.avg_plays_per_quarter(Team::Nebraska));
@@ -374,39 +382,36 @@ mod tests {
     #[allow(deprecated)]
     fn teams() {
         let a = Game {
-            version: crate::MIN_VER,
-            flags: vec![],
             events: vec![
                 Event::Kickoff(Team::Nebraska),
                 Event::Turnover(Team::ArizonaState),
                 Event::Kickoff(Team::Nebraska),
             ],
+            ..Default::default()
         };
 
         let b = Game {
-            version: crate::MIN_VER,
-            flags: vec![],
             events: vec![
                 Event::Kickoff(Team::Nebraska),
                 Event::Turnover(Team::ArizonaState),
                 Event::Kickoff(Team::BoiseState),
             ],
+            ..Default::default()
         };
 
         let c = Game {
-            version: crate::MIN_VER,
-            flags: vec![Flags::IgnoreTeam(Team::Nebraska)],
             events: vec![
                 Event::Kickoff(Team::Nebraska),
                 Event::Turnover(Team::ArizonaState),
                 Event::Kickoff(Team::Nebraska),
             ],
+            ..Default::default()
         };
 
         let d = Game {
-            version: crate::MIN_VER,
             flags: vec![Flags::IgnoreTeam(Team::Nebraska)],
             events: vec![Event::Kickoff(Team::Nebraska)],
+            ..Default::default()
         };
 
         assert!(a.teams().unwrap() == vec![Team::Nebraska, Team::ArizonaState]);
@@ -418,8 +423,6 @@ mod tests {
     #[test]
     fn deltas() {
         let game = Game {
-            version: crate::MIN_VER,
-            flags: vec![],
             events: vec![
                 Event::Kickoff(Team::Nebraska),
                 Event::Play(Play {
@@ -461,6 +464,7 @@ mod tests {
                 }),
                 Event::Turnover(Team::ArizonaState),
             ],
+            ..Default::default()
         };
 
         assert!(game.deltas(Team::Nebraska) == vec![10_i8, -3_i8, 5_i8, -2_i8, 12_i8]);
@@ -471,8 +475,6 @@ mod tests {
     #[allow(deprecated)]
     fn team_events() {
         let a = Game {
-            version: crate::MIN_VER,
-            flags: vec![],
             events: vec![
                 Event::Kickoff(Team::Nebraska),
                 Event::Play(Play::default()),
@@ -483,6 +485,7 @@ mod tests {
                 Event::Score(ScorePoints::Touchdown),
                 Event::Kickoff(Team::SouthCarolina),
             ],
+            ..Default::default()
         };
 
         assert!(
@@ -502,8 +505,6 @@ mod tests {
     #[test]
     fn team_plays() {
         let game = Game {
-            version: crate::MIN_VER,
-            flags: vec![],
             events: vec![
                 Event::Kickoff(Team::Nebraska),
                 Event::Play(Play::default()),
@@ -518,6 +519,7 @@ mod tests {
                 Event::Turnover(Team::Nebraska),
                 Event::Play(Play::default()),
             ],
+            ..Default::default()
         };
 
         assert!(

@@ -183,8 +183,6 @@ mod tests {
     #[test]
     fn most_frequent_action() {
         let a = LogFile(vec![Game {
-            version: crate::MIN_VER,
-            flags: vec![],
             events: vec![
                 Event::Kickoff(Team::Nebraska),
                 Event::Play(Play {
@@ -213,6 +211,7 @@ mod tests {
                 }),
                 Event::Kickoff(Team::ArizonaState),
             ],
+            ..Default::default()
         }]);
 
         assert!(a.most_frequent_action(Team::Nebraska) == Action::Mesh)
@@ -221,8 +220,6 @@ mod tests {
     #[test]
     fn least_frequent_action() {
         let a = LogFile(vec![Game {
-            version: crate::MIN_VER,
-            flags: vec![],
             events: vec![
                 Event::Kickoff(Team::Nebraska),
                 Event::Play(Play {
@@ -251,6 +248,7 @@ mod tests {
                 }),
                 Event::Kickoff(Team::ArizonaState),
             ],
+            ..Default::default()
         }]);
 
         assert!(a.least_frequent_action(Team::Nebraska) == Action::SlotOut)
