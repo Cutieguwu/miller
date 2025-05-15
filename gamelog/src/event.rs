@@ -1,5 +1,6 @@
 use crate::{Down, Play, Quarter, TerrainState};
 use serde::Deserialize;
+use strum::EnumIter;
 
 type Offence = Team;
 
@@ -86,7 +87,7 @@ impl Event {
     }
 }
 
-#[derive(Debug, Deserialize, Clone, PartialEq, Default)]
+#[derive(Debug, Deserialize, Clone, PartialEq, Default, EnumIter)]
 pub enum Team {
     ArizonaState,
     #[deprecated(since = "0.2.0", note = "Team left the project.")]

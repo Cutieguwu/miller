@@ -8,7 +8,7 @@ pub struct LogFile(pub Vec<Game>);
 
 impl LogFile {
     /// Returns the most common action for a given team.
-    pub fn most_frequent_action(&self, team: Team) -> Action {
+    pub fn most_frequent_action(&self, team: Team) -> (Action, usize) {
         let mut most_freq_action = Action::default();
         let mut frequency = usize::MIN;
         let mut found = usize::MIN;
@@ -25,12 +25,12 @@ impl LogFile {
                 }
             });
 
-        most_freq_action
+        (most_freq_action, frequency)
     }
 
     /// Returns the least common action for a given team.
     /// This action has to have been played at least once.
-    pub fn least_frequent_action(&self, team: Team) -> Action {
+    pub fn least_frequent_action(&self, team: Team) -> (Action, usize) {
         let mut least_freq_action = Action::default();
         let mut frequency = usize::MAX;
         let mut found = usize::MAX;
@@ -42,21 +42,20 @@ impl LogFile {
                 found = team_actions.clone().filter(|a| *a == action).count();
 
                 if (found != 0_usize) && (found < frequency) {
-                    dbg!("hit");
                     frequency = found;
                     least_freq_action = action.to_owned();
                 }
             });
 
-        least_freq_action
+        (least_freq_action, frequency)
     }
 
     pub fn most_effective_play(&self, team: Team) -> (Action, TerrainState) {
-        let deltas: Vec<Vec<i8>> = self
+        let deltas = self
             .0
             .iter()
             .map(|game| game.deltas(team.to_owned()))
-            .collect();
+            .collect::<Vec<Vec<i8>>>();
 
         let team_events: Vec<Vec<Event>> = self
             .0
@@ -65,7 +64,7 @@ impl LogFile {
             .collect::<Vec<TeamEvents>>()
             .iter()
             .map(|team_events| team_events.0.to_owned())
-            .collect::<Vec<Vec<Event>>>();
+            .collect();
 
         let mut action_return = Action::Unknown;
         let mut terrain_delta: u8 = 0;
@@ -87,15 +86,15 @@ impl LogFile {
                         }
                     }
 
-                    event_idx += 1;
+                    if (event_idx + 1) == game.len() {
+                        event_idx = 0;
+                        continue;
+                    } else {
+                        event_idx += 1;
+                    }
                 }
 
                 game_idx += 1;
-
-                if (event_idx + 1) == game.len() {
-                    event_idx = 0;
-                    continue;
-                }
             }
 
             let sum: u8 = action_deltas.iter().sum::<i8>() as u8;
@@ -194,11 +193,11 @@ mod tests {
                     ..Default::default()
                 }),
                 Event::Play(Play {
-                    action: Action::Mesh,
+                    action: Action::Curls,
                     ..Default::default()
                 }),
                 Event::Play(Play {
-                    action: Action::Curls,
+                    action: Action::Mesh,
                     ..Default::default()
                 }),
                 Event::Play(Play {
@@ -239,11 +238,11 @@ mod tests {
                     ..Default::default()
                 }),
                 Event::Play(Play {
-                    action: Action::Curls,
+                    action: Action::SlotOut,
                     ..Default::default()
                 }),
                 Event::Play(Play {
-                    action: Action::SlotOut,
+                    action: Action::Curls,
                     ..Default::default()
                 }),
                 Event::Kickoff(Team::ArizonaState),

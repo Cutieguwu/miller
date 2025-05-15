@@ -260,7 +260,7 @@
             Play(
                 action: Unknown, // Original note: Same Failed Throw
                 down: Fourth,
-                terrain: Unknown,
+                terrain: None,
             ),
             Quarter(Third),
             Kickoff(Colorado),

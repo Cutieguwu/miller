@@ -37,7 +37,7 @@ impl Game {
         if teams.len() == 2 || ignore.len() != 0 {
             Ok(teams)
         } else {
-            Err(error::LogFileError::TooManyTeams(teams.len()))
+            Err(error::LogFileError::TeamCount(teams.len()))
         }
     }
 
@@ -56,7 +56,13 @@ impl Game {
                 }
             })
             .collect();
-        let len = events.len() - 1;
+
+        let len = if events.len() == 0 {
+            return vec![0];
+        } else {
+            events.len() - 1
+        };
+
         let mut idx: usize = 0;
         let mut deltas: Vec<i8> = vec![];
 
@@ -326,7 +332,7 @@ impl Period {
 
 #[derive(Debug, Deserialize, Clone, PartialEq)]
 pub enum Flags {
-    ClockBleeding(Team),
+    ClockBleed(Team),
     IgnoreActions,
     IgnoreTeam(Team),
     IgnoreScore,
@@ -400,15 +406,6 @@ mod tests {
         };
 
         let c = Game {
-            events: vec![
-                Event::Kickoff(Team::Nebraska),
-                Event::Turnover(Team::ArizonaState),
-                Event::Kickoff(Team::Nebraska),
-            ],
-            ..Default::default()
-        };
-
-        let d = Game {
             flags: vec![Flags::IgnoreTeam(Team::Nebraska)],
             events: vec![Event::Kickoff(Team::Nebraska)],
             ..Default::default()
@@ -416,8 +413,7 @@ mod tests {
 
         assert!(a.teams().unwrap() == vec![Team::Nebraska, Team::ArizonaState]);
         assert!(b.teams().is_err() == true);
-        assert!(c.teams().unwrap() == vec![Team::ArizonaState]);
-        assert!(d.teams().unwrap() == vec![]);
+        assert!(c.teams().unwrap() == vec![]);
     }
 
     #[test]

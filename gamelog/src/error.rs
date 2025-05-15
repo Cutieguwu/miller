@@ -5,7 +5,7 @@ use std::{fmt, io};
 pub enum LogFileError {
     IOError(io::Error),
     RonSpanned(ron::error::SpannedError),
-    TooManyTeams(usize),
+    TeamCount(usize),
 }
 
 impl fmt::Display for LogFileError {
@@ -13,7 +13,7 @@ impl fmt::Display for LogFileError {
         match self {
             Self::IOError(err) => write!(f, "{}", err),
             Self::RonSpanned(err) => write!(f, "{}", err),
-            Self::TooManyTeams(err) => write!(f, "Expected two, found: {:?}", err),
+            Self::TeamCount(err) => write!(f, "Expected two, found: {:?}", err),
         }
     }
 }

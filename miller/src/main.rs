@@ -2,8 +2,9 @@ mod tui;
 
 use clap::{ArgAction, Parser};
 use core::panic;
-use gamelog::{Action, Down, Flags, Key, LogFile, Team};
+use gamelog::{Action, Down, Flags, Key, LogFile, Team, TerrainState};
 use std::{io, path::PathBuf, sync::mpsc, thread};
+use strum::IntoEnumIterator;
 use tui::App;
 
 #[derive(Debug, Parser)]
@@ -43,16 +44,14 @@ fn main() -> io::Result<()> {
             TeamStats::new(Team::Iowa),
             TeamStats::new(Team::Nebraska),
             TeamStats::new(Team::Syracuse),
+            #[allow(deprecated)]
             TeamStats::new(Team::SouthCarolina),
             TeamStats::new(Team::TexasAnM),
         ];
 
         // Work on knocking down the nesting here?
         for game in log.0.iter() {
-            let teams = match game.teams() {
-                Ok(teams) => teams,
-                Err(_) => continue,
-            };
+            let teams = game.teams().unwrap();
 
             for team in teams {
                 // Skip team if they are to be ignored this game.
@@ -88,6 +87,21 @@ fn main() -> io::Result<()> {
                 stats[team_idx]
                     .penalties_per_game
                     .push(game.penalties(team.to_owned()));
+            }
+
+            for team in gamelog::Team::iter() {
+                let team_idx = stats
+                    .iter()
+                    .position(|stat| stat.team == team.to_owned())
+                    .unwrap();
+
+                stats[team_idx].most_common_play = Some(log.most_frequent_action(team.to_owned()));
+                stats[team_idx].least_common_play =
+                    Some(log.least_frequent_action(team.to_owned()));
+                /*
+                stats[team_idx].most_effective_play =
+                    Some(log.most_effective_play(team.to_owned()));
+                */
             }
         }
 
@@ -127,14 +141,12 @@ struct TeamStats {
     plays_per_game: Vec<usize>,
     // Penalties
     penalties_per_game: Vec<usize>,
-    // Score
-    points_per_quarter: Vec<u8>,
-    points_per_game: Vec<u8>,
     // Biases
-    most_common_play: Option<Action>,
-    least_common_play: Option<Action>,
+    most_common_play: Option<(Action, usize)>,
+    least_common_play: Option<(Action, usize)>,
     most_common_key: Option<Key>,
     least_common_key: Option<Key>,
+    most_effective_play: Option<(Action, TerrainState)>,
     // Traits
     // Typical number of downs to achieve 10 yards.
     time_to_first_down: Option<Down>,
@@ -150,12 +162,11 @@ impl TeamStats {
             plays_per_quarter: vec![],
             plays_per_game: vec![],
             penalties_per_game: vec![],
-            points_per_quarter: vec![],
-            points_per_game: vec![],
             most_common_play: None,
             least_common_play: None,
             most_common_key: None,
             least_common_key: None,
+            most_effective_play: None,
             time_to_first_down: None,
         }
     }
