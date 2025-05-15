@@ -213,7 +213,7 @@ mod tests {
             ..Default::default()
         }]);
 
-        assert!(a.most_frequent_action(Team::Nebraska) == Action::Mesh)
+        assert!(a.most_frequent_action(Team::Nebraska) == (Action::Mesh, 3_usize))
     }
 
     #[test]
@@ -250,6 +250,6 @@ mod tests {
             ..Default::default()
         }]);
 
-        assert!(a.least_frequent_action(Team::Nebraska) == Action::SlotOut)
+        assert!(a.least_frequent_action(Team::Nebraska) == (Action::SlotOut, 1_usize))
     }
 }
