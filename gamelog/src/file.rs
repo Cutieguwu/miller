@@ -50,6 +50,21 @@ impl LogFile {
         (least_freq_action, frequency)
     }
 
+    pub fn frequency_of_plays(&self, team: Team) -> Vec<(Action, usize)> {
+        let team_actions = self.team_actions(team.to_owned()).into_iter();
+        let mut plays: Vec<(Action, usize)> = vec![];
+
+        Action::iter().for_each(|action| {
+            plays.push((
+                action.to_owned(),
+                team_actions.clone().filter(|a| *a == action).count(),
+            ))
+        });
+
+        plays.sort_by(|a, b| a.1.cmp(&b.1));
+        plays
+    }
+
     pub fn most_effective_play(&self, team: Team) -> (Action, TerrainState) {
         let deltas = self
             .0

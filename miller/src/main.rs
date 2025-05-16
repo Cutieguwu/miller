@@ -102,6 +102,7 @@ fn main() -> io::Result<()> {
                 stats[team_idx].most_effective_play =
                     Some(log.most_effective_play(team.to_owned()));
                 */
+                stats[team_idx].play_frequencies = Some(log.frequency_of_plays(team.to_owned()))
             }
         }
 
@@ -147,6 +148,7 @@ struct TeamStats {
     most_common_key: Option<Key>,
     least_common_key: Option<Key>,
     most_effective_play: Option<(Action, TerrainState)>,
+    play_frequencies: Option<Vec<(Action, usize)>>,
     // Traits
     // Typical number of downs to achieve 10 yards.
     time_to_first_down: Option<Down>,
@@ -167,6 +169,7 @@ impl TeamStats {
             most_common_key: None,
             least_common_key: None,
             most_effective_play: None,
+            play_frequencies: None,
             time_to_first_down: None,
         }
     }
