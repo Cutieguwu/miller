@@ -2314,5 +2314,278 @@
                 terrain: Yards(1),
             ),
         ]
+    ),
+    Game(
+        version: "0.7.1",
+        flags: [Interval(4), Gameplan(1)],
+        events: [
+            Quarter(First),
+            Kickoff(Nebraska),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(15),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: Third,
+                terrain: Yards(5),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Quarter(Second),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: FleaFlicker, # Mistake
+                down: Third,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: Fourth,
+                terrain: Yards(4),
+            ),
+            Play(
+                action: Mesh,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(15),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: First,
+                terrain: GoalLine,
+            ),
+            Quarter(Third), // About to score, maybe getting our first win. Then this shit.
+            Kickoff(TexasAnM),
+            Play(
+                action: HalfbackSweep,
+                down: Second,
+                terrain: Yards(2),
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Third,
+                terrain: Yards(7),
+            ),
+            Play(
+                action: Unknown,
+                down: Fourth,
+                terrain: Yards(7),
+            ),
+            Play(
+                action: Punt,
+                down: None,
+                terrain: None,
+            ),
+            Score(Safety), //2 points
+            Kickoff(TexasAnM),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(13),
+            ),
+            Quarter(Fourth),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(9),
+            ),
+            Play(
+                action: HalfbackSweep, // double flex run
+                down: Third,
+                terrain: Yards(7),
+            ),
+        ]
+    ),
+    Game(
+        version: "0.7.1",
+        flags: [Interval(4)]
+        events: [
+            Quarter(First),
+            Kickoff(ArizonaState),
+            Play(
+                action: HalfbackSlam,
+                down: Second,
+                terrain: Yards(14),
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(Iowa),
+            Play(
+                action: HalfbackSweep,
+                down: Second,
+                terrain: Yards(7),
+            ),
+            Play(
+                action: SlotOut,
+                down: Third,
+                terrain: Yards(7),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero,
+                down: Second,
+                terrain: Yards(12),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: Third,
+                terrain: Yards(1),
+            ),
+            Quarter(Second),
+            Play(
+                action: Unknown, //DoubleFlex
+                down: Fourth,
+                terrain: Yards(4),
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: First,
+                terrain: GoalLine,
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: None,
+                terrain: None,
+            ),
+            Score(Touchdown),
+            Score(PatFieldGoal),
+            Kickoff(ArizonaState),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: Third,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: Unknown,
+                down: Fourth,
+                terrain: Yards(4),
+            ),
+            Turnover(Iowa),
+            Play(
+                action: HalfbackSlam,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSlam,
+                down: Second,
+                terrain: Yards(2),
+            ),
+            Quarter(Third),
+            Kickoff(Iowa),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: Third,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSlipScreen,
+                down: Third,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: Unknown,
+                down: Fourth,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(ArizonaState),
+            Penalty(Yards(15)),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(9),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(17),
+            ),
+            Play(
+                action: Unknown,
+                down: Fourth,
+                terrain: Yards(17),
+            ),
+            Play(
+                action: FleaFlicker,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(Iowa),
+            Play(
+                action: HalfbackSlam,
+                down: Second,
+                terrain: Yards(12),
+            ),
+            Play(
+                action: SlotOut,
+                down: None,
+                terrain: None,
+            ),
+        ]
     )
 ]
