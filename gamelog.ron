@@ -2587,5 +2587,373 @@
                 terrain: None,
             ),
         ]
+    ),
+    Game(
+        version: "0.7.1",
+        flags: [Interval(4)],
+        events: [
+            Quarter(First),
+            Kickoff(Syracuse),
+            Penalty(Yards(15))
+            Play(
+                action: HalfbackSweep,
+                down: Second,
+                terrain: Yards(14),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(14),
+            ),
+            Play(
+                action: Unknown,
+                down: Fourth,
+                terrain: Yards(5),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10)
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(11),
+            ),
+            Turnover(ArizonaState),
+            Play(
+                action: HalfbackSlam,
+                down: Second,
+                terrain: Yards(13),
+            ),
+            Quarter(Second),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: PlayActionBoot,
+                down: First,
+                terrain: GoalLine,
+            ),
+            Score(Touchdown),
+            Score(PatFieldGoal),
+            Kickoff(Syracuse),
+            Play(
+                action: HalfbackSlam,
+                down: Second,
+                terrain: Yards(7),
+            ),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(15),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(24),
+            ),
+            Quarter(Third),
+            Kickoff(ArizonaState),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(9),
+            ),
+            Play(
+                action: PowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: StrongFlood,
+                down: Second,
+                terrain: Yards(6),
+            ),
+            Play(
+                action: Mesh,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSlam,
+                down: Second,
+                terrain: Yards(15),
+            ),
+            Play(
+                action: FleaFlicker,
+                down: Third,
+                terrain: Yards(11),
+            ),
+            Quarter(Fourth),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(12),
+            ),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(Syracuse),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(6),
+            ),
+            Play(
+                action: SpeedOption,
+                down: Third,
+                terrain: Inches,
+            ),
+            Play(
+                action: PlayActionComebacks,
+                down: Fourth,
+                terrain: Inches,
+            ),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HailMary,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HailMary,
+                down: None,
+                terrain: None,
+            ),
+        ]
+    ),
+    Game(
+        version: "0.7.1",
+        flags: [Interval(4), ClockBleed(Iowa)],
+        events: [
+            Quarter(First),
+            Kickoff(Iowa),
+            Penalty(Yards(15)),
+            Play(
+                action: HalfbackSlam,
+                down: Second,
+                terrain: Yards(20),
+            ),
+            Play(
+                action: SlantBubble,
+                down: Third,
+                terrain: Yards(20),
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: Fourth,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: Curls,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSlam,
+                down: Second,
+                terrain: Yards(15),
+            ),
+            Play(
+                action: SpeedOption,
+                down: Third,
+                terrain: Yards(18),
+            ),
+            Quarter(Second),
+            Play(
+                action: SlotOut,
+                down: Fourth,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Curls,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: StrongFlood,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(10),
+            ),
+            Penalty(Yards(15)),
+            Play(
+                action: Unknown,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HalfbackSweep,
+                down: Second,
+                terrain: Yards(13),
+            ),
+            Play(
+                action: SlantBubble,
+                down: Third,
+                terrain: Yards(6),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: None,
+                terrain: None,
+            ),
+            Score(Touchdown),
+            Score(PatTouchdown),
+            Kickoff(Colorado),
+            Play(
+                action: Unknown,
+                down: None,
+                terrain: None,
+            ),
+            Quarter(Third),
+            Kickoff(Colorado),
+            Play(
+                action: SpeedOption,
+                down: Second,
+                terrain: Yards(11),
+            ),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Mesh,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: StrongFlood,
+                down: Fourth,
+                terrain: Yards(3),
+            ),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: StrongFlood,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SlotOut,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: SpeedOption,
+                down: Second,
+                terrain: Yards(12),
+            ),
+            Play(
+                action: PlayActionPowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: HailMary,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: PowerZero,
+                down: None,
+                terrain: None,
+            ),
+            Score(Touchdown),
+            Score(PatFail),
+            Kickoff(Colorado),
+            Play(
+                action: Unknown,
+                down: Second,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: Unknown,
+                down: Third,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: HailMary,
+                down: Fourth,
+                terrain: Yards(1),
+            ),
+            Play(
+                action: HailMary,
+                down: None,
+                terrain: None,
+            ),
+            Turnover(Iowa),
+            Play(
+                action: PowerZero,
+                down: First,
+                terrain: Yards(10),
+            ),
+            Play(
+                action: CrackStudentBodyRightTackle,
+                down: Second,
+                terrain: Yards(5),
+            ),
+        ]
     )
 ]
