@@ -15,6 +15,7 @@ pub enum Action {
     PlayActionComebacks,
     PlayActionPowerZero,
     PowerZero,
+    Punt,
     SlantBubble,
     SlotOut,
     SpeedOption,

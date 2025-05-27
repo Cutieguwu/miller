@@ -333,6 +333,7 @@ impl Period {
 #[derive(Debug, Deserialize, Clone, PartialEq)]
 pub enum Flags {
     ClockBleed(Team),
+    Gameplan(u8),
     IgnoreActions,
     IgnoreTeam(Team),
     IgnoreScore,

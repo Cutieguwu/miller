@@ -2353,7 +2353,7 @@
                 terrain: Yards(13),
             ),
             Play(
-                action: FleaFlicker, # Mistake
+                action: FleaFlicker, // Mistake
                 down: Third,
                 terrain: Yards(13),
             ),
@@ -2431,7 +2431,7 @@
     ),
     Game(
         version: "0.7.1",
-        flags: [Interval(4)]
+        flags: [Interval(4)],
         events: [
             Quarter(First),
             Kickoff(ArizonaState),
@@ -2594,7 +2594,7 @@
         events: [
             Quarter(First),
             Kickoff(Syracuse),
-            Penalty(Yards(15))
+            Penalty(Yards(15)),
             Play(
                 action: HalfbackSweep,
                 down: Second,
